@@ -10,9 +10,24 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2024_01_11_220505) do
+ActiveRecord::Schema[7.0].define(version: 2024_01_16_192959) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "tracks", force: :cascade do |t|
+    t.bigint "artist_id", null: false
+    t.string "title", null: false
+    t.text "description"
+    t.string "source_url", null: false
+    t.string "image_url"
+    t.string "file_type", null: false
+    t.integer "duration", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.string "genre"
+    t.index ["artist_id"], name: "index_tracks_on_artist_id"
+    t.index ["source_url"], name: "index_tracks_on_source_url", unique: true
+  end
 
   create_table "users", force: :cascade do |t|
     t.string "email", null: false
@@ -26,4 +41,5 @@ ActiveRecord::Schema[7.0].define(version: 2024_01_11_220505) do
     t.index ["username"], name: "index_users_on_username", unique: true
   end
 
+  add_foreign_key "tracks", "users", column: "artist_id"
 end
