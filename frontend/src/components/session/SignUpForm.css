@@ -1,0 +1,27 @@
+
+.SignUpForm > h1 {
+
+    text-align: center;
+}
+
+.SignUpForm {
+    display: flex;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    flex-direction: column;
+    flex-wrap: wrap;
+    align-content: center;
+}
+
+.SignUpForm input {
+    display: block;
+}
+
+.SignUpForm button {
+    width: fit-content;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    align-self: center;
+}
+/* 
+label[for='email'] {
+    border: 1px solid red;
+} */

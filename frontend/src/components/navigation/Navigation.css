@@ -1,0 +1,8 @@
+div#NavBar li {
+    marker: none;
+    display: inline-block;
+}
+
+div#NavBar li li {
+    display: flex;
+}
