@@ -8,5 +8,6 @@ Rails.application.routes.draw do
     resource :session, only: [:show, :create, :destroy]
     resources :tracks, only: [:index, :show, :create, :update, :destroy]
   end
+  get "/api/users/:username" => "api/users#show", username: /[^\/]+/, defaults: { format: :json }
   get '*path', to: "static_pages#frontend_index"
 end

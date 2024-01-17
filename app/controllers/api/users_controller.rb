@@ -13,6 +13,16 @@ class Api::UsersController < ApplicationController
         status: :unprocessable_entity
     end
   end
+
+  def show
+    @user = User.find_by(username: params[:username])
+    
+    if @user
+      render '/api/users/show'
+    else
+      render json: { message: 'No user by that name' }
+    end
+  end
 # -------------------------------------------------------------
   private
 

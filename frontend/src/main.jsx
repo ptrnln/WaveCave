@@ -5,7 +5,8 @@ import App from './App';
 import './index.css';
 import configureStore from './store/store';
 import csrfFetch, { restoreCSRF } from './store/csrf';
-import { sessionActions, restoreSession } from './store/session';
+import * as sessionActions from './store/session';
+import * as userActions from './store/user'
 
 const store = configureStore();
 
@@ -21,7 +22,8 @@ ReactDOM.createRoot(document.getElementById('root')).render(
 if (import.meta.env.MODE !== 'production') {
   restoreCSRF();
   window.store = store;
-  store.dispatch(restoreSession())
+  store.dispatch(sessionActions.restoreSession())
   window.csrfFetch = csrfFetch;
   window.sessionActions = sessionActions;
+  window.userActions = userActions;
 }

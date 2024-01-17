@@ -87,13 +87,4 @@ const sessionReducer = (state = initialState, action) => {
     }
 }
 
-export const sessionActions = {
-    signUp,
-    login,
-    logout,
-    setUser,
-    removeUser,
-    restoreSession
-}
-
 export default sessionReducer;

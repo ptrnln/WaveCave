@@ -5,6 +5,8 @@ import LoginForm from './components/session/LoginForm';
 import SignUpForm from './components/session/SignUpForm';
 import Navigation from './components/navigation/Navigation';
 import * as sessionActions from './store/session';
+import * as userActions from './store/user';
+import UserView from './components/users/UserView';
 
 function Layout() {
   const dispatch = useDispatch();
@@ -14,7 +16,7 @@ function Layout() {
     dispatch(sessionActions.restoreSession()).then(() => {
       setIsLoaded(true)
     });
-  }, [dispatch]);
+  }, []);
 
   return (
     <>
@@ -23,6 +25,17 @@ function Layout() {
       
     </>
   );
+}
+
+export const userLoader = async ({request, params}) => {
+  const response = await fetch(`/api/users/${params.username}`);
+  if(response.ok) {
+    const data = await response.json();
+    if(data.user) {
+      
+      return data.user
+    } else throw data
+  } 
 }
 
 const router = createBrowserRouter([
@@ -34,12 +47,20 @@ const router = createBrowserRouter([
         element: <h1>Welcome!</h1>
       },
       {
-        path: "login",
+        path: "/login",
         element: <LoginForm />
       },
       {
-        path: "signup",
+        path: "/signup",
         element: <SignUpForm />
+      },
+      {
+        path: '/:username',
+        loader: userLoader,
+        element: <UserView />,
+        children: [
+
+        ]
       }
     ]
   }

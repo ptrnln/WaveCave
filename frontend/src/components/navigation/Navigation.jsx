@@ -36,6 +36,7 @@ const Navigation = () => {
                 </>
                 }
             </ul>
+            {/* <a href="/login">Log In</a> */}
         </div>
     )
 }

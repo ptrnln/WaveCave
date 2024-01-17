@@ -1,7 +1,8 @@
 class Api::TracksController < ApplicationController
     # prepend_before_action :require_logged_in_as_owner, only: :require_logged_in
-    before_action :require_logged_in_as_owner, only: [ :create, :update, :destroy ]
-    
+    before_action :require_logged_in_as_owner, only: [ :update, :destroy ]
+    before_action :require_logged_in, only: [ :create ]
+
 # ---------------------- Backend Routes ------------------------
 
     def index
@@ -46,6 +47,7 @@ class Api::TracksController < ApplicationController
 
     def destroy
         Track.destroy(params[:id])
+        redirect_to controller: 'user', action: 'show'
     end
 
 # -------------- Track-specific helper methods ------------------
@@ -53,7 +55,7 @@ class Api::TracksController < ApplicationController
     def require_logged_in_as_owner
         @track = Track.find(params[:id])
 
-        unless @track[:artist_id] == current_user.id
+        unless current_user && @track[:artist_id] == current_user.id
             render json: { message: 'You are not the owner of this track' }, status: :unauthorized
         end
     end

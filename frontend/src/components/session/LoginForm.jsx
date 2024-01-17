@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { sessionActions } from "../../store/session";
+import * as sessionActions from "../../store/session";
 import { Navigate } from 'react-router-dom'
 
 function LoginForm() {
