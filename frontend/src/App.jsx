@@ -1,11 +1,10 @@
 import { useState, useEffect } from 'react';
 import { useDispatch } from 'react-redux';
-import { Outlet, createBrowserRouter, RouterProvider } from 'react-router-dom';
+import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import LoginForm from './components/session/LoginForm';
 import SignUpForm from './components/session/SignUpForm';
-import Navigation from './components/navigation/Navigation';
+
 import * as sessionActions from './store/session';
-import * as userActions from './store/user';
 import UserView from './components/users/UserView';
 import AudioPlayer from './components/audio/AudioPlayer';
 
@@ -17,7 +16,7 @@ function Layout() {
     dispatch(sessionActions.restoreSession()).then(() => {
       setIsLoaded(true)
     });
-  }, []);
+  }, [dispatch]);
 
   return (
     <>
@@ -26,7 +25,7 @@ function Layout() {
   );
 }
 
-export const userLoader = async ({request, params}) => {
+const userLoader = async ({request, params}) => {
   const response = await fetch(`/api/users/${params.username}`);
   if(response.ok) {
     const data = await response.json();

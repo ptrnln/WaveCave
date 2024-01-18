@@ -19,7 +19,7 @@ export default function AudioPlayer() {
         setCurrentTrack(tracks[trackIndex]);
         setDuration(currentTrack.duration);
         setTimeProgress(0);
-    }, [trackIndex])
+    }, [trackIndex, currentTrack.duration])
 
     const handleNext = () => {
         if(trackIndex >= tracks.length - 1) {

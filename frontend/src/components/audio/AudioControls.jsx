@@ -4,7 +4,7 @@ export default function AudioControls() {
     const [isPlaying, setIsPlaying] = useState(false);
     const [isShuffled, setIsShuffled] = useState(false);
     const [isRepeating, setIsRepeating] = useState(true);
-    let shuffleColor = 'Black';
+    const [shuffleColor, setShuffleColor] = useState('Black')
 
     console.log('Audio Player loaded')
 
@@ -30,8 +30,8 @@ export default function AudioControls() {
     }
 
     useEffect(() => {
-        isShuffled ? shuffleColor = 'Tomato' : shuffleColor = 'Black'
-    }, [setIsShuffled])
+        isShuffled ? setShuffleColor('Tomato') : setShuffleColor('Black')
+    }, [isShuffled, setIsShuffled])
 
     return (
         <div className="audio-controls container">

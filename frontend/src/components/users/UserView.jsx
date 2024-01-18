@@ -1,7 +1,7 @@
-import { useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useEffect } from "react";
+import { useDispatch } from "react-redux";
 import * as userActions from '../../store/user'
-import { useLoaderData, useParams } from "react-router-dom";
+import { useLoaderData } from "react-router-dom";
 
 export default function UserView() {
     let user = useLoaderData();
@@ -9,7 +9,7 @@ export default function UserView() {
 
     useEffect(() => {
         dispatch(userActions.viewUser({ username: user.username }));
-    }, [])
+    }, [dispatch, user.username ])
 
     return (
         <>
