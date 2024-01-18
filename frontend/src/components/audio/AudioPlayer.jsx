@@ -28,7 +28,7 @@ export default function AudioPlayer() {
             setTrackIndex(trackIndex + 1);
         }
     }
-
+    console.log('audio player loaded');
 
     return (
         <div className="audio-player">
