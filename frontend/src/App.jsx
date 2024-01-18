@@ -55,10 +55,7 @@ const router = createBrowserRouter([
       {
         path: '/:username',
         loader: userLoader,
-        element: <UserView />,
-        children: [
-
-        ]
+        element: <UserView />
       }
     ]
   }
