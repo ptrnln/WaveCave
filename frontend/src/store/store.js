@@ -2,11 +2,13 @@ import { legacy_createStore as createStore, applyMiddleware, compose, combineRed
 import { thunk } from 'redux-thunk';
 import sessionReducer from './session';
 import userReducer from './user';
+import { audioPlayerReducer } from './audioPlayer';
 
 
 const rootReducer = combineReducers({
     session: sessionReducer,
-    users: userReducer
+    users: userReducer,
+    audio: audioPlayerReducer
 });
 
 let enhancer;

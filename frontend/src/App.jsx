@@ -6,7 +6,8 @@ import SignUpForm from './components/session/SignUpForm';
 import Navigation from './components/navigation/Navigation';
 import * as sessionActions from './store/session';
 import UserView from './components/users/UserView';
-import AudioPlayer from './components/audio/AudioPlayer';
+import ErrorPage from './ErrorPage';
+import AudioPlayerContainer from './components/audio/AudioPlayerContainer';
 
 function Layout() {
   const dispatch = useDispatch();
@@ -22,7 +23,7 @@ function Layout() {
     <>
       <Navigation />
       {isLoaded && <Outlet />}
-      <AudioPlayer />
+      <AudioPlayerContainer />
     </>
   );
 }
@@ -34,7 +35,7 @@ const userLoader = async ({request, params}) => {
     if(data.user) {
       
       return data.user
-    } else throw data
+    } else throw { message: `User ${params.username} does not exist`, status: 404 };
   } 
 }
 
@@ -57,9 +58,10 @@ const router = createBrowserRouter([
       {
         path: '/:username',
         loader: userLoader,
-        element: <UserView />
+        element: <UserView />,
+        errorElement: <ErrorPage />
       }
-    ]
+    ],
   }
 ]);
 

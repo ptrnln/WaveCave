@@ -1,12 +1,11 @@
 import { useEffect, useState } from "react"
 
-export default function AudioControls() {
+export default function AudioControls({ handleNext }) {
     const [isPlaying, setIsPlaying] = useState(false);
     const [isShuffled, setIsShuffled] = useState(false);
-    const [isRepeating, setIsRepeating] = useState(true);
-    const [shuffleColor, setShuffleColor] = useState('Black')
-
-    console.log('Audio Player loaded')
+    const [isRepeating, setIsRepeating] = useState('false');
+    const [shuffleColor, setShuffleColor] = useState('Black');
+    const [repeatColor, setRepeatColor] = useState('Black');
 
     const playPrevious = (e) => {
         e.stopPropagation();
@@ -14,11 +13,10 @@ export default function AudioControls() {
 
     const togglePlay = (e) => {
         e.stopPropagation();
-        setIsPlaying(playing => !playing)
-    }
-
-    const playNext = (e) => {
-        e.stopPropagation();
+        setIsPlaying(!isPlaying)
+        const audio = document.querySelector(".audio-player audio");
+        isPlaying ? audio.pause() : audio.play();
+        debugger
     }
     
     const toggleShuffle = (e) => {
@@ -26,12 +24,26 @@ export default function AudioControls() {
     }
     
     const toggleRepeat = (e) => {
-        setIsRepeating(repeats => !repeats)
+        switch(isRepeating) {
+            case 'false':
+                setIsRepeating('once');
+                break;
+            case 'once':
+                setIsRepeating('always');
+                break;
+            case 'always':
+                setIsRepeating('false');
+                break;
+        }
     }
 
     useEffect(() => {
         isShuffled ? setShuffleColor('Tomato') : setShuffleColor('Black')
     }, [isShuffled, setIsShuffled])
+
+    useEffect(() => {
+        isRepeating === 'false' ? setRepeatColor('Black') : setRepeatColor('Tomato')
+    }, [isRepeating, setIsRepeating])
 
     return (
         <div className="audio-controls container">
@@ -47,7 +59,7 @@ export default function AudioControls() {
                 }
                 </div>
                 <div className="next button">
-                    <i className="fa fa-step-forward" onClick={playNext}></i>
+                    <i className="fa fa-step-forward" onClick={handleNext}></i>
                 </div>
             </div>
             <div className="queue-controls container">
@@ -59,12 +71,14 @@ export default function AudioControls() {
                         ></i>
                     </div>
                 </span>
-                <div className="repeat button">
-                    <i 
-                        className="fa fa-repeat" 
-                        onClick={toggleRepeat}
-                    ></i>
-                </div>
+                <span style={{color: repeatColor}}>
+                    <div className="repeat button">
+                        <i 
+                            className="fa fa-repeat" 
+                            onClick={toggleRepeat}
+                        ></i>
+                    </div>
+                </span>
             </div>
         </div>
     )
