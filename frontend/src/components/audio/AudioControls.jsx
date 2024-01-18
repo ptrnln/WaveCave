@@ -1,9 +1,10 @@
-import { useState } from "react"
+import { useEffect, useState } from "react"
 
 export default function AudioControls() {
     const [isPlaying, setIsPlaying] = useState(false);
     const [isShuffled, setIsShuffled] = useState(false);
     const [isRepeating, setIsRepeating] = useState(true);
+    let shuffleColor = 'Black';
 
     const playPrevious = (e) => {
         e.stopPropagation();
@@ -26,6 +27,10 @@ export default function AudioControls() {
         setIsRepeating(repeats => !repeats)
     }
 
+    useEffect(() => {
+        isShuffled ? shuffleColor = 'Tomato' : shuffleColor = 'Black'
+    }, [setIsShuffled])
+
     return (
         <div className="audio-controls container">
             <div className="track-controls container">
@@ -44,12 +49,14 @@ export default function AudioControls() {
                 </div>
             </div>
             <div className="queue-controls container">
-                <div id="shuffle-button" className="shuffle button">
-                    <i 
-                        className="fa fa-random" 
-                        onClick={toggleShuffle}
-                    ></i>
-                </div>
+                <span style={{color: shuffleColor}}>
+                    <div id="shuffle-button" className="shuffle button">
+                        <i 
+                            className="fa fa-random" 
+                            onClick={toggleShuffle}
+                        ></i>
+                    </div>
+                </span>
                 <div className="repeat button">
                     <i 
                         className="fa fa-repeat" 

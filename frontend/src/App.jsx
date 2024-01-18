@@ -22,8 +22,8 @@ function Layout() {
   return (
     <>
       <Navigation />
-      <AudioPlayer />
       {isLoaded && <Outlet />}
+      <AudioPlayer />
     </>
   );
 }
