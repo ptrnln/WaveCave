@@ -1,3 +1,3 @@
-function TrackView() {
+export default function TrackView() {
     
 }

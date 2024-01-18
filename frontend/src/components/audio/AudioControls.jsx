@@ -6,6 +6,8 @@ export default function AudioControls() {
     const [isRepeating, setIsRepeating] = useState(true);
     let shuffleColor = 'Black';
 
+    console.log('Audio Player loaded')
+
     const playPrevious = (e) => {
         e.stopPropagation();
     }
