@@ -1,2 +1,25 @@
 /* TODO: Add sitewide styles */
+.audio-controls {
+    width: 200px;
+    display: flex;
+    flex-direction: row;
+    justify-content:center
+}
+.track-controls {
+    width: 80px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
 
+.queue-controls {
+    width: 60px;
+    padding-left: 20px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+}
+
+.container .button {
+    /* display: inline-block */
+}

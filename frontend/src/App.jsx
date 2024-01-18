@@ -7,6 +7,7 @@ import Navigation from './components/navigation/Navigation';
 import * as sessionActions from './store/session';
 import * as userActions from './store/user';
 import UserView from './components/users/UserView';
+import AudioPlayer from './components/audio/AudioPlayer';
 
 function Layout() {
   const dispatch = useDispatch();
@@ -21,8 +22,8 @@ function Layout() {
   return (
     <>
       <Navigation />
+      <AudioPlayer />
       {isLoaded && <Outlet />}
-      
     </>
   );
 }

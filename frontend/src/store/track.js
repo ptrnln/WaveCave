@@ -33,7 +33,7 @@ const trackReducer = (state = initialState, action) => {
 
     switch(action.type) {
         case RECEIVE_TRACK:
-            return { ...state, tracks: action.payload }
+            return { ...state, track: action.payload }
         case RECEIVE_TRACKS:
             return { ...state, tracks: action.payload }
         default:

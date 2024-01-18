@@ -21,7 +21,6 @@ const receiveUser = user => {
 
 export const viewUser = ({ username }) => async dispatch => {
     const response = await fetch(`/api/users/${username}`);
-    debugger
 
     if(response.ok) {
         const data = await response.json();
