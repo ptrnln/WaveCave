@@ -72,3 +72,7 @@
 .audio-player input[type="range"]:active::-moz-range-thumb {
     transform: scale(1.2);
 }
+
+.progress-bar {
+    display: flex;
+}

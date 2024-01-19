@@ -14,7 +14,14 @@ export const FETCH_TRACKS = 'audioPlayer/FETCH_TRACKS';
 export const SET_VOLUME = 'audioPlayer/SET_VOLUME';
 export const TRACK_NAV = 'audioPlayer/TRACK_NAV';
 
-const initialState = { currentTrack: null, queue: [], isPlaying: false }
+const initialState = { 
+    currentTrack: null, 
+    queue: [], 
+    isPlaying: false,
+    isRepeating: 'false',
+    currentTime: 0,
+    volume: 100,
+}
 
 export const playTrack = () => {
     return {

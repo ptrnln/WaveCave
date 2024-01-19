@@ -1,3 +1,4 @@
+import { useEffect } from 'react'
 import './ProgressBar.css'
 export default function ProgressBar({ progressBarRef, audioRef }) {
 
@@ -7,10 +8,19 @@ export default function ProgressBar({ progressBarRef, audioRef }) {
         audioRef.current.currentTime = progressBarRef.current.value
     }
 
+    useEffect(() => {
+        console.log(audioRef.current?.currentTime)
+    })
+
     return (
         <div className="progress-bar">
             <span className="current-time">00:00</span>
-            <input type="range" />
+            <input 
+                type="range" 
+                ref={progressBarRef}
+                defaultValue={0}
+                onChange={handleProgressChange}
+            />
             <span className="track-duration">03:34</span>
         </div>
     )
