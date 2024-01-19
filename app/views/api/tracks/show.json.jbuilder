@@ -1,4 +1,4 @@
-json.track do 
+json.track do
     json.extract! @track, 
         :id, 
         :artist_id, 

@@ -1,6 +1,8 @@
+idx = 1
 json.tracks do
-    json.array! @tracks.each do |track|
-        json.extract! track, 
+    @tracks.each do |track|
+        json.set! idx do
+        json.extract! track,
             :id, 
             :artist_id, 
             :title, 
@@ -12,5 +14,7 @@ json.tracks do
             :duration, 
             :created_at,
             :updated_at
+        end
+        idx += 1
     end 
 end

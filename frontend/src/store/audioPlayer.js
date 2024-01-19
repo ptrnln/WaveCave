@@ -1,3 +1,5 @@
+import { tracks } from "../data/tracks";
+
 export const PLAY_TRACK = 'audioPlayer/PLAY_TRACK';
 export const PAUSE_TRACK = 'audioPlayer/PAUSE_TRACK';
 export const PLAY_NEXT = 'audioPlayer/PLAY_NEXT';
@@ -49,12 +51,12 @@ export const audioPlayerReducer = (state = initialState, action) => {
             return { ...state, isPlaying: false }
         case PLAY_NEXT:
             return { ...state, 
-                currentTrack: state.currentTrack.queueIndex + 1, 
+                currentTrack: state.currentTrack?.queueIndex + 1, 
                 isPlaying: true,
             }
         case FETCH_TRACKS:
             return { ...state,
-                queue: action.payload.forEach((track, i = 0) => {
+                queue: action.payload.map((track, i = 0) => {
                     track.queueIndex = i;
                     i++
                 })

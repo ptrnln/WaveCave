@@ -20,7 +20,7 @@ class User < ApplicationRecord
   
   before_validation :ensure_session_token
 
-  has_many :tracks
+  has_many :tracks, foreign_key: :artist_id, dependent: :destroy
 
   attr_reader :password
   

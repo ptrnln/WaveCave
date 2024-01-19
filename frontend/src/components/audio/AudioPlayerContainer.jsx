@@ -4,8 +4,14 @@ import { useEffect, useRef, useState } from "react";
 import TrackDisplay from "./TrackDisplay";
 import AudioControls from './AudioControls';
 import AudioPlayer from './AudioPlayer';
+import { useDispatch, useSelector } from 'react-redux';
+import * as audioPlayerActions from '../../store/audioPlayer';
+import ProgressBar from './ProgressBar';
 
 export default function AudioPlayerContainer() {
+    const dispatch = useDispatch();
+    const isPlaying = useSelector(state => state.audio.isPlaying)
+    const queue = useSelector(state => state.audio.queue)
 
     const [trackIndex, setTrackIndex] = useState(0);
     const [currentTrack, setCurrentTrack] = useState(tracks[trackIndex]);
@@ -13,7 +19,7 @@ export default function AudioPlayerContainer() {
     const [timeProgress, setTimeProgress] = useState(0);
     const [duration, setDuration] = useState(0);
 
-    const audioRef = useRef(currentTrack);
+    const audioRef = useRef();
     const progressBarRef = useRef();
 
     useEffect(() => {
@@ -28,6 +34,7 @@ export default function AudioPlayerContainer() {
         } else {
             setTrackIndex(trackIndex + 1);
         }
+        dispatch(audioPlayerActions.playTrack())
     }
 
     const handlePrev = () => {
@@ -55,6 +62,10 @@ export default function AudioPlayerContainer() {
                     timeProgress,
                     currentTrack,
                     handleNext,
+                    audioRef,
+                    progressBarRef
+                }}/>
+                <ProgressBar {...{
                     audioRef,
                     progressBarRef
                 }}/>

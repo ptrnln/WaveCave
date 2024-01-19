@@ -1,7 +1,12 @@
 import { useEffect, useState } from "react"
+import * as audioPlayerActions from '../../store/audioPlayer';
+import { useDispatch, useSelector } from "react-redux";
 
 export default function AudioControls({ handleNext }) {
-    const [isPlaying, setIsPlaying] = useState(false);
+    const dispatch = useDispatch();
+
+    const isPlaying = useSelector(state => state.audio.isPlaying);
+
     const [isShuffled, setIsShuffled] = useState(false);
     const [isRepeating, setIsRepeating] = useState('false');
     const [shuffleColor, setShuffleColor] = useState('Black');
@@ -13,10 +18,11 @@ export default function AudioControls({ handleNext }) {
 
     const togglePlay = (e) => {
         e.stopPropagation();
-        setIsPlaying(!isPlaying)
-        const audio = document.querySelector(".audio-player audio");
-        isPlaying ? audio.pause() : audio.play();
-        debugger
+        if(isPlaying)  {
+            dispatch(audioPlayerActions.pauseTrack())
+        } else {
+            dispatch(audioPlayerActions.playTrack())
+        }
     }
     
     const toggleShuffle = (e) => {
@@ -44,6 +50,8 @@ export default function AudioControls({ handleNext }) {
     useEffect(() => {
         isRepeating === 'false' ? setRepeatColor('Black') : setRepeatColor('Tomato')
     }, [isRepeating, setIsRepeating])
+
+
 
     return (
         <div className="audio-controls container">

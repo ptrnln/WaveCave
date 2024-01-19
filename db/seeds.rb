@@ -31,6 +31,18 @@ ApplicationRecord.transaction do
         password: 'password'
       }) 
     end
+
+    i = 0
+    10.times do
+      Track.create!({
+        title: Faker::Music::PearlJam.unique.song,
+        artist_id: Random.new().rand(1..11),
+        source_url: "test_url#{i}",
+        file_type: 'mp3',
+        duration: [69, 420].sample
+      })
+      i += 1;
+    end
   
     puts "Done!"
 end
