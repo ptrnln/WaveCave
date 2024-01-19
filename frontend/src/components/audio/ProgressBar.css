@@ -2,6 +2,7 @@
     --range-progress: 0;
     
     -webkit-appearance: none;
+    
     position: relative;
     background:#ccc;
     width: 100%;
@@ -75,4 +76,22 @@
 
 .progress-bar {
     display: flex;
+}
+
+.progress-bar input[type="range"]::-webkit-slider-thumb {
+    width: 0px;
+    height: 0px;
+    border-radius: 50%;
+  }
+
+.progress-bar:hover input[type="range"]::-webkit-slider-thumb {
+    transition-duration: 100ms;
+    transition-property: all;
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+}
+
+.time-display {
+    cursor: default;
 }

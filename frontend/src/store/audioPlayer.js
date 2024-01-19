@@ -20,7 +20,7 @@ const initialState = {
     isPlaying: false,
     isRepeating: 'false',
     currentTime: 0,
-    volume: 100,
+    volume: 60,
 }
 
 export const playTrack = () => {

@@ -14,14 +14,14 @@ export default function ProgressBar({ progressBarRef, audioRef }) {
 
     return (
         <div className="progress-bar">
-            <span className="current-time">00:00</span>
+            <span className="time-display current-time">00:00</span>
             <input 
                 type="range" 
                 ref={progressBarRef}
                 defaultValue={0}
                 onChange={handleProgressChange}
             />
-            <span className="track-duration">03:34</span>
+            <span className="time-display track-duration">03:34</span>
         </div>
     )
 }

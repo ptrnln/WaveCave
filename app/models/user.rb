@@ -22,6 +22,8 @@ class User < ApplicationRecord
 
   has_many :tracks, foreign_key: :artist_id, dependent: :destroy
 
+  has_one_attached :photo
+
   attr_reader :password
   
   def is_password?(password) 

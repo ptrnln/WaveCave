@@ -1,16 +1,16 @@
 import { useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import * as audioPlayerActions from "../../store/audioPlayer";
+import { useSelector } from "react-redux"; // useDispatch
+// import * as audioPlayerActions from "../../store/audioPlayer";
 
-export default function AudioPlayer({ audioRef, currentTrack }) {
-    const dispatch = useDispatch();
+export default function AudioPlayer({ audioRef, currentTrack, handleNext }) {
+    // const dispatch = useDispatch();
     const isPlaying = useSelector(state => state.audio.isPlaying);
     const audio =
         <audio 
             className={`track ${currentTrack.title}`}
             src={currentTrack.src}
             ref={audioRef}
-            // onEnded={dispatch(audioPlayerActions.playNext())}
+            onEnded={handleNext}
         />
 
     useEffect(() => {
@@ -19,7 +19,7 @@ export default function AudioPlayer({ audioRef, currentTrack }) {
         } else {
             audioRef.current.pause()
         }
-    }, [isPlaying, currentTrack])
+    }, [isPlaying, audioRef])
 
     return (
         <>

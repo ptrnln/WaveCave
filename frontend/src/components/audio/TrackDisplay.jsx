@@ -2,8 +2,8 @@ import { useState } from "react";
 import AudioControls from "./AudioControls";
 
 export default function TrackDisplay({ currentTrack, duration }) {
-    const [title, setTitle] = useState('');
-    const [artist, setArtist] = useState('');
+    // const [title, setTitle] = useState('');
+    // const [artist, setArtist] = useState('');
 
     return (
         <div className="track-display">

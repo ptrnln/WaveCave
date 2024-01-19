@@ -67,7 +67,8 @@ export default function AudioPlayerContainer() {
                 }}/>
                 <ProgressBar {...{
                     audioRef,
-                    progressBarRef
+                    progressBarRef,
+                    handleNext
                 }}/>
                 {audioPlayer}
             </div>
