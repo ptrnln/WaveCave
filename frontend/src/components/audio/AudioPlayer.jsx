@@ -14,14 +14,13 @@ export default function AudioPlayer({ audioRef, progressBarRef, currentTrack, ha
             onEnded={handleNext}
         />
 
-    useEffect(() => {
-        if(isPlaying) {
-            audioRef.current.play();
-        } else {
-            audioRef.current.pause();
-            debugger
-        }
-    }, [isPlaying, currentTrack, audioRef])
+    // useEffect(() => {
+    //     if(isPlaying) {
+    //         audioRef.current.play();
+    //     } else {
+    //         audioRef.current.pause();
+    //     }
+    // }, [isPlaying, currentTrack, audioRef])
 
 
 

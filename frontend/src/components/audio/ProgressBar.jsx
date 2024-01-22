@@ -30,21 +30,25 @@ export default function ProgressBar({ progressBarRef, audioRef }) {
     }, [audioRef, progressBarRef.current?.value, handleProgressChange]);
     
     useEffect(() => {
-        if (isPlaying) {
+        if (isPlaying && audioRef.current.paused) {
           audioRef.current.play();
           playAnimationRef.current = requestAnimationFrame(updateProgress);
-        } else {
+        } 
+        if (!isPlaying && !audioRef.current.paused) {
           audioRef.current.pause();
           cancelAnimationFrame(playAnimationRef.current);
         }
     }, [isPlaying, audioRef, updateProgress]);
 
+    useEffect(() => {
+
+    })
+
     const formatTime = time => {
-        debugger
-        const formattedMinutes = parseInt(time / 60)
-        const formattedSeconds = parseInt(
+        const formattedMinutes = Math.floor(time / 60)
+        const formattedSeconds = Math.floor(
             formattedMinutes === 0 ? 
-            time : time % formattedMinutes);
+            time : time % 60);
         return `${formattedMinutes}`.padStart(2, '0') + ':' + `${formattedSeconds}`.padStart(2, '0');
     }
 

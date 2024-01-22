@@ -26,7 +26,7 @@ class Api::TracksController < ApplicationController
     end
 
     def show
-        @track = Track.find(params[:id])
+        # @track = Track.find_by(title: params[:title].replace('+', ' '))
 
         if @track 
             render :show

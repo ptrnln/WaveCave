@@ -12,7 +12,8 @@ import ProgressBar from './ProgressBar';
 export default function AudioPlayerContainer() {
     const dispatch = useDispatch();
     const isPlaying = useSelector(state => state.audio.isPlaying)
-    const queue = useSelector(state => state.audio.queue)
+    const originalQueue = useSelector(state => state.audio.queue.original);
+    const shuffledQueue = useSelector(state => state.audio.queue.shuffled);
 
     const [trackIndex, setTrackIndex] = useState(0);
     const [currentTrack, setCurrentTrack] = useState(tracks[trackIndex]);

@@ -1,7 +1,11 @@
 .progress-bar {
     display: flex;
-    align-content: stretch;
+    position: relative;
+    align-content: space-between;
+    flex-direction: row;
+    top: 0%;
     width: 100%;
+    height: 100%;
 }
 
 .progress-bar input[type="range"] {
@@ -10,11 +14,18 @@
     appearance: initial;
     position: relative;
     background:#ccc;
-    top: 25%;
+    top: 45%;
     width: 100%;
     height: 2px;
     border-radius: 2px;
     cursor: pointer;
+}
+
+span.time-display {
+    position: relative;
+    top: 38%;
+    padding-left: 10px;
+    padding-right: 10px;
 }
   
   /* Input range - firefox */

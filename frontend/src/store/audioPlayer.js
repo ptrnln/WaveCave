@@ -10,13 +10,16 @@ export const SET_SHUFFLE_OFF = 'audioPlayer/SHUFFLE_OFF';
 export const SET_REPEAT_OFF = 'audioPlayer/REPEAT_OFF';
 export const SET_REPEAT_ONCE = 'audioPlayer/REPEAT_ONCE';
 export const SET_REPEAT_ALWAYS = 'audioPlayer/REPEAT_ALWAYS';
-export const FETCH_TRACKS = 'audioPlayer/FETCH_TRACKS';
+export const LOAD_TRACKS = 'audioPlayer/LOAD_TRACKS';
 export const SET_VOLUME = 'audioPlayer/SET_VOLUME';
 export const TRACK_NAV = 'audioPlayer/TRACK_NAV';
 
 const initialState = { 
     currentTrack: null, 
-    queue: [], 
+    queue: {
+        original: [],
+        shuffled: []
+    },
     isPlaying: false,
     isRepeating: 'false',
     currentTime: 0,
@@ -41,11 +44,24 @@ export const playNext = () => {
     }
 }
 
-export const fetchTracks = tracks => {
+export const loadTracks = trackIds => {
     return {
-        type: FETCH_TRACKS,
-        payload: tracks
+        type: LOAD_TRACKS,
+        trackIds
     }
+}
+
+const shuffle = array => {
+    let idx = array.length - 1, randIdx;
+
+    while (idx >= 0) {
+        randIdx = Math.floor(Math.random() * idx + 1);
+        [array[idx], array[randIdx]] = [array[randIdx], array[idx]]
+        
+        idx--;
+    }
+    
+    return array
 }
 
 export const audioPlayerReducer = (state = initialState, action) => {
@@ -61,13 +77,15 @@ export const audioPlayerReducer = (state = initialState, action) => {
                 currentTrack: state.currentTrack?.queueIndex + 1, 
                 isPlaying: true,
             }
-        case FETCH_TRACKS:
+        case LOAD_TRACKS:
             return { ...state,
-                queue: action.payload.map((track, i = 0) => {
-                    track.queueIndex = i;
-                    i++
-                })
+                queue: {
+                    original: action.trackIds,
+                    shuffled: shuffle([...action.trackIds])
+                }
             };
+        case PLAY_PREV:
+
         default:
             return state;
     }

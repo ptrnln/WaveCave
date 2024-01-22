@@ -39,6 +39,10 @@ const userLoader = async ({request, params}) => {
   } 
 }
 
+const trackLoader = async ({request, params}) => {
+  const response = await fetch(`api/tracks/`)
+}
+
 const router = createBrowserRouter([
   {
     element: <Layout />,
@@ -59,8 +63,12 @@ const router = createBrowserRouter([
         path: '/:username',
         loader: userLoader,
         element: <UserView />,
-        errorElement: <ErrorPage />
-      }
+        errorElement: <ErrorPage />,
+        children: {
+          path: '/:title',
+          loader: trackLoader,
+        }
+      },
     ],
   }
 ]);
