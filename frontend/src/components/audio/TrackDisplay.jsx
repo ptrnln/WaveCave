@@ -1,5 +1,6 @@
 import { useState } from "react";
 import AudioControls from "./AudioControls";
+import './TrackDisplay.css'
 
 export default function TrackDisplay({ currentTrack, duration }) {
     // const [title, setTitle] = useState('');

@@ -1,8 +1,9 @@
 import { useEffect } from "react";
 import { useSelector } from "react-redux"; // useDispatch
+import './AudioPlayerContainer.css'
 // import * as audioPlayerActions from "../../store/audioPlayer";
 
-export default function AudioPlayer({ audioRef, currentTrack, handleNext }) {
+export default function AudioPlayer({ audioRef, progressBarRef, currentTrack, handleNext }) {
     // const dispatch = useDispatch();
     const isPlaying = useSelector(state => state.audio.isPlaying);
     const audio =
@@ -17,9 +18,12 @@ export default function AudioPlayer({ audioRef, currentTrack, handleNext }) {
         if(isPlaying) {
             audioRef.current.play();
         } else {
-            audioRef.current.pause()
+            audioRef.current.pause();
+            debugger
         }
-    }, [isPlaying, audioRef])
+    }, [isPlaying, currentTrack, audioRef])
+
+
 
     return (
         <>

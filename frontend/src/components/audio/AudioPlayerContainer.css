@@ -1,0 +1,16 @@
+div.audio-player {
+    width: 100%;
+    position: absolute;
+    bottom: 0px
+}
+
+div.audio-player div.inner {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+}
+
+div.inner {
+    display: flex;
+    align-content: stretch;
+}

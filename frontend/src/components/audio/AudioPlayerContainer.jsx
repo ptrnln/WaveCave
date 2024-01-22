@@ -1,4 +1,5 @@
 
+import './AudioPlayerContainer.css'
 import { tracks } from '../../data/tracks'
 import { useEffect, useRef, useState } from "react";
 import TrackDisplay from "./TrackDisplay";
@@ -43,20 +44,13 @@ export default function AudioPlayerContainer() {
     const audioPlayer = <AudioPlayer {...{
         currentTrack,
         audioRef,
-        progressBarRef
+        progressBarRef,
+        handleNext
     }}/>
 
     return (
         <div className="audio-player">
             <div className="inner">
-                <TrackDisplay {...{
-                    trackIndex,
-                    timeProgress,
-                    currentTrack,
-                    handleNext,
-                    audioRef,
-                    progressBarRef
-                }}/>
                 <AudioControls {...{
                     trackIndex,
                     timeProgress,
@@ -71,6 +65,14 @@ export default function AudioPlayerContainer() {
                     handleNext
                 }}/>
                 {audioPlayer}
+                    <TrackDisplay {...{
+                        trackIndex,
+                        timeProgress,
+                        currentTrack,
+                        handleNext,
+                        audioRef,
+                        progressBarRef
+                    }}/>
             </div>
         </div>
     )
