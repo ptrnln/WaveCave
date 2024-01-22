@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useRef } from 'react'
+import { useCallback, useEffect, useRef, useState } from 'react'
 import './ProgressBar.css'
 import { useSelector } from 'react-redux';
 
@@ -6,10 +6,12 @@ export default function ProgressBar({ progressBarRef, audioRef }) {
     const isPlaying = useSelector(state => state.audio.isPlaying)
     const playAnimationRef = useRef();
 
+    const [time, setTime] = useState(0);
+
     const handleProgressChange = (e) => {
         e.stopPropagation()
         const newValue = progressBarRef.current ? progressBarRef.current.value : 0
-        audioRef.current.currentTime = (progressBarRef.current.value / 100) * audioRef.current.duration
+        audioRef.current.currentTime = (progressBarRef.current.value / 100) * audioRef.current.duration;
         progressBarRef.current.style.setProperty(
             '--range-progress',
             `${newValue}%`
@@ -18,6 +20,7 @@ export default function ProgressBar({ progressBarRef, audioRef }) {
 
     const updateProgress = useCallback(() => {
         const newValue = audioRef.current ? (audioRef.current.currentTime / audioRef.current.duration) * 100 : 0
+        setTime(audioRef.current?.currentTime || 0);
         progressBarRef.current.value = newValue;
         progressBarRef.current.style.setProperty(
             '--range-progress',
@@ -35,11 +38,21 @@ export default function ProgressBar({ progressBarRef, audioRef }) {
           cancelAnimationFrame(playAnimationRef.current);
         }
     }, [isPlaying, audioRef, updateProgress]);
-   
+
+    const formatTime = time => {
+        debugger
+        const formattedMinutes = parseInt(time / 60)
+        const formattedSeconds = parseInt(
+            formattedMinutes === 0 ? 
+            time : time % formattedMinutes);
+        return `${formattedMinutes}`.padStart(2, '0') + ':' + `${formattedSeconds}`.padStart(2, '0');
+    }
 
     return (
         <div className="progress-bar">
-            <span className="time-display current-time">00:00</span>
+            <span className="time-display current-time">
+                {formatTime(time || 0)}
+            </span>
             <input 
                 type="range" 
                 ref={progressBarRef}
@@ -47,7 +60,9 @@ export default function ProgressBar({ progressBarRef, audioRef }) {
                 defaultValue={0}
                 onChange={handleProgressChange}
             />
-            <span className="time-display track-duration">03:34</span>
+            <span className="time-display track-duration">
+                {formatTime(audioRef.current?.duration || 0)}
+            </span>
         </div>
     )
 }
