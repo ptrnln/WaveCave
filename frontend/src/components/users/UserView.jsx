@@ -1,7 +1,7 @@
 import { useEffect } from "react";
 import { useDispatch } from "react-redux";
 import * as userActions from '../../store/user'
-import { useLoaderData } from "react-router-dom";
+import { Outlet, useLoaderData } from "react-router-dom";
 
 export default function UserView() {
     let user = useLoaderData();
@@ -14,6 +14,7 @@ export default function UserView() {
     return (
         <>
             <div id="user-view"><p>This is the user show page for { user.username }</p></div>
+            <Outlet />
         </>
     )
 }

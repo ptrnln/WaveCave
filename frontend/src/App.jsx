@@ -8,6 +8,7 @@ import * as sessionActions from './store/session';
 import UserView from './components/users/UserView';
 import ErrorPage from './ErrorPage';
 import AudioPlayerContainer from './components/audio/AudioPlayerContainer';
+import TrackView from './components/tracks/TrackView';
 
 function Layout() {
   const dispatch = useDispatch();
@@ -40,7 +41,15 @@ const userLoader = async ({request, params}) => {
 }
 
 const trackLoader = async ({request, params}) => {
-  const response = await fetch(`api/tracks/`)
+  const response = await fetch(`/api/users/${params.username}/tracks/${params.title}`).catch((reasons) => { throw reasons})
+  debugger
+  if(response.ok) {
+    const data = await response.json();
+    if(data.track) {
+      return data.track
+    }
+  }
+  throw { message: 'track not found' }
 }
 
 const router = createBrowserRouter([
@@ -50,6 +59,10 @@ const router = createBrowserRouter([
       {
         path: '/',
         element: <h1>Welcome!</h1>
+      },
+      {
+        path: '/feed',
+        element: <p>Hi</p>
       },
       {
         path: "/login",
@@ -64,11 +77,18 @@ const router = createBrowserRouter([
         loader: userLoader,
         element: <UserView />,
         errorElement: <ErrorPage />,
-        children: {
-          path: '/:title',
-          loader: trackLoader,
-        }
+        // children: {
+        //   path: '/:title',
+        //   loader: trackLoader,
+        //   element: <TrackView />,
+        //   errorElement: <ErrorPage />
+        // }
       },
+      {
+        path: '/:username/:title',
+        loader: trackLoader,
+        element: <TrackView />
+      }
     ],
   }
 ]);

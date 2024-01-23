@@ -26,12 +26,14 @@ class Api::TracksController < ApplicationController
     end
 
     def show
-        # @track = Track.find_by(title: params[:title].replace('+', ' '))
+        @track = Track.find_by(title: params[:title].gsub!('-', ' '))
+        @user = User.find_by(username: params[:username]);
+        debugger
 
-        if @track 
+        if @track && @track.artist_id == @user.id
             render :show
         else
-            render nothing: true, status: :not_found
+            render json: { message: 'Could not find this track' }, status: :not_found
         end
     end
 

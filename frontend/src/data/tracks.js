@@ -14,19 +14,19 @@ import trinix from './trinix.jpeg';
 
 export const tracks = [
   {
-    title: 'Trinix ft Rushawn – Its a beautiful day',
+    title: 'Its a beautiful day',
     src: beautiful,
     author: 'Trinix ft Rushawn',
     thumbnail: trinix,
   },
   {
-    title: 'Michael Jackson – We Are The World',
+    title: 'We Are The World',
     src: world,
     author: 'Michael Jackson',
     thumbnail: jackson,
   },
   {
-    title: 'D’banj -Top Of The World',
+    title: 'Top Of The World',
     src: top,
     author: 'Dbanj',
     thumbnail: dbanj,

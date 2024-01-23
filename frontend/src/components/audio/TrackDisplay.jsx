@@ -23,9 +23,13 @@ export default function TrackDisplay({ currentTrack, duration }) {
 
     return (
         <div className="track-display">
-            {photoDisplay}
+            {/* {photoDisplay} */}
             <img src={currentTrack.thumbnail} alt="" />
             <audio src={currentTrack.src}></audio>
+            <div className="track-details">
+                <span className="track-details artist-name">{currentTrack.author}</span>
+                <span className="track-details title">{currentTrack.title}</span>
+            </div>
         </div>
     )
 }
