@@ -66,6 +66,7 @@ require "open-uri"
     t = Track.new({
       :title => SEED_TRACKS_LIST[1][:title],
       :description => SEED_TRACKS_LIST[1][:description],
+      :artist_id => Random.new().rand(1..11),
       :genre => SEED_TRACKS_LIST[1][:genre],
       :file_type => SEED_TRACKS_LIST[1][:file_type]
     })
