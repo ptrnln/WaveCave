@@ -9,6 +9,7 @@ import UserView from './components/users/UserView';
 import ErrorPage from './ErrorPage';
 import AudioPlayerContainer from './components/audio/AudioPlayerContainer';
 import TrackView from './components/tracks/TrackView';
+import TrackUploadForm from './components/tracks/TrackUploadForm';
 
 function Layout() {
   const dispatch = useDispatch();
@@ -42,7 +43,7 @@ const userLoader = async ({request, params}) => {
 
 const trackLoader = async ({request, params}) => {
   const response = await fetch(`/api/users/${params.username}/tracks/${params.title}`).catch((reasons) => { throw reasons})
-  debugger
+  
   if(response.ok) {
     const data = await response.json();
     if(data.track) {
@@ -73,22 +74,23 @@ const router = createBrowserRouter([
         element: <SignUpForm />
       },
       {
+        path: '/upload',
+        element: <TrackUploadForm />
+      },
+      {
         path: '/:username',
         loader: userLoader,
         element: <UserView />,
         errorElement: <ErrorPage />,
-        // children: {
-        //   path: '/:title',
-        //   loader: trackLoader,
-        //   element: <TrackView />,
-        //   errorElement: <ErrorPage />
-        // }
+        children: [
+          {
+            path: ':title',
+            loader: trackLoader,
+            element: <TrackView />,
+            errorElement: <ErrorPage />
+          }
+        ]
       },
-      {
-        path: '/:username/:title',
-        loader: trackLoader,
-        element: <TrackView />
-      }
     ],
   }
 ]);

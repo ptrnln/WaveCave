@@ -16,7 +16,7 @@
     background:#ccc;
     top: 45%;
     width: 100%;
-    height: 2px;
+    height: 1px;
     border-radius: 2px;
     cursor: pointer;
 }
@@ -41,11 +41,11 @@ span.time-display {
   /* played progress length - Chrome & safari*/
 .progress-bar input[type="range"]::before {
     content: '';
-    height: 2px;
+    height: 1px;
     background: #f50;
     width: var(--range-progress);
-    border-bottom-left-radius: 2px;
-    border-top-left-radius: 2px;
+    border-bottom-left-radius: 1px;
+    border-top-left-radius: 1px;
     position: absolute;
     top: 0;
     left: 0;

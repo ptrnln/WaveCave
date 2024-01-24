@@ -16,10 +16,13 @@ class Api::TracksController < ApplicationController
 
     def create
         @track = Track.new(track_params)
+        @track.artist_id = current_user.id
+        debugger
 
         if @track.save 
             render :show
         else
+            debugger
             render json: { errors: @track.errors.full_messages }, 
                 status: :unprocessable_entity
         end
@@ -28,12 +31,12 @@ class Api::TracksController < ApplicationController
     def show
         @track = Track.find_by(title: params[:title].gsub!('-', ' '))
         @user = User.find_by(username: params[:username]);
-        debugger
 
         if @track && @track.artist_id == @user.id
             render :show
         else
-            render json: { message: 'Could not find this track' }, status: :not_found
+            render json: { message: 'Could not find this track' }, 
+                status: :not_found
         end
     end
 
@@ -43,7 +46,8 @@ class Api::TracksController < ApplicationController
         if @track.update(track_params)
             render :show
         else
-            render json: { errors: @track.errors.full_messages }, status: :unprocessable_entity
+            render json: { errors: @track.errors.full_messages },
+                status: :unprocessable_entity
         end
     end
 
@@ -69,11 +73,11 @@ class Api::TracksController < ApplicationController
             :id,
             :artist_id, 
             :title, 
-            :description, 
-            :source_url, 
-            :image_url, 
+            :description,
+            :genre, 
             :file_type, 
-            :duration
+            :duration,
+            :source
             )
     end
 end

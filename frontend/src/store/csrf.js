@@ -4,13 +4,12 @@ async function csrfFetch(url, options = {}) {
     options.method ||= 'GET'
 
     if(options.method.toUpperCase() !== 'GET' ) {
-        options.headers['Content-Type'] ||= 'application/json'
+        if(!(options.body.constructor.name === 'FormData')) options.headers['Content-Type'] ||= 'application/json'
         options.headers['X-CSRF-Token'] = sessionStorage.getItem('X-CSRF-Token')/* || 
             (await restoreCSRF()).headers.get('X-CSRF-Token'); */
     }
     const res = await fetch(url, options);
-
-    if (res.status >= 400) throw res
+    // if (res.status >= 400) throw res
 
     return res;
 }

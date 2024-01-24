@@ -5,8 +5,36 @@
 #
 #   movies = Movie.create([{ name: "Star Wars" }, { name: "Lord of the Rings" }])
 #   Character.create(name: "Luke", movie: movies.first)
+
+const SEED_TRACKS_LIST = {
+  1: {
+    title: 'CBAT',
+    description: 'It just has a really good rhythm',
+    genre: 'Stroke-core'
+    file_type: 'mp3',
+    source_url: 
+  },
+  2: {
+    title: "Spider-Man: The Animated Series (SEGA Genesis) - Fun House",
+    description: "Best song ever maybe?",
+    genre: 'Clown-core',
+    file_type: 'mp3',
+    source_url: 
+  }
+}
 require "open-uri"
 # ApplicationRecord.transaction do 
+    puts "Destroying ActiveStorage associations..."
+
+    User.all.each do |user|
+      user.photo.purge
+    end
+    
+    Track.all.each do |track|
+      track.photo.purge
+      track.source.purge
+    end
+
     puts "Destroying tables..."
     # Unnecessary if using `rails db:seed:replant`
     User.destroy_all
@@ -41,7 +69,6 @@ require "open-uri"
       t = Track.new({
         title: Faker::Music::PearlJam.unique.song,
         artist_id: Random.new().rand(1..11),
-        source_url: "test_url#{i}",
         file_type: 'mp3',
         duration: [69, 420].sample
       })
