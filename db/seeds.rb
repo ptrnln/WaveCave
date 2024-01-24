@@ -63,7 +63,15 @@ require "open-uri"
 
     puts('Creating tracks...')
 
-    t = Track.create!(SEED_TRACKS_LIST[1])
+    t = Track.new({
+      :title => SEED_TRACKS_LIST[1][:title],
+      :description => SEED_TRACKS_LIST[1][:description],
+      :genre => SEED_TRACKS_LIST[1][:genre],
+      :file_type => SEED_TRACKS_LIST[1][:file_type]
+    })
+    t.source.attach(SEED_TRACKS_LIST[1][:source_url])
+    t.save!
+
     10.times do
       t = Track.new({
         title: Faker::Music::PearlJam.unique.song,
