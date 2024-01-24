@@ -11,7 +11,7 @@ SEED_TRACKS_LIST = {
     :description => 'It just has a really good rhythm',
     :genre => 'Stroke-core',
     :file_type => 'mp3',
-    :source_url => "https://wavecave-dev.s3.amazonaws.com/9w2zx8vw2uiaik68qmotetmy1bbz?response-content-disposition=attachment%3B%20filename%3D%22Hudson%20Mohawke%20-%20Cbat.mp3%22%3B%20filename%2A%3DUTF-8%27%27Hudson%2520Mohawke%2520-%2520Cbat.mp3&response-content-type=audio%2Fmpeg&X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIA3FLDY2WJPS64GCG5%2F20240124%2Fus-east-1%2Fs3%2Faws4_request&X-Amz-Date=20240124T204102Z&X-Amz-Expires=300&X-Amz-SignedHeaders=host&X-Amz-Signature=870adbbe1171c0f1dbb752596e430096888a853a8db05b27e4401ee3eadcad93"
+    :source_url => "https://wavecave-seeds.s3.amazonaws.com/Hudson+Mohawke+-+Cbat.mp3"
   },
   # 2: {
   #   title: "Spider-Man: The Animated Series (SEGA Genesis) - Fun House",
