@@ -70,7 +70,7 @@ require "open-uri"
       :genre => SEED_TRACKS_LIST[1][:genre],
       :file_type => SEED_TRACKS_LIST[1][:file_type]
     })
-    t.source.attach(SEED_TRACKS_LIST[1][:source_url])
+    t.source.attach(io: URI.open(SEED_TRACKS_LIST[1][:source_url]), filename: "Hudson+Mohawke+-+Cbat.mp3" )
     t.save! if t.source.attached?
 
     10.times do
