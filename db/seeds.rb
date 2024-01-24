@@ -5,22 +5,21 @@
 #
 #   movies = Movie.create([{ name: "Star Wars" }, { name: "Lord of the Rings" }])
 #   Character.create(name: "Luke", movie: movies.first)
-
-const SEED_TRACKS_LIST = {
-  1: {
-    title: 'CBAT',
-    description: 'It just has a really good rhythm',
-    genre: 'Stroke-core'
-    file_type: 'mp3',
-    source_url: 
+SEED_TRACKS_LIST = {
+  1 => {
+    :title => 'CBAT',
+    :description => 'It just has a really good rhythm',
+    :genre => 'Stroke-core',
+    :file_type => 'mp3',
+    :source_url => "https://wavecave-dev.s3.amazonaws.com/9w2zx8vw2uiaik68qmotetmy1bbz?response-content-disposition=attachment%3B%20filename%3D%22Hudson%20Mohawke%20-%20Cbat.mp3%22%3B%20filename%2A%3DUTF-8%27%27Hudson%2520Mohawke%2520-%2520Cbat.mp3&response-content-type=audio%2Fmpeg&X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIA3FLDY2WJPS64GCG5%2F20240124%2Fus-east-1%2Fs3%2Faws4_request&X-Amz-Date=20240124T204102Z&X-Amz-Expires=300&X-Amz-SignedHeaders=host&X-Amz-Signature=870adbbe1171c0f1dbb752596e430096888a853a8db05b27e4401ee3eadcad93"
   },
-  2: {
-    title: "Spider-Man: The Animated Series (SEGA Genesis) - Fun House",
-    description: "Best song ever maybe?",
-    genre: 'Clown-core',
-    file_type: 'mp3',
-    source_url: 
-  }
+  # 2: {
+  #   title: "Spider-Man: The Animated Series (SEGA Genesis) - Fun House",
+  #   description: "Best song ever maybe?",
+  #   genre: 'Clown-core',
+  #   file_type: 'mp3',
+  #   source_url: 
+  # }
 }
 require "open-uri"
 # ApplicationRecord.transaction do 
@@ -64,7 +63,7 @@ require "open-uri"
 
     puts('Creating tracks...')
 
-    i = 0
+    t = Track.create!(SEED_TRACKS_LIST[1])
     10.times do
       t = Track.new({
         title: Faker::Music::PearlJam.unique.song,
@@ -75,7 +74,6 @@ require "open-uri"
       t.photo.purge
       t.photo.attach(io: URI.open("https://wavecave-seeds.s3.amazonaws.com/Screenshot+2024-01-19+153436.png"), filename: "Screenshot+2024-01-19+153436.png" ) if i == 0 
       t.save!
-      i += 1;
     end
   
     puts "Done!"
