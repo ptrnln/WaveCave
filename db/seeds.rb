@@ -71,7 +71,7 @@ require "open-uri"
       :file_type => SEED_TRACKS_LIST[1][:file_type]
     })
     t.source.attach(SEED_TRACKS_LIST[1][:source_url])
-    t.save!
+    t.save! if t.source.attached?
 
     10.times do
       t = Track.new({
