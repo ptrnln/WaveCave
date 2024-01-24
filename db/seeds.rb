@@ -62,15 +62,16 @@ require "open-uri"
     end
 
     puts('Creating tracks...')
-
+    f = URI.open(SEED_TRACKS_LIST[1][:source_url])
     t = Track.new({
       :title => SEED_TRACKS_LIST[1][:title],
       :description => SEED_TRACKS_LIST[1][:description],
       :artist_id => Random.new().rand(1..11),
       :genre => SEED_TRACKS_LIST[1][:genre],
+      :duration => 69,
       :file_type => SEED_TRACKS_LIST[1][:file_type]
     })
-    t.source.attach(io: URI.open(SEED_TRACKS_LIST[1][:source_url]), filename: "Hudson+Mohawke+-+Cbat.mp3" )
+    t.source.attach(io: f, filename: "Hudson+Mohawke+-+Cbat.mp3")
     t.save! if t.source.attached?
 
     10.times do
