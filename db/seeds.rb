@@ -68,23 +68,23 @@ require "open-uri"
       :description => SEED_TRACKS_LIST[1][:description],
       :artist_id => Random.new().rand(1..11),
       :genre => SEED_TRACKS_LIST[1][:genre],
-      :duration => 69,
+      :duration => 123,
       :file_type => SEED_TRACKS_LIST[1][:file_type]
     })
     t.source.attach(io: f, filename: "Hudson+Mohawke+-+Cbat.mp3")
     t.save! if t.source.attached?
 
-    10.times do
-      t = Track.new({
-        title: Faker::Music::PearlJam.unique.song,
-        artist_id: Random.new().rand(1..11),
-        file_type: 'mp3',
-        duration: [69, 420].sample
-      })
-      t.photo.purge
-      t.photo.attach(io: URI.open("https://wavecave-seeds.s3.amazonaws.com/Screenshot+2024-01-19+153436.png"), filename: "Screenshot+2024-01-19+153436.png" ) if i == 0 
-      t.save!
-    end
+    # 10.times do
+    #   t = Track.new({
+    #     title: Faker::Music::PearlJam.unique.song,
+    #     artist_id: Random.new().rand(1..11),
+    #     file_type: 'mp3',
+    #     duration: [25, 420].sample
+    #   })
+    #   t.photo.purge
+    #   t.photo.attach(io: URI.open("https://wavecave-seeds.s3.amazonaws.com/Screenshot+2024-01-19+153436.png"), filename: "Screenshot+2024-01-19+153436.png" ) if i == 0 
+    #   t.save!
+    # end
   
     puts "Done!"
 # end
