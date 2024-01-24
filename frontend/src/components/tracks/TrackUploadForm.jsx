@@ -64,7 +64,7 @@ export default function TrackUploadForm() {
             duration,
             file_type: getFileType(audioFile.name)
         }, audioFile, imageFile);
-        debugger
+        
         if(response.errors) setErrors(response.errors)
     }
 

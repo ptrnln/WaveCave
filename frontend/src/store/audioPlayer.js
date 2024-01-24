@@ -12,17 +12,17 @@ export const SET_REPEAT_ONCE = 'audioPlayer/REPEAT_ONCE';
 export const SET_REPEAT_ALWAYS = 'audioPlayer/REPEAT_ALWAYS';
 export const LOAD_TRACKS = 'audioPlayer/LOAD_TRACKS';
 export const SET_VOLUME = 'audioPlayer/SET_VOLUME';
-export const TRACK_NAV = 'audioPlayer/TRACK_NAV';
 
 const initialState = { 
-    currentTrack: null, 
     queue: {
         original: [],
         shuffled: []
     },
+    currentIndex: 0,
+    currentTrackId: null,
     isPlaying: false,
+    isShuffled: false,
     isRepeating: 'false',
-    currentTime: 0,
     volume: 60,
 }
 
@@ -52,6 +52,7 @@ export const loadTracks = trackIds => {
 }
 
 const shuffle = array => {
+    if(array.length <= 1) return array
     let idx = array.length - 1, randIdx;
 
     while (idx >= 0) {
@@ -69,23 +70,62 @@ export const audioPlayerReducer = (state = initialState, action) => {
 
     switch(action.type) {
         case PLAY_TRACK:
-            return { ...state, isPlaying: true }
+            return { ...state, 
+                isPlaying: true,
+                currentTrackId: state.currentTrackId || 
+                    state.isShuffled
+                        ? state.queue.shuffled[0]
+                        : state.queue.original[0]
+            }
         case PAUSE_TRACK:
             return { ...state, isPlaying: false }
         case PLAY_NEXT:
+            var newIndex = state.queue.original.length - 1 === state.currentIndex ? 0 :
+                state.currentIndex + 1
             return { ...state, 
-                currentTrack: state.currentTrack?.queueIndex + 1, 
+                currentIndex: newIndex,
+                currentTrackId: state.isShuffled 
+                    ? state.queue.shuffled[newIndex]
+                    : state.queue.original[newIndex],
                 isPlaying: true,
-            }
+            };
+        case PLAY_PREV:
+            var newIndex = state.currentIndex - 1
+            return { ...state,
+                currentIndex: newIndex,
+                currentTrackId: state.isShuffled
+                    ? state.queue.shuffled[newIndex]
+                    : state.queue.original[newIndex],
+                isPlaying: true
+            };
         case LOAD_TRACKS:
+            let shuffledQueue = shuffle([...action.trackIds])
             return { ...state,
                 queue: {
                     original: action.trackIds,
-                    shuffled: shuffle([...action.trackIds])
-                }
+                    shuffled: shuffledQueue
+                },
+                currentTrackId: state.isShuffled
+                    ? action.trackIds[0]
+                    : shuffledQueue[0]
             };
-        case PLAY_PREV:
-
+        case SET_SHUFFLE_ON:
+            let trackId = state.currentTrackId || 0
+            shuffledQueue = shuffle(state.queue.original)
+            var newIndex = shuffledQueue.indexOf(trackId)
+            return { ...state,
+                isShuffled: true,
+                queue: {
+                    shuffled: shuffledQueue
+                },
+                currentIndex: newIndex
+            }
+        case SET_SHUFFLE_OFF:
+            var newIndex = state.queue.original.indexOf(state.queue.shuffled[state.currentIndex])
+            return { ...state, 
+                isShuffled: false,
+                currentIndex: newIndex
+            }
         default:
             return state;
     }

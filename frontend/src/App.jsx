@@ -10,6 +10,7 @@ import ErrorPage from './ErrorPage';
 import AudioPlayerContainer from './components/audio/AudioPlayerContainer';
 import TrackView from './components/tracks/TrackView';
 import TrackUploadForm from './components/tracks/TrackUploadForm';
+import Splash from './Splash';
 
 function Layout() {
   const dispatch = useDispatch();
@@ -29,6 +30,7 @@ function Layout() {
     </>
   );
 }
+
 
 const userLoader = async ({request, params}) => {
   const response = await fetch(`/api/users/${params.username}`);
@@ -59,7 +61,7 @@ const router = createBrowserRouter([
     children: [
       {
         path: '/',
-        element: <h1>Welcome!</h1>
+        element: <Splash />
       },
       {
         path: '/feed',

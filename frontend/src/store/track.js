@@ -2,31 +2,42 @@ import csrfFetch from "./csrf"
 
 const RECEIVE_TRACK = 'tracks/RECEIVE_TRACK'
 const RECEIVE_TRACKS = 'tracks/RECEIVE_TRACKS'
+const REMOVE_TRACK = 'tracks/REMOVE_TRACK'
+const REMOVE_TRACKS = 'tracks/REMOVE_TRACKS'
 
-const initialState = { tracks: null }
+const initialState = {}
 
 const receiveTrack = track => {
     return {
         type: RECEIVE_TRACK,
-        payload: track
+        track
     }
 }
 
 const receiveTracks = tracks => {
     return {
         type: RECEIVE_TRACKS,
-        payload: tracks
+        tracks
     }
 }
 
 export const loadTrack = trackId => async dispatch => {
-    const response = await fetch(`api/tracks/${trackId}`);
+    const response = await fetch(`/api/tracks/${trackId}`);
 
     if(response.ok) {
         let data = await response.json();
-        dispatch(receiveTrack(data.tracks));
-        return response;
+        dispatch(receiveTrack(data.track));
+        return data.track;
     }
+}
+
+export const loadTracks = trackIds => async dispatch => {
+    let tracks = []
+    for(const trackId of trackIds) {
+        const track = await dispatch(loadTrack(trackId));
+        tracks.push(track);
+    }
+    return tracks
 }
 
 export async function createTrack (trackData, audioFile, imageFile) {
@@ -44,7 +55,7 @@ export async function createTrack (trackData, audioFile, imageFile) {
         method: 'POST',
         body: formData
     })
-    debugger
+    
     let data = await response.json();
     
     return data
@@ -52,12 +63,17 @@ export async function createTrack (trackData, audioFile, imageFile) {
 
 const trackReducer = (state = initialState, action) => {
     Object.freeze(state)
+    
 
     switch(action.type) {
         case RECEIVE_TRACK:
-            return { ...state, track: action.payload }
+            return { ...state, ...action.track }
         case RECEIVE_TRACKS:
-            return { ...state, tracks: action.payload }
+            return { ...state, ...action.tracks }
+        case REMOVE_TRACK:
+            return { ...state }.delete(action.trackId)
+        case REMOVE_TRACKS:
+            return Object.keys(state).filter((key) => {!action.trackIds.includes(key)}).map((key) => state[key])
         default:
             return state;
     }

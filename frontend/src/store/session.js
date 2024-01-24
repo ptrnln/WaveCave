@@ -76,6 +76,7 @@ export const storeUserData = user => {
 
 const sessionReducer = (state = initialState, action) => {
     Object.freeze(state)
+    
 
     switch(action.type) {
         case SET_USER:

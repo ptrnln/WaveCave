@@ -17,22 +17,25 @@ class Api::TracksController < ApplicationController
     def create
         @track = Track.new(track_params)
         @track.artist_id = current_user.id
-        debugger
 
         if @track.save 
             render :show
         else
-            debugger
             render json: { errors: @track.errors.full_messages }, 
                 status: :unprocessable_entity
         end
     end
 
     def show
-        @track = Track.find_by(title: params[:title].gsub!('-', ' '))
-        @user = User.find_by(username: params[:username]);
+        
+        if params[:title] && params[:username] 
+            @user = User.find_by(username: params[:username]) 
+            @track = Track.find_by(title: params[:title].gsub('-', ' '), artist_id: @user.id)
+        else
+            @track = Track.find(params[:id])
+        end
 
-        if @track && @track.artist_id == @user.id
+        if @track
             render :show
         else
             render json: { message: 'Could not find this track' }, 
@@ -53,10 +56,11 @@ class Api::TracksController < ApplicationController
 
     def destroy
         Track.destroy(params[:id])
-        redirect_to controller: 'user', action: 'show'
+        redirect_to controller: 'user', action: 'show', username: current_user.username
     end
 
 # -------------- Track-specific helper methods ------------------
+    private
 
     def require_logged_in_as_owner
         @track = Track.find(params[:id])
@@ -66,7 +70,6 @@ class Api::TracksController < ApplicationController
         end
     end
 
-    private
 
     def track_params
         params.require(:track).permit(

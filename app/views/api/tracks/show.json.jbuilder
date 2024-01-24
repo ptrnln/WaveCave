@@ -1,5 +1,6 @@
 json.track do
-    json.extract! @track, 
+    json.set! @track.id do
+        json.extract! @track, 
         :id, 
         :artist_id, 
         :title, 
@@ -10,4 +11,7 @@ json.track do
         :created_at,
         :updated_at;
         json.photoUrl @track.photo.attached? ? @track.photo.url : nil
+        json.sourceUrl @track.source.url
+        json.sourceName @track.source.name
+    end
 end

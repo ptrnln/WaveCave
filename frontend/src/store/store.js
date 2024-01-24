@@ -3,12 +3,14 @@ import { thunk } from 'redux-thunk';
 import sessionReducer from './session';
 import userReducer from './user';
 import { audioPlayerReducer } from './audioPlayer';
+import trackReducer from './track';
 
 
 const rootReducer = combineReducers({
     session: sessionReducer,
     users: userReducer,
-    audio: audioPlayerReducer
+    audio: audioPlayerReducer,
+    tracks: trackReducer
 });
 
 let enhancer;

@@ -31,11 +31,7 @@ export default function AudioPlayerContainer() {
     }, [trackIndex, currentTrack.duration])
 
     const handleNext = () => {
-        if(trackIndex >= tracks.length - 1) {
-            setTrackIndex(0);
-        } else {
-            setTrackIndex(trackIndex + 1);
-        }
+        dispatch(audioPlayerActions.playNext())
         dispatch(audioPlayerActions.playTrack())
     }
 
@@ -43,7 +39,6 @@ export default function AudioPlayerContainer() {
     }
 
     const audioPlayer = <AudioPlayer {...{
-        currentTrack,
         audioRef,
         progressBarRef,
         handleNext
@@ -66,14 +61,14 @@ export default function AudioPlayerContainer() {
                     handleNext
                 }}/>
                 {audioPlayer}
-                    <TrackDisplay {...{
-                        trackIndex,
-                        timeProgress,
-                        currentTrack,
-                        handleNext,
-                        audioRef,
-                        progressBarRef
-                    }}/>
+                <TrackDisplay {...{
+                    trackIndex,
+                    timeProgress,
+                    currentTrack,
+                    handleNext,
+                    audioRef,
+                    progressBarRef
+                }}/>
             </div>
         </div>
     )

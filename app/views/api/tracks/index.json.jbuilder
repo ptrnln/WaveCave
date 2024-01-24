@@ -13,7 +13,7 @@ json.tracks do
             :created_at,
             :updated_at;
             json.photoUrl track.photo.attached? ? track.photo.url : nil
-            json.sourceUrl track.source.attached? ? track.source.url : nil
+            json.sourceUrl track.source.url 
         end
         idx += 1
     end 
