@@ -6,6 +6,7 @@ json.user do
                 json.extract! track,
                     :id,
                     :title,
+                    :artist,
                     :description,
                     :genre
             end

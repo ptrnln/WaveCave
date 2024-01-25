@@ -11,8 +11,10 @@ export const SET_REPEAT_OFF = 'audioPlayer/REPEAT_OFF';
 export const SET_REPEAT_ONCE = 'audioPlayer/REPEAT_ONCE';
 export const SET_REPEAT_ALWAYS = 'audioPlayer/REPEAT_ALWAYS';
 export const LOAD_TRACKS = 'audioPlayer/LOAD_TRACKS';
-export const LOAD_TRACK = 'audioPlayer/LOAD_TRACK'
+export const LOAD_TRACK = 'audioPlayer/LOAD_TRACK';
 export const SET_VOLUME = 'audioPlayer/SET_VOLUME';
+export const UNLOAD_TRACKS = 'audioPlayer/UNLOAD_TRACKS';
+const UNLOAD_TRACK = 'audioPlayer/UNLOAD_TRACK'
 
 const initialState = { 
     queue: {
@@ -56,6 +58,13 @@ export const loadTracks = trackIds => {
     return {
         type: LOAD_TRACKS,
         trackIds
+    }
+}
+
+export const unloadTrack = trackId => {
+    return {
+        type: UNLOAD_TRACK,
+        trackId
     }
 }
 
@@ -126,6 +135,17 @@ export const audioPlayerReducer = (state = initialState, action) => {
             return { ...state, 
                 isShuffled: false,
                 currentIndex: newIndex
+            }
+        case UNLOAD_TRACK:
+            
+            var oldTrackId = state.isShuffled ? state.queue.shuffled[state.currentIndex] : state.queue.original[state.currentIndex]
+            var newIndex = (state.currentIndex === state.queue.original.length - 1 || !!state.queue.original.length) ? 0 : state.currentIndex + 1
+            return { ...state,
+                currentIndex: newIndex,
+                queue: {
+                    original: state.queue.original.filter(id => id !== oldTrackId),
+                    queue: state.queue.shuffled.filter(id => id !== oldTrackId)
+                }
             }
         default:
             return state;

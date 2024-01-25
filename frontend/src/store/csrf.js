@@ -1,7 +1,9 @@
 async function csrfFetch(url, options = {}) {
-    
+    console.log(`method before ${options.method}`)
     options.headers ||= {};
     options.method ||= 'GET'
+    console.log(`method after ${options.method}`)
+    
 
     if(options.method.toUpperCase() !== 'GET' ) {
         if(!(options.body?.constructor?.name === 'FormData')) options.headers['Content-Type'] ||= 'application/json'
@@ -9,7 +11,6 @@ async function csrfFetch(url, options = {}) {
             (await restoreCSRF()).headers.get('X-CSRF-Token'); */
     }
     const res = await fetch(url, options);
-    // if (res.status >= 400) throw res
 
     return res;
 }

@@ -57,8 +57,9 @@ class Api::TracksController < ApplicationController
     end
 
     def destroy
+        
         Track.destroy(params[:id])
-        redirect_to controller: 'user', action: 'show', username: current_user.username
+        redirect_to controller: 'users', action: :show, username: current_user.username
     end
 
 # -------------- Track-specific helper methods ------------------

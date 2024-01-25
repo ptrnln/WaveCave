@@ -18,18 +18,37 @@ function LoginForm() {
         e.preventDefault();
         setErrors([]);
         return dispatch(sessionActions.login({credential, password}))
-            .catch(async (response) => {
-                let data;
-                try {
-                    data = await response.clone().json();
-                } catch {
-                    data = await response.text()
-                }
-                if (data?.errors) setErrors(data.errors);
-                else if (data) setErrors([data]);
-                else setErrors([response.statusText])
+          .catch(async (response) => {
+              let data;
+              try {
+                  data = await response.clone().json();
+              } catch {
+                  data = await response.text()
+              }
+              if (data?.errors) setErrors(data.errors);
+              else if (data) setErrors([data]);
+              else setErrors([response.statusText]);
         })
     }
+
+    const handleDemoLogin = (e) => {
+      e.preventDefault();
+      return dispatch(sessionActions.login({
+        credential: 'Demo-lition',
+        password: 'password'
+      }))
+      .catch(async (response) => {
+        let data;
+        try {
+            data = await response.clone().json();
+        } catch {
+            data = await response.text()
+        }
+        if (data?.errors) setErrors(data.errors);
+        else if (data) setErrors([data]);
+        else setErrors([response.statusText]);
+    })
+  }
     
     return (
         <>
@@ -56,7 +75,13 @@ function LoginForm() {
             required
           />
         </label>
-        <button type="submit">Log In</button>
+        <button 
+          className="login button"
+          type="submit">Log In</button>
+
+        <button 
+          className="login button demo"
+          onClick={handleDemoLogin}>Demo Log In</button>
       </form>
     </>
   );

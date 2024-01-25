@@ -23,3 +23,7 @@ menu, nav, output, ruby, section, summary,
 time, mark, audio, video {
     font-family: "Montserrat";
 }
+
+h1 {
+    font-size: xx-large;
+}

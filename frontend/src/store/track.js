@@ -5,19 +5,45 @@ const RECEIVE_TRACKS = 'tracks/RECEIVE_TRACKS'
 const REMOVE_TRACK = 'tracks/REMOVE_TRACK'
 const REMOVE_TRACKS = 'tracks/REMOVE_TRACKS'
 
+export async function deleteTrack (trackId) {
+    const response = await csrfFetch(`/api/tracks/${trackId}`, {
+        method: 'DELETE'
+    })
+    
+
+    if(response.ok) {
+        const data = await response.json();
+        return data
+    }
+}
+
 const initialState = {}
 
-const receiveTrack = track => {
+export const receiveTrack = track => {
     return {
         type: RECEIVE_TRACK,
         track
     }
 }
 
-const receiveTracks = tracks => {
+export const receiveTracks = tracks => {
     return {
         type: RECEIVE_TRACKS,
         tracks
+    }
+}
+
+export const removeTrack = trackId => {
+    return {
+        type: REMOVE_TRACK,
+        trackId
+    }
+}
+
+export const removeTracks = trackIds => {
+    return {
+        type: REMOVE_TRACKS,
+        trackIds
     }
 }
 
@@ -32,7 +58,7 @@ export const loadTrack = trackId => async dispatch => {
 }
 
 export const loadTracks = trackIds => async dispatch => {
-    debugger
+    
     let tracks = []
     let i = 0;
     for(const trackId of trackIds) {
@@ -65,7 +91,6 @@ export async function createTrack (trackData, audioFile, imageFile) {
 
 const trackReducer = (state = initialState, action) => {
     Object.freeze(state)
-    
 
     switch(action.type) {
         case RECEIVE_TRACK:
@@ -73,8 +98,9 @@ const trackReducer = (state = initialState, action) => {
         case RECEIVE_TRACKS:
             return { ...state, ...action.tracks }
         case REMOVE_TRACK:
-            return { ...state }.delete(action.trackId)
+            return Object.keys(state).filter((key) => action.trackId !== key).map((key) => state[key])
         case REMOVE_TRACKS:
+            
             return Object.keys(state).filter((key) => {!action.trackIds.includes(key)}).map((key) => state[key])
         default:
             return state;

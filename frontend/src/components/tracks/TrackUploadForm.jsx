@@ -79,7 +79,7 @@ export default function TrackUploadForm() {
         if(response.errors) {
             setErrors(response.errors)
         } else {
-            debugger
+            
             navigate(`/${currentUser.username}/${title.replace(' ', '-')}`)
         }
     }
