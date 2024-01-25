@@ -11,6 +11,7 @@ export const SET_REPEAT_OFF = 'audioPlayer/REPEAT_OFF';
 export const SET_REPEAT_ONCE = 'audioPlayer/REPEAT_ONCE';
 export const SET_REPEAT_ALWAYS = 'audioPlayer/REPEAT_ALWAYS';
 export const LOAD_TRACKS = 'audioPlayer/LOAD_TRACKS';
+export const LOAD_TRACK = 'audioPlayer/LOAD_TRACK'
 export const SET_VOLUME = 'audioPlayer/SET_VOLUME';
 
 const initialState = { 
@@ -41,6 +42,13 @@ export const pauseTrack = () => {
 export const playNext = () => {
     return {
         type: PLAY_NEXT
+    }
+}
+
+export const loadTrack = trackId => {
+    return {
+        type: LOAD_TRACK,
+        trackId
     }
 }
 
@@ -87,6 +95,15 @@ export const audioPlayerReducer = (state = initialState, action) => {
                 currentIndex: newIndex,
                 isPlaying: true
             };
+        case LOAD_TRACK:
+            return {...state,
+                currentIndex: 0,
+                // isPlaying: true,
+                queue: {
+                    original: [action.trackId],
+                    shuffled: [action.trackId]
+                }
+            }
         case LOAD_TRACKS:
             let shuffledQueue = shuffle([...action.trackIds])
             return { ...state,

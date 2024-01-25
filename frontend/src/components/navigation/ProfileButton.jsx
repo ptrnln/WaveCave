@@ -36,6 +36,7 @@ function ProfileButton({ user }) {
     }, [showMenu]);
   
     const logout = (e) => {
+      debugger
       e.preventDefault();
       dispatch(sessionActions.logout());
     };

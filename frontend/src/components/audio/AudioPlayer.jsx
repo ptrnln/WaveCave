@@ -21,15 +21,14 @@ export default function AudioPlayer({ audioRef, progressBarRef, handleNext }) {
 
 
     useEffect(() => {
-        if(isPlaying) {
+        if(isPlaying && audioRef.current?.loaded && audioRef.current.paused) {
             audioRef.current.play();
-        } else {
+        } else if (!isPlaying && !audioRef.current.paused) {
             audioRef.current.pause();
         }
     }, [isPlaying])
 
     useEffect(() => {
-        
         if(currentTrack !== undefined) {
             document.getElementsByClassName('audio-track')[0].src = currentTrack.sourceUrl
         }

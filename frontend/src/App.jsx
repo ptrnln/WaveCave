@@ -49,6 +49,7 @@ const trackLoader = async ({request, params}) => {
   if(response.ok) {
     const data = await response.json();
     if(data.track) {
+      debugger
       return data.track
     }
   }
