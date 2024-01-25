@@ -19,20 +19,20 @@ const SignUpForm = () => {
         e.preventDefault();
         if (password === confirmPassword) {
             setErrors([]);
-            return dispatch(sessionActions.signUp({ email, username, password }))
+            dispatch(sessionActions.signUp({ email, username, password }))
                 .catch(async res => {
+                    
                     let data;
                     try  {
                         data = await res.clone().json();
                     } catch {
                         data = await res.text();
                     }
-                    if (data?.errors) setErrors(data.errors);
+                    if (data.errors) setErrors(data.errors);
                     else if (data) setErrors([data]);
                     else setErrors([res.statusText]);
                 })
-        }
-        return setErrors(['Confirm Password field must contain the same value as the Password field'])
+        } else setErrors(['Confirm Password field must contain the same value as the Password field'])
     }
 
     return (

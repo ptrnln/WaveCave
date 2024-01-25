@@ -40,11 +40,12 @@ export const signUp = user => async dispatch => {
             'Accept': 'application/json'
         }
     });
-
     if(response.ok) {
         dispatch(login({ credential: username || email, password }));
-        return response;
-    }
+        const data = await response.json()
+        return data;
+    } else throw response
+
 };
 
 export const login = ({ credential, password }) => async dispatch => {

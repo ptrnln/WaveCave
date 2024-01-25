@@ -1,8 +1,6 @@
 async function csrfFetch(url, options = {}) {
-    console.log(`method before ${options.method}`)
     options.headers ||= {};
     options.method ||= 'GET'
-    console.log(`method after ${options.method}`)
     
 
     if(options.method.toUpperCase() !== 'GET' ) {
