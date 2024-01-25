@@ -16,7 +16,9 @@ class Api::TracksController < ApplicationController
 
     def create
         @track = Track.new(track_params)
-        @track.artist_id = current_user.id
+        @track.artist_id ||= current_user.id
+        @track.source.attach(track_params[:source])
+        @track.photo.attach(track_params[:photo])
 
         if @track.save 
             render :show
@@ -80,7 +82,8 @@ class Api::TracksController < ApplicationController
             :genre, 
             :file_type, 
             :duration,
-            :source
+            :source,
+            :photo
             )
     end
 end

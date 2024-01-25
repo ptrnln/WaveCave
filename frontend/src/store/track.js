@@ -32,7 +32,9 @@ export const loadTrack = trackId => async dispatch => {
 }
 
 export const loadTracks = trackIds => async dispatch => {
+    debugger
     let tracks = []
+    let i = 0;
     for(const trackId of trackIds) {
         const track = await dispatch(loadTrack(trackId));
         tracks.push(track);

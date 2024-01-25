@@ -77,7 +77,6 @@ export const audioPlayerReducer = (state = initialState, action) => {
             return { ...state, isPlaying: false }
         case PLAY_NEXT:
             var newIndex = (state.queue.original.length - 1 === state.currentIndex) ? 0 : state.currentIndex + 1
-
             return { ...state, 
                 currentIndex: newIndex,
                 isPlaying: true,

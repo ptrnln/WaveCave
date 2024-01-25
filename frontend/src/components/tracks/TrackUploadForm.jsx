@@ -1,7 +1,8 @@
 import { useState } from "react";
 import './TrackUploadForm.css';
 import * as trackActions from '../../store/track';
-import { NavLink } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
+import { useSelector } from "react-redux";
 
 const GENRES = [
     "Pop",
@@ -31,6 +32,10 @@ export default function TrackUploadForm() {
     const [imageFile, setImageFile] = useState(null);
     const [audioFile, setAudioFile] = useState(null);
     const [errors, setErrors] = useState([]);
+    // const router = useR
+    const navigate = useNavigate()
+
+    const currentUser = useSelector(state => state.session.user)
 
 
     async function getDuration(audioFile) {
@@ -58,8 +63,13 @@ export default function TrackUploadForm() {
         e.stopPropagation();
         e.preventDefault();
         setErrors([]);
+        if (!audioFile) {
+            setErrors(["Source file not found"]);
+            return
+        }
         const response = await trackActions.createTrack({
             title,
+            artistId: currentUser.id,
             description,
             genre,
             duration,
@@ -69,12 +79,8 @@ export default function TrackUploadForm() {
         if(response.errors) {
             setErrors(response.errors)
         } else {
-            const response = await fetch(`/api/session`);
-            if (response.ok) {
-                const data = await response.json()
-                const history = useHistory();
-                history.push(`/${data.user.username}/title`, { shallow: true })
-            }
+            debugger
+            navigate(`/${currentUser.username}/${title.replace(' ', '-')}`)
         }
     }
 

@@ -11,8 +11,7 @@ export default function TrackView() {
 
     
     async function handleClick (e) {
-        debugger
-        await dispatch(audioActions.loadTracks(Object.keys(track)))
+        const trackData = await dispatch(audioActions.loadTracks(Object.keys(track)))
         dispatch(audioActions.playTrack())
     }
     debugger

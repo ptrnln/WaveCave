@@ -7,6 +7,18 @@ div.track-display canvas {
     padding-left: 20px;
     padding-right: 20px;
 }
+
+div.track-display img {
+    display: block;
+    position: relative;
+    max-height: 30px;
+    max-width: 30px;
+    top: 20%;
+    padding-left: 20px;
+    padding-right: 20px;
+}
+
+
 div.track-display {
     display: flex;
 }
