@@ -11,9 +11,11 @@ export default function TrackView() {
 
     
     async function handleClick (e) {
-        await dispatch(audioActions.loadTracks(Object.keys(track).map(e => parseInt(e))))
+        debugger
+        await dispatch(audioActions.loadTracks(Object.keys(track)))
         dispatch(audioActions.playTrack())
     }
+    debugger
     return (
         <div className="track-view">
             This is the Track View Page for {title}

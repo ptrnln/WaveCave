@@ -6,15 +6,21 @@ import { useSelector } from "react-redux";
 export default function TrackDisplay({ duration }) {
     
     const currentTrack = useSelector(state => {
-        
-        state.audio.isShuffled ? state.tracks[state.audio.currentTrackId]
-            : state.tracks[state.audio.currentTrackId]
+        if(state.audio.isShuffled) {
+            return state.tracks[state.audio.queue.shuffled[state.audio.currentIndex]]
+        }
+        return state.tracks[state.audio.queue.original[state.audio.currentIndex]]
     })
     const [photoUrl, setPhotoUrl] = useState('');
 
+
     useEffect(() => {
-        if(currentTrack) setPhotoUrl(currentTrack.photoUrl)
+        if(currentTrack) {
+            setPhotoUrl(currentTrack.photoUrl)
+        }
     }, [currentTrack])
+
+
 
 
     // const context = photoDisplay.getContext('2d');
@@ -37,6 +43,12 @@ export default function TrackDisplay({ duration }) {
                         height={30}
                         src={photoUrl}/>
                     <div className="track-details">
+                        <span className="track-details title">
+                            {currentTrack.title}
+                        </span>
+                        <span className="track-details artist-name">
+                            {currentTrack.artist.username}
+                        </span>
                     </div>
                 </>
                 : 

@@ -2,7 +2,7 @@ json.track do
     json.set! @track.id do
         json.extract! @track, 
         :id, 
-        :artist_id, 
+        :artist, 
         :title, 
         :description, 
         :genre, 
