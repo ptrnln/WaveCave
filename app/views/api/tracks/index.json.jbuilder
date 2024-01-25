@@ -1,4 +1,4 @@
-idx = 1
+
 json.tracks do
     @tracks.each do |track|
         json.set! track.id do
@@ -13,8 +13,8 @@ json.tracks do
             :created_at,
             :updated_at;
             json.photoUrl track.photo.attached? ? track.photo.url : nil
-            json.sourceUrl track.source.url 
+            json.sourceUrl track.source.url
+            json.sourceName track.source.filename 
         end
-        idx += 1
     end 
 end

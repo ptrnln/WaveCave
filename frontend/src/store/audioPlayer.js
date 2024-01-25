@@ -72,30 +72,20 @@ export const audioPlayerReducer = (state = initialState, action) => {
         case PLAY_TRACK:
             return { ...state, 
                 isPlaying: true,
-                currentTrackId: state.currentTrackId || 
-                    state.isShuffled
-                        ? state.queue.shuffled[0]
-                        : state.queue.original[0]
             }
         case PAUSE_TRACK:
             return { ...state, isPlaying: false }
         case PLAY_NEXT:
-            var newIndex = state.queue.original.length - 1 === state.currentIndex ? 0 :
-                state.currentIndex + 1
+            var newIndex = (state.queue.original.length - 1 === state.currentIndex) ? 0 : state.currentIndex + 1
+
             return { ...state, 
                 currentIndex: newIndex,
-                currentTrackId: state.isShuffled 
-                    ? state.queue.shuffled[newIndex]
-                    : state.queue.original[newIndex],
                 isPlaying: true,
             };
         case PLAY_PREV:
             var newIndex = state.currentIndex - 1
             return { ...state,
                 currentIndex: newIndex,
-                currentTrackId: state.isShuffled
-                    ? state.queue.shuffled[newIndex]
-                    : state.queue.original[newIndex],
                 isPlaying: true
             };
         case LOAD_TRACKS:
@@ -105,20 +95,15 @@ export const audioPlayerReducer = (state = initialState, action) => {
                     original: action.trackIds,
                     shuffled: shuffledQueue
                 },
-                currentTrackId: state.isShuffled
-                    ? action.trackIds[0]
-                    : shuffledQueue[0]
             };
         case SET_SHUFFLE_ON:
-            let trackId = state.currentTrackId || 0
             shuffledQueue = shuffle(state.queue.original)
-            var newIndex = shuffledQueue.indexOf(trackId)
+            
             return { ...state,
                 isShuffled: true,
                 queue: {
                     shuffled: shuffledQueue
-                },
-                currentIndex: newIndex
+                }
             }
         case SET_SHUFFLE_OFF:
             var newIndex = state.queue.original.indexOf(state.queue.shuffled[state.currentIndex])

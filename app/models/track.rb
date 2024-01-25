@@ -23,12 +23,19 @@ class Track < ApplicationRecord
     has_one_attached :source
 
     validate :source_presence
+    validate :name_unique_on_artist
 
     private
 
     def source_presence
         return true if self.source.attached?
-        self.errors.add(:track, "must have an audio source file");
+        self.errors.add(:source_file, "must be attached");
+        return false
+    end
+
+    def name_unique_on_artist
+        return true if self.artist.tracks.none?{ |track| track.title == self.title }
+        self.errors.add(:title, "cannot be used more than once by the same artist")
         return false
     end
 end

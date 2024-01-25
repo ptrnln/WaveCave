@@ -1,4 +1,9 @@
 
 @import url(reset.css);
-@import url(app.css)
+@import url(app.css);
+
+:root {
+    overflow: hidden;
+    font-family: 'Monsterrat';
+}
 

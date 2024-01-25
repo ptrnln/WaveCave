@@ -1,6 +1,7 @@
 import { useState } from "react";
 import './TrackUploadForm.css';
 import * as trackActions from '../../store/track';
+import { NavLink } from "react-router-dom";
 
 const GENRES = [
     "Pop",
@@ -65,12 +66,20 @@ export default function TrackUploadForm() {
             file_type: getFileType(audioFile.name)
         }, audioFile, imageFile);
         
-        if(response.errors) setErrors(response.errors)
+        if(response.errors) {
+            setErrors(response.errors)
+        } else {
+            const response = await fetch(`/api/session`);
+            if (response.ok) {
+                const data = await response.json()
+                const history = useHistory();
+                history.push(`/${data.user.username}/title`, { shallow: true })
+            }
+        }
     }
 
     return(
         <form name="uploadForm" onSubmit={handleSubmit}>
-            <label htmlFor="errors">{errors.length ? errors.join(", ") : null}</label>
             <label htmlFor="title">Title:
                 <br />
                 <input 
@@ -172,6 +181,7 @@ export default function TrackUploadForm() {
                     }}
                 />
             </label>
+            <label htmlFor="errors">{errors.length ? errors.join(", ") : null}</label>
             <button type="submit">Submit</button>
         </form>
     )

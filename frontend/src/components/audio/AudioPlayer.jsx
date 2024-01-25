@@ -5,9 +5,14 @@ import './AudioPlayerContainer.css'
 
 export default function AudioPlayer({ audioRef, progressBarRef, handleNext }) {
     // const dispatch = useDispatch();
-    const currentTrack = useSelector(state => state.tracks[state.audio.currentTrackId])
+    const currentTrack = useSelector(state => {
+        if(state.audio.isShuffled) {
+            return state.tracks[state.audio.queue.shuffled[state.audio.currentIndex]]
+        }
+        return state.tracks[state.audio.queue.original[state.audio.currentIndex]]
+    })
     const isPlaying = useSelector(state => state.audio.isPlaying);
-    debugger
+    
     const audio = <audio 
             className={`audio-track ${currentTrack?.title || ''}`}
             ref={audioRef}
@@ -24,12 +29,8 @@ export default function AudioPlayer({ audioRef, progressBarRef, handleNext }) {
     }, [isPlaying])
 
     useEffect(() => {
-        // if(currentTrack?.sourceUrl && currentTrack?.sourceName) {
-        //     audio.src = currentTrack.sourceUrl
-        // }
+        debugger
         if(currentTrack !== undefined) {
-            debugger
-            // audio.src = currentTrack.sourceUrl
             document.getElementsByClassName('audio-track')[0].src = currentTrack.sourceUrl
         }
     }, [currentTrack])

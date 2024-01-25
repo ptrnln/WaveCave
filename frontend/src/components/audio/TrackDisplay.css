@@ -1,4 +1,4 @@
-div.track-display img {
+div.track-display canvas {
     display: block;
     position: relative;
     max-height: 30px;

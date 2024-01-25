@@ -1,9 +1,11 @@
 import { useSelector } from "react-redux";
 import './Navigation.css'
 import ProfileButton from "./ProfileButton";
+import { useRef } from "react";
 
 
 const Navigation = () => {
+    const profButtonRef = useRef();
     const sessionUser = useSelector(state => state.session.user);
 
     const navToLogin = (e) => {
@@ -17,13 +19,13 @@ const Navigation = () => {
     }
 
     return (
-        <div id='NavBar'>
+        <div id='navigation-bar'>
             <ul>
                 { 
                 sessionUser ?
                 <> 
                     <li>
-                        <ProfileButton user={sessionUser} />
+                        <ProfileButton className='profile button'user={sessionUser}/>
                     </li>
                 </> :
                 <>

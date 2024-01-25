@@ -12,6 +12,6 @@ json.track do
         :updated_at;
         json.photoUrl @track.photo.attached? ? @track.photo.url : nil
         json.sourceUrl @track.source.url
-        json.sourceName @track.source.name
+        json.sourceName @track.source.filename
     end
 end

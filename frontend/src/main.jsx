@@ -7,6 +7,8 @@ import configureStore from './store/store';
 import csrfFetch, { restoreCSRF } from './store/csrf';
 import * as sessionActions from './store/session';
 import * as userActions from './store/user'
+import * as trackActions from './store/track'
+import * as audioPlayerActions from './store/audioPlayer';
 
 const store = configureStore();
 
@@ -26,4 +28,6 @@ if (import.meta.env.MODE !== 'production') {
   window.csrfFetch = csrfFetch;
   window.sessionActions = sessionActions;
   window.userActions = userActions;
+  window.trackActions = trackActions;
+  window.audioPlayerActions = audioPlayerActions;
 }

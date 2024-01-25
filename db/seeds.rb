@@ -30,7 +30,7 @@ require "open-uri"
     end
     
     Track.all.each do |track|
-      track.photo.purge
+      track.photo.purge if track.photo.attached?
       track.source.purge
     end
 

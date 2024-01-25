@@ -1,20 +1,25 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import AudioControls from "./AudioControls";
 import './TrackDisplay.css'
+import { useSelector } from "react-redux";
 
-export default function TrackDisplay({ currentTrack, duration }) {
-    // const [title, setTitle] = useState('');
-    // const [artist, setArtist] = useState('');
+export default function TrackDisplay({ duration }) {
+    
+    const currentTrack = useSelector(state => {
+        
+        state.audio.isShuffled ? state.tracks[state.audio.currentTrackId]
+            : state.tracks[state.audio.currentTrackId]
+    })
+    const [photoUrl, setPhotoUrl] = useState('');
 
-    const photoDisplay = <canvas 
-        className="photo-display" 
-        width={30} 
-        height={30}
-    />
+    useEffect(() => {
+        if(currentTrack) setPhotoUrl(currentTrack.photoUrl)
+    }, [currentTrack])
+
 
     // const context = photoDisplay.getContext('2d');
 
-    const trackImage = <img src={currentTrack.thumbnail} alt="" />
+ 
 
     // trackImage.onLoad = () => {
     //     context.drawImage(trackImage.src);
@@ -23,13 +28,27 @@ export default function TrackDisplay({ currentTrack, duration }) {
 
     return (
         <div className="track-display">
-            {/* {photoDisplay} */}
-            <img src={currentTrack.thumbnail} alt="" />
-            <audio src={currentTrack.src}></audio>
-            <div className="track-details">
-                <span className="track-details artist-name">{currentTrack.author}</span>
-                <span className="track-details title">{currentTrack.title}</span>
-            </div>
+           {
+            currentTrack !== undefined ? 
+                <>
+                    <img
+                        className="track-display photo-display"
+                        width={30}
+                        height={30}
+                        src={photoUrl}/>
+                    <div className="track-details">
+                    </div>
+                </>
+                : 
+                <>
+                    <canvas
+                        className="track-display photo-display"
+                        width={30}
+                        height={30}/>
+                    <div className="track-details">
+                    </div>
+                </>
+           }
         </div>
     )
 }

@@ -1,6 +1,10 @@
 import { useEffect, useRef, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import * as sessionActions from '../../store/session';
+import { NavLink } from 'react-router-dom';
+import './ProfileButton.css'
+
+
 
 function ProfileButton({ user }) {
     const dispatch = useDispatch();
@@ -11,19 +15,24 @@ function ProfileButton({ user }) {
       e.stopPropagation(); // Keep click from bubbling up to document and triggering closeMenu
       setShowMenu(!showMenu);
     };
+
+    const handleUploadClick = (e) => {
+      e.preventDefault();
+
+    }
     
     useEffect(() => {
       if (!showMenu) return;
   
       const closeMenu = (e) => {
-        if (dropdownRef.current && !dropdownRef.current.contains(e.target)) {
+        if (!dropdownRef?.current?.contains(e.target)) {
           setShowMenu(false);
         }
       };
   
-      document.addEventListener('click', closeMenu);
+      window.addEventListener('click', closeMenu);
     
-      return () => document.removeEventListener('click', closeMenu);
+      return () => window.removeEventListener('click', closeMenu);
     }, [showMenu]);
   
     const logout = (e) => {
@@ -41,6 +50,10 @@ function ProfileButton({ user }) {
             <li>{user.username}</li>
             <li>{user.email}</li>
             <li>
+              {/* <button onClick={handleUploadClick}>Upload Tracks</button> */}
+              <NavLink className="nav-button" to='/upload'>Upload Tracks</NavLink>
+            </li>
+            <li>
               <button onClick={logout}>Log Out</button>
             </li>
           </ul>
@@ -49,4 +62,4 @@ function ProfileButton({ user }) {
     );
   }
   
-  export default ProfileButton;
+export default ProfileButton;
