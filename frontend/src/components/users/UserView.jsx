@@ -25,7 +25,7 @@ export default function UserView() {
         if(!!user.tracks) setTrackIndexItems(Object.values(user.tracks))
     }, [tracks])
     
-    debugger
+    
     return (
         <>
             {
