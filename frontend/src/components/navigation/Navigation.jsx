@@ -2,6 +2,8 @@ import { useSelector } from "react-redux";
 import './Navigation.css'
 import ProfileButton from "./ProfileButton";
 import { useRef } from "react";
+import { NavLink } from "react-router-dom";
+import logo from '/WaveCave logo HomeNavLink.svg';
 
 
 const Navigation = () => {
@@ -21,6 +23,12 @@ const Navigation = () => {
     return (
         <div id='navigation-bar'>
             <ul>
+                <li>
+                    <NavLink to='/' className='home-nav link'><img href="" width="100px" height="100%" className="logo" src={logo}></img></NavLink>
+                </li>
+                <li>
+                    <span style={{'font-size': 'xx-large', 'color': 'white'}}>WaveCave</span>
+                </li>
                 { 
                 sessionUser ?
                 <> 
@@ -30,10 +38,10 @@ const Navigation = () => {
                 </> :
                 <>
                     <li>
-                        <button onClick={navToSignUp}>Sign Up</button>
+                        <button className='nav-link login' onClick={navToSignUp}>Sign Up</button>
                     </li>
                     <li>
-                        <button onClick={navToLogin}>Log In</button>
+                        <button className='nav-link signup' onClick={navToLogin}>Log In</button>
                     </li>
                 </>
                 }

@@ -1,10 +1,10 @@
 
-.SignUpForm > h1 {
+.login-form > h1 {
     text-align: center;
     margin: 10px;
 }
 
-.SignUpForm {
+.login-form {
     padding-top: 100px;
     display: flex;
     font: inherit;
@@ -13,19 +13,22 @@
     align-content: center;
 }
 
-.SignUpForm input {
+.login-form input {
     display: block;
     padding: 5px;
     margin: 5px;
 }
 
-.SignUpForm button {
-    width: fit-content;
+.login-form button {
+    max-width: none;
+    width: 120px;
     font: inherit;
     align-self: center;
     margin: 5px;
 }
-/* 
-label[for='email'] {
-    border: 1px solid red;
-} */
+
+.login-form label {
+    display: inline-flex;
+    flex-direction: column;
+    align-content: center;
+}
