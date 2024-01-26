@@ -67,7 +67,7 @@ export default function AudioPlayer({ audioRef, progressBarRef, handleNext }) {
 }
 ```
 
-## Audio Playback Progress Bar Implementation
+## Audio Playback Progress Bar
 
 Below is the logic for the ProgressBar component to update itself as the audio playback progresses
 
