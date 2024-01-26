@@ -23,24 +23,24 @@ const Navigation = () => {
     return (
         <div id='navigation-bar'>
             <ul>
-                <li>
+                <li key={'home-nav'}>
                     <NavLink to='/' className='home-nav link'><img href="" width="100px" height="100%" className="logo" src={logo}></img></NavLink>
                 </li>
-                <li>
-                    <span style={{'font-size': 'xx-large', 'color': 'white'}}>WaveCave</span>
+                <li key={'site-name'}>
+                    <span style={{'fontSize': 'xx-large', 'color': 'white'}}>WaveCave</span>
                 </li>
                 { 
                 sessionUser ?
                 <> 
-                    <li>
+                    <li key={'profile-button'}>
                         <ProfileButton className='profile button'user={sessionUser}/>
                     </li>
                 </> :
                 <>
-                    <li>
+                    <li key={'nav-link login'}>
                         <button className='nav-link login' onClick={navToSignUp}>Sign Up</button>
                     </li>
-                    <li>
+                    <li key={'nav-link signup'}>
                         <button className='nav-link signup' onClick={navToLogin}>Log In</button>
                     </li>
                 </>

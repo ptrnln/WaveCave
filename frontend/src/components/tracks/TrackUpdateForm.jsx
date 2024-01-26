@@ -1,7 +1,9 @@
 import { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import csrfFetch from "../../store/csrf";
 import './TrackUpdateForm.css';
+import * as trackActions from '../../store/track'
+import { useSelector } from "react-redux";
 
 
 const GENRES = [
@@ -18,10 +20,14 @@ const SUPPORTED_FILE_TYPES = [
     'flac'
 ]
 
+const generateFileTypeRegEx = (fileTypeList) => {
+    return new RegExp(`^.*\\.(${fileTypeList.join('|')})$`) 
+}
 
 export default function TrackUpdateForm() {
+    const navigate = useNavigate();
 
-    // const [title, setTitle] = useState('');
+    const [newTitle, setNewTitle] = useState('');
     const [description, setDiscription] = useState('');
     const [genre, setGenre] = useState(GENRES[0]);
     const [isNewGenre, setIsNewGenre] = useState(false);
@@ -30,36 +36,53 @@ export default function TrackUpdateForm() {
     const [imageFile, setImageFile] = useState(null);
     const [audioFile, setAudioFile] = useState(null);
     const [errors, setErrors] = useState([]);
+    const [trackData, setTrackData] = useState('');
+    const [trackId, setTrackId] = useState(null);
+    const [fileType, setFileType] = useState('');
+
+    const currentUser = useSelector(state => state.session.user)
 
     const { title, username } = useParams();
+
+
 
     const audioReader = new FileReader();
     const imageReader = new FileReader();
 
     useEffect(() => {
         async function getTrackData() {
-            const response = await csrfFetch(`/api/${username}/${title}`);
+            const response = await csrfFetch(`/api/users/${username}/tracks/${title}`);
 
             if(response.ok) {
                 const data = await response.json();
+                const trackData = Object.values(data.track)[0]
+
+                const image = new Image();
+                image.src = trackData.photoUrl
+                setTrackId(Object.keys(data.track)[0])
+                setNewTitle(title)
+                setDiscription(trackData.discription || '');
+                setGenre(trackData.genre);
+                setIsNewGenre(!GENRES.includes(trackData.genre));
+                setDuration(trackData.duration);
+                setAudioFile(await fetch(trackData.sourceUrl));
+                setFileType(trackData.fileType)
+                setImageFile(trackData.photoUrl.length ? trackData.photoUrl : null);
                 
-                if(!!data.track) {
-                    setDiscription(data.track.discription);
-                    setGenre(data.track.genre);
-                    setIsNewGenre(GENRES.includes(data.track.genre));
-                    setDuration(data.track.setDuration);
-                    setAudioFile(audioReader.readAsDataURL(data.track.source));
-                    setImageFile(audioReader.readAsDataURL(data.track.photo));
-                } 
-                
+                return data
             } else {
                 const data = await response.json()
                 setErrors(data.errors)
+                return data
             }
         }
+        getTrackData();
     }, [])
 
+    debugger
+    
     const getFileType = (fileName) => {
+        debugger
         return fileName.match(generateFileTypeRegEx(SUPPORTED_FILE_TYPES))[1]
     }
 
@@ -68,23 +91,20 @@ export default function TrackUpdateForm() {
         e.stopPropagation();
         e.preventDefault();
         setErrors([]);
-        if (!audioFile) {
-            setErrors(["Source file not found"]);
-            return
-        }
         const response = await trackActions.updateTrack({
+            id: trackId,
             title,
             description,
             genre,
             duration,
-            file_type: getFileType(audioFile.name)
+            fileType
         }, audioFile, imageFile);
         
         if(response.errors) {
+
             setErrors(response.errors)
         } else {
-            
-            navigate(`/${currentUser.username}/${title.replace(' ', '-')}`)
+            navigate(`/${currentUser.username}/${newTitle.replace(' ', '-')}`)
         }
     }
 
@@ -100,10 +120,10 @@ export default function TrackUpdateForm() {
                 type="text" 
                 className="title-input"
                 onChange={(e) => {
-                    e.stopPropagation();
-                    setTitle(e.target.value);
+                    e.preventDefault();
+                    setNewTitle(e.target.value);
                 }}
-                value={title}
+                value={newTitle}
                 />
             </label>
             <label htmlFor="description">Description:
@@ -114,7 +134,7 @@ export default function TrackUpdateForm() {
                     cols="30" 
                     rows="4" 
                     onChange={(e) => {
-                        e.stopPropagation();
+                        e.preventDefault();
                         setDiscription(e.target.value);
                     }}
                     value={description}
@@ -127,7 +147,7 @@ export default function TrackUpdateForm() {
                     name="genre select" 
                     id="genre select" 
                     onChange={(e) => {
-                        e.stopPropagation();
+                        e.preventDefault();
                         if(e.target.value === "other") setIsNewGenre(true);
                         if(GENRES.includes(e.target.value)) {
                             setIsNewGenre(false);
@@ -151,6 +171,7 @@ export default function TrackUpdateForm() {
                                 e.stopPropagation();
                                 setGenre(e.target.value);
                             }}
+                            value={isNewGenre ? genre : ''}
                         />
                     </label>
                 </> 
@@ -174,6 +195,7 @@ export default function TrackUpdateForm() {
                         e.stopPropagation();
                         setAudioFile(e.target.files[0]);
                         setDuration(await getDuration(e.target.files[0]));
+                        setFileType(getFileType(e.target.files[0]))
                     }}
                 />
             </label>

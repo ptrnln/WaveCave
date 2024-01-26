@@ -20,6 +20,9 @@ class Api::TracksController < ApplicationController
         @track.source.attach(track_params[:source])
         @track.photo.attach(track_params[:photo])
 
+        debugger
+
+
         if @track.save 
             render :show
         else
@@ -46,7 +49,9 @@ class Api::TracksController < ApplicationController
     end
 
     def update
+        debugger
         @track = Track.find(params[:id])
+        @track.source.attach(track_params[:source])
         
         if @track.update(track_params)
             render :show

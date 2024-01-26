@@ -42,7 +42,7 @@ function ProfileButton({ user }) {
     };
   
     return (
-      <>
+      <div className='profile-menu'>
         <button onClick={toggleMenu}>
           <i className="fa-solid fa-user-circle" />
         </button>
@@ -59,7 +59,7 @@ function ProfileButton({ user }) {
             </li>
           </ul>
         )}
-      </>
+      </div>
     );
   }
   

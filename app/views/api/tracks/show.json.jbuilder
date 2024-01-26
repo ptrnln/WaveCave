@@ -10,7 +10,7 @@ json.track do
         :duration, 
         :created_at,
         :updated_at;
-        json.photoUrl @track.photo.attached? ? @track.photo.url : nil
+        json.photoUrl @track.photo.attached? ? @track.photo.url : ''
         json.sourceUrl @track.source.url
         json.sourceName @track.source.filename
     end

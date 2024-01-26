@@ -1,7 +1,7 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import './TrackUploadForm.css';
 import * as trackActions from '../../store/track';
-import { useNavigate } from "react-router-dom";
+import { Navigate, useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 
 const GENRES = [
@@ -58,6 +58,9 @@ export default function TrackUploadForm() {
         return fileName.match(generateFileTypeRegEx(SUPPORTED_FILE_TYPES))[1]
     }
 
+    // useEffect(() => {
+    //     if(!!currentUser) return <Navigate to='/' />
+    // }, [currentUser])
 
     async function handleSubmit(e) {
         e.stopPropagation();
@@ -86,6 +89,7 @@ export default function TrackUploadForm() {
 
     return(
         <form name="upload-form" onSubmit={handleSubmit}>
+            <h1>Upload Track</h1>
             <label htmlFor="title">Title:
                 <br />
                 <input 
@@ -150,6 +154,7 @@ export default function TrackUploadForm() {
                 ''}
             </label>
             <label htmlFor="audio-file">Add an audio file 
+            <br />
             <span 
                 style={{
                     fontStyle: 'italic',
@@ -170,6 +175,7 @@ export default function TrackUploadForm() {
                 />
             </label>
             <label htmlFor="image-file">Add an image file 
+            <br />
             <span 
                 style={{
                     fontStyle: 'italic',
