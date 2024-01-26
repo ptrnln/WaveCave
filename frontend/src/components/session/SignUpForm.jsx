@@ -21,7 +21,6 @@ const SignUpForm = () => {
             setErrors([]);
             dispatch(sessionActions.signUp({ email, username, password }))
                 .catch(async res => {
-                    
                     let data;
                     try  {
                         data = await res.clone().json();

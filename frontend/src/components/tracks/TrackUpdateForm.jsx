@@ -1,8 +1,8 @@
-import { useState } from "react";
-import './TrackUploadForm.css';
-import * as trackActions from '../../store/track';
-import { useNavigate } from "react-router-dom";
-import { useSelector } from "react-redux";
+import { useEffect, useState } from "react";
+import { useParams } from "react-router-dom";
+import csrfFetch from "../../store/csrf";
+import './TrackUpdateForm.css';
+
 
 const GENRES = [
     "Pop",
@@ -18,12 +18,10 @@ const SUPPORTED_FILE_TYPES = [
     'flac'
 ]
 
-const generateFileTypeRegEx = (fileTypeList) => {
-    return new RegExp(`^.*\\.(${fileTypeList.join('|')})$`) 
-}
 
-export default function TrackUploadForm() {
-    const [title, setTitle] = useState('');
+export default function TrackUpdateForm() {
+
+    // const [title, setTitle] = useState('');
     const [description, setDiscription] = useState('');
     const [genre, setGenre] = useState(GENRES[0]);
     const [isNewGenre, setIsNewGenre] = useState(false);
@@ -32,27 +30,34 @@ export default function TrackUploadForm() {
     const [imageFile, setImageFile] = useState(null);
     const [audioFile, setAudioFile] = useState(null);
     const [errors, setErrors] = useState([]);
-    // const router = useR
-    const navigate = useNavigate()
 
-    const currentUser = useSelector(state => state.session.user)
+    const { title, username } = useParams();
 
+    const audioReader = new FileReader();
+    const imageReader = new FileReader();
 
-    async function getDuration(audioFile) {
-        const url = URL.createObjectURL(audioFile);
-       
-        return new Promise((resolve) => {
-            const audio = document.createElement("audio");
-            audio.muted = true;
-            const source = document.createElement("source");
-            source.src = url;
-            audio.preload= "metadata";
-            audio.appendChild(source);
-            audio.onloadedmetadata = function(){
-                resolve(audio.duration)
-            };
-        });
-    }
+    useEffect(() => {
+        async function getTrackData() {
+            const response = await csrfFetch(`/api/${username}/${title}`);
+
+            if(response.ok) {
+                const data = await response.json();
+                
+                if(!!data.track) {
+                    setDiscription(data.track.discription);
+                    setGenre(data.track.genre);
+                    setIsNewGenre(GENRES.includes(data.track.genre));
+                    setDuration(data.track.setDuration);
+                    setAudioFile(audioReader.readAsDataURL(data.track.source));
+                    setImageFile(audioReader.readAsDataURL(data.track.photo));
+                } 
+                
+            } else {
+                const data = await response.json()
+                setErrors(data.errors)
+            }
+        }
+    }, [])
 
     const getFileType = (fileName) => {
         return fileName.match(generateFileTypeRegEx(SUPPORTED_FILE_TYPES))[1]
@@ -67,9 +72,8 @@ export default function TrackUploadForm() {
             setErrors(["Source file not found"]);
             return
         }
-        const response = await trackActions.createTrack({
+        const response = await trackActions.updateTrack({
             title,
-            artistId: currentUser.id,
             description,
             genre,
             duration,
@@ -84,8 +88,12 @@ export default function TrackUploadForm() {
         }
     }
 
+
     return(
-        <form name="upload-form" onSubmit={handleSubmit}>
+        <form 
+            className="track-update" 
+            htmlFor="track-update"
+            onSubmit={handleSubmit}>
             <label htmlFor="title">Title:
                 <br />
                 <input 
@@ -154,7 +162,7 @@ export default function TrackUploadForm() {
                 style={{
                     fontStyle: 'italic',
                     fontSize: 'xx-small'
-                }}> (accepts '.wav', '.mp3', and '.FLAC' file types):
+                }}> (accepts '.wav', '.mp3', and '.FLAC' file types, leave blank to let file unchanged):
             </span>
                 <br />
                 <input 
@@ -174,7 +182,7 @@ export default function TrackUploadForm() {
                 style={{
                     fontStyle: 'italic',
                     fontSize: 'xx-small'
-                }}> (accepts '.jpeg', '.jpg', and '.png' file types):
+                }}> (accepts '.jpeg', '.jpg', and '.png' file types, leave blank to let file unchanged):
             </span>
                 <br />
                 <input 

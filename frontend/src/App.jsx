@@ -11,6 +11,7 @@ import AudioPlayerContainer from './components/audio/AudioPlayerContainer';
 import TrackView from './components/tracks/TrackView';
 import TrackUploadForm from './components/tracks/TrackUploadForm';
 import Splash from './Splash';
+import TrackUpdateForm from './components/tracks/TrackUpdateForm';
 
 function Layout() {
   const dispatch = useDispatch();
@@ -84,13 +85,20 @@ const router = createBrowserRouter([
         path: '/:username',
         loader: userLoader,
         element: <UserView />,
-        errorElement: <ErrorPage />,
+        // errorElement: <ErrorPage />,
         children: [
           {
             path: ':title',
             loader: trackLoader,
             element: <TrackView />,
-            errorElement: <ErrorPage />
+            // errorElement: <ErrorPage />,
+            children: [
+              {
+                path: 'update',
+                element: <TrackUpdateForm />,
+                // errorElement: <ErrorPage />
+              }
+            ]
           }
         ]
       },

@@ -89,6 +89,27 @@ export async function createTrack (trackData, audioFile, imageFile) {
     return data
 }
 
+export async function updateTrack (trackData, audioFile, imageFile) {
+    const { title, description, genre, duration, file_type } = trackData;
+    
+    const formData = new FormData();
+    if(!!title) formData.append('track[title]', title);
+    if(!!description) formData.append('track[description]', description);
+    if(!!genre) formData.append('track[genre]', genre);
+    if(!!duration) formData.append('track[duration]', duration);
+    if(!!file_type) formData.append('track[file_type]', file_type);
+    if(!!audioFile) formData.append('track[source]', audioFile);
+    if (!!imageFile) formData.append('track[photo]', imageFile)
+    const response = await csrfFetch(`api/tracks`, {
+        method: 'POST',
+        body: formData
+    })
+    
+    let data = await response.json();
+    
+    return data
+}
+
 const trackReducer = (state = initialState, action) => {
     Object.freeze(state)
 
