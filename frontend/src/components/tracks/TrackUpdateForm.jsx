@@ -79,10 +79,10 @@ export default function TrackUpdateForm() {
         getTrackData();
     }, [])
 
-    debugger
+    
     
     const getFileType = (fileName) => {
-        debugger
+        
         return fileName.match(generateFileTypeRegEx(SUPPORTED_FILE_TYPES))[1]
     }
 
