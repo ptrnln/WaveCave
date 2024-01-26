@@ -24,6 +24,10 @@ A WaveCave user is able to create a new track by uploading their audio file, giv
 
 A WaveCave user can also delete a track if it's not up to their standards.
 
+## Audio Component
+
+Below is the logic for the actual audio component, it reads information about the current state of the audio player from the React-Redux store and changes the source of, plays, and pauses the current audio element accordingly.
+
 ```js
 export default function AudioPlayer({ audioRef, progressBarRef, handleNext }) {
     const currentTrack = useSelector(state => {
@@ -62,6 +66,10 @@ export default function AudioPlayer({ audioRef, progressBarRef, handleNext }) {
     )
 }
 ```
+
+## Audio Playback Progress Bar Implementation
+
+Below is the logic for the ProgressBar component to update itself as the audio playback progresses
 
 ```js
 export default function ProgressBar({ progressBarRef, audioRef }) {
@@ -113,7 +121,7 @@ A WaveCave user will be able to comment on audio tracks, having each comment sav
 
 ## Sets (Playlists, Albums, EPs, etc...)
 
-A WaveCave user will be able to curate playlists of their favorite tracks. Owners of tracks will be able to bundle their own tracks as albums or collections, and other users will be able to follow these playlists and play them back in the audio player.
+A WaveCave user will be able to curate playlists of their favorite tracks. Owners of tracks will be able to bundle their own tracks as albums or collections, which will have special features such as scheduled release, and other users will be able to follow these playlists and play them back in the audio player.
 
 ## Follows
 
