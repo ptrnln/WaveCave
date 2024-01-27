@@ -38,10 +38,10 @@ require "open-uri"
     puts "Destroying ActiveStorage associations..."
 
     User.all.each do |user|
-      if !SAVE_USERS.include?(user.username) {
+      if !SAVE_USERS.include? (user.username) 
         user.photo.purge
         user.destroy
-      }
+      end
     end
     
     Track.all.each do |track|
@@ -92,8 +92,14 @@ require "open-uri"
     t.source.attach(io: f, filename: "Hudson+Mohawke+-+Cbat.mp3")
     t.save! if t.source.attached?
 
-    f = URI.open()
-
+    f = URI.open("https://wavecave-prod.s3.amazonaws.com/David+Maine++-+Ghost+-+MB+-+4.1+MASTER.wav")
+    t = Track.new(
+      :title => "Ghost"
+      :description => "INSANELY HAWT SHIT"
+      :artist_id => 13
+      :genre => "Country"
+      :duraton => 146
+    )
     # 10.times do
     #   t = Track.new({
     #     title: Faker::Music::PearlJam.unique.song,
