@@ -52,8 +52,8 @@ const Navigation = () => {
                 <li key={'load some tracks'}>
                     <button onClick={(e) => {
                         e.preventDefault();
-                        dispatch(trackActions.loadTracks([22, 21]));
-                        dispatch(audioPlayerActions.loadTracks([22, 21]))
+                        dispatch(trackActions.loadTracks([22, 2]));
+                        dispatch(audioPlayerActions.loadTracks([22, 2]))
                     }}>Load some Tracks!</button>
                 </li>
             </ul>

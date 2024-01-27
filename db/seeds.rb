@@ -94,11 +94,12 @@ require "open-uri"
 
     f = URI.open("https://wavecave-prod.s3.amazonaws.com/David+Maine++-+Ghost+-+MB+-+4.1+MASTER.wav")
     t = Track.new({
-      :title => "Ghost"
-      :description => "INSANELY HAWT SHIT"
-      :artist_id => 13
-      :genre => "Country"
-      :duraton => 146
+      :title => "Ghost",
+      :description => "INSANELY HAWT SHIT",
+      :artist_id => 13,
+      :genre => "Country",
+      :duraton => 146,
+      :file_type => "wav"
     })
     t.source.attach(io: f, filename: "David Maine - Ghost - MB - 4.1 MASTER.wav")
     t.save! if t.source.attached?
