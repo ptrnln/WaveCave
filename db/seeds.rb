@@ -91,8 +91,8 @@ require "open-uri"
     })
     t.source.attach(io: f, filename: "Hudson+Mohawke+-+Cbat.mp3")
     t.save! if t.source.attached?
-
-    f = URI.open("https://wavecave-prod.s3.amazonaws.com/David+Maine++-+Ghost+-+MB+-+4.1+MASTER.wav")
+    puts('Created CBAT')
+    f2 = URI.open("https://wavecave-prod.s3.amazonaws.com/David+Maine++-+Ghost+-+MB+-+4.1+MASTER.wav")
     t = Track.new({
       :title => "Ghost",
       :description => "INSANELY HAWT SHIT",
@@ -101,8 +101,9 @@ require "open-uri"
       :duraton => 146,
       :file_type => "wav"
     })
-    t.source.attach(io: f, filename: "David Maine - Ghost - MB - 4.1 MASTER.wav")
+    t.source.attach(io: f2, filename: "David Maine - Ghost - MB - 4.1 MASTER.wav")
     t.save! if t.source.attached?
+    puts('Created Ghost')
     # 10.times do
     #   t = Track.new({
     #     title: Faker::Music::PearlJam.unique.song,
