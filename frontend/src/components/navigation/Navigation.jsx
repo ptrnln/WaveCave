@@ -1,12 +1,16 @@
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import './Navigation.css'
 import ProfileButton from "./ProfileButton";
 import { useRef } from "react";
 import { NavLink } from "react-router-dom";
 import logo from '/WaveCave logo HomeNavLink.svg';
+import * as audioPlayerActions from '../../store/audioPlayer';
+import * as trackActions from '../../store/track';
+
 
 
 const Navigation = () => {
+    const dispatch = useDispatch()
     const profButtonRef = useRef();
     const sessionUser = useSelector(state => state.session.user);
 
@@ -45,6 +49,13 @@ const Navigation = () => {
                     </li>
                 </>
                 }
+                <li key={'load some tracks'}>
+                    <button onClick={(e) => {
+                        e.preventDefault();
+                        dispatch(trackActions.loadTracks([22, 21]));
+                        dispatch(audioPlayerActions.loadTracks([22, 21]))
+                    }}>Load some Tracks!</button>
+                </li>
             </ul>
             {/* <a href="/login">Log In</a> */}
         </div>

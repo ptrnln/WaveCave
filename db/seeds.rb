@@ -5,6 +5,18 @@
 #
 #   movies = Movie.create([{ name: "Star Wars" }, { name: "Lord of the Rings" }])
 #   Character.create(name: "Luke", movie: movies.first)
+
+SAVE_USERS = [
+    "BEATZ GOD",
+    "KooShnoo",
+    "lsherm"
+]
+
+SAVE_TRACKS = [
+  "Ishan's Campanella"
+]
+
+
 SEED_TRACKS_LIST = {
   1 => {
     :title => 'CBAT',
@@ -26,18 +38,24 @@ require "open-uri"
     puts "Destroying ActiveStorage associations..."
 
     User.all.each do |user|
-      user.photo.purge
+      if !SAVE_USERS.include?(user.username) {
+        user.photo.purge
+        user.destroy
+      }
     end
     
     Track.all.each do |track|
-      track.photo.purge if track.photo.attached?
-      track.source.purge
+      if !SAVE_TRACKS.include? track.title
+        track.photo.purge if track.photo.attached?
+        track.source.purge
+        track.destroy
+      end
     end
 
     puts "Destroying tables..."
     # Unnecessary if using `rails db:seed:replant`
-    User.destroy_all
-    Track.destroy_all
+    
+   
   
     puts "Resetting primary keys..."
     # For easy testing, so that after seeding, the first `User` has `id` of 1
@@ -73,6 +91,8 @@ require "open-uri"
     })
     t.source.attach(io: f, filename: "Hudson+Mohawke+-+Cbat.mp3")
     t.save! if t.source.attached?
+
+    f = URI.open()
 
     # 10.times do
     #   t = Track.new({

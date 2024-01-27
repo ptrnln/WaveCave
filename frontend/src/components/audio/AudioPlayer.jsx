@@ -26,7 +26,7 @@ export default function AudioPlayer({ audioRef, progressBarRef, handleNext }) {
         } else if (!isPlaying && !audioRef.current.paused) {
             audioRef.current.pause();
         }
-    }, [isPlaying])
+    }, [isPlaying, audioRef])
 
     useEffect(() => {
         if(currentTrack !== undefined) {

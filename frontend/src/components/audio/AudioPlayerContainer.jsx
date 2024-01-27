@@ -37,13 +37,19 @@ export default function AudioPlayerContainer() {
     //     setTimeProgress(0);
     // }, [trackIndex, currentTrack.duration])
 
-    const handleNext = () => {
+    const handleNext = (e) => {
+        e.preventDefault();
         dispatch(audioPlayerActions.playNext())
         dispatch(audioPlayerActions.playTrack())
     }
 
-    const handlePrev = () => {
-
+    const handlePrev = (e) => {
+        e.preventDefault();
+        if(audioRef.current.currentTime >= 3) {
+            dispatch(audioPlayerActions.playPrev())
+        } else {
+            debugger
+        }
     }
 
     return (
@@ -51,6 +57,7 @@ export default function AudioPlayerContainer() {
             <div className="inner">
                 <AudioControls {...{
                     handleNext,
+                    handlePrev,
                 }}/>
                 <ProgressBar {...{
                     audioRef,

@@ -47,6 +47,12 @@ export const playNext = () => {
     }
 }
 
+export const playPrev = () => {
+    return {
+        type: PLAY_PREV
+    }
+}
+
 export const loadTrack = trackId => {
     return {
         type: LOAD_TRACK,
@@ -99,9 +105,8 @@ export const audioPlayerReducer = (state = initialState, action) => {
                 isPlaying: true,
             };
         case PLAY_PREV:
-            var newIndex = state.currentIndex - 1
             return { ...state,
-                currentIndex: newIndex,
+                currentIndex: (state.currentIndex === 0 ? state.queue.original.length - 1 : state.currentIndex - 1),
                 isPlaying: true
             };
         case LOAD_TRACK:

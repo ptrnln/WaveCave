@@ -12,9 +12,7 @@ export default function AudioControls({ handleNext }) {
     const [shuffleColor, setShuffleColor] = useState('Black');
     const [repeatColor, setRepeatColor] = useState('Black');
 
-    const playPrevious = (e) => {
-        e.stopPropagation();
-    }
+    
 
     const togglePlay = (e) => {
         e.stopPropagation();
@@ -57,7 +55,10 @@ export default function AudioControls({ handleNext }) {
         <div className="audio-controls container">
             <div className="track-controls container">
                 <div className="previous button">
-                    <i className="fa fa-step-backward" onClick={playPrevious}></i>
+                    <i className="fa fa-step-backward" onClick={(e) => { 
+                        e.preventDefault(); 
+                        dispatch(audioPlayerActions.playPrev()) 
+                    }}/>     
                 </div>
                 <div className="play-pause button">
                 { isPlaying ? 
