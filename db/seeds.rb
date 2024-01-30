@@ -13,7 +13,8 @@ SAVE_USERS = [
 ]
 
 SAVE_TRACKS = [
-  "Ishan's Campanella"
+  "Ishan's Campanella",
+  "Ghost"
 ]
 
 
@@ -92,18 +93,7 @@ require "open-uri"
     t.source.attach(io: f, filename: "Hudson+Mohawke+-+Cbat.mp3")
     t.save! if t.source.attached?
     puts('Created CBAT')
-    f2 = URI.open("https://wavecave-seeds.s3.amazonaws.com/David+Maine++-+Ghost+-+MB+-+4.1+MASTER.wav")
-    t = Track.new({
-      :title => "Ghost",
-      :description => "INSANELY HAWT SHIT", 
-      :artist_id => 13,
-      :genre => "Country",
-      :duration => 146,
-      :file_type => "wav"
-    })
-    t.source.attach(io: f2, filename: "David Maine - Ghost - MB - 4.1 MASTER.wav")
-    t.save! if t.source.attached?
-    puts('Created Ghost')
+
     # 10.times do
     #   t = Track.new({
     #     title: Faker::Music::PearlJam.unique.song,
