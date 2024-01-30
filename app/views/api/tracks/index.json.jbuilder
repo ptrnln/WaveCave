@@ -4,15 +4,7 @@ json.tracks do
         json.set! track.id do
         json.extract! track,
             :id, 
-            json.merge! :artist.attributes.except("password_digest", "session_token") do 
-                json.extract! :artist do
-                    :id, 
-                    :email, 
-                    :username, 
-                    :created_at, 
-                    :updated_at
-                end
-            end
+            :artist,
             :title, 
             :description, 
             :genre, 

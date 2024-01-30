@@ -84,7 +84,7 @@ require "open-uri"
     t = Track.new({
       :title => SEED_TRACKS_LIST[1][:title],
       :description => SEED_TRACKS_LIST[1][:description],
-      :artist_id => Random.new().rand(1..11),
+      :artist_id => Random.new().rand(13..21),
       :genre => SEED_TRACKS_LIST[1][:genre],
       :duration => 123,
       :file_type => SEED_TRACKS_LIST[1][:file_type]
@@ -92,13 +92,13 @@ require "open-uri"
     t.source.attach(io: f, filename: "Hudson+Mohawke+-+Cbat.mp3")
     t.save! if t.source.attached?
     puts('Created CBAT')
-    f2 = URI.open("https://wavecave-prod.s3.amazonaws.com/David+Maine++-+Ghost+-+MB+-+4.1+MASTER.wav")
+    f2 = URI.open("https://wavecave-seeds.s3.amazonaws.com/David+Maine++-+Ghost+-+MB+-+4.1+MASTER.wav")
     t = Track.new({
       :title => "Ghost",
-      :description => "INSANELY HAWT SHIT",
+      :description => "INSANELY HAWT SHIT", 
       :artist_id => 13,
       :genre => "Country",
-      :duraton => 146,
+      :duration => 146,
       :file_type => "wav"
     })
     t.source.attach(io: f2, filename: "David Maine - Ghost - MB - 4.1 MASTER.wav")
