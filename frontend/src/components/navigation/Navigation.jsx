@@ -50,10 +50,10 @@ const Navigation = () => {
                 </>
                 }
                 <li key={'load some tracks'}>
-                    <button onClick={(e) => {
+                    <button onClick={async (e) => {
                         e.preventDefault();
-                        dispatch(trackActions.loadTracks([13, 15]));
-                        dispatch(audioPlayerActions.loadTracks([13, 15]))
+                        await dispatch(trackActions.loadTracks([13, 15]));
+                        await dispatch(audioPlayerActions.loadTracks([13, 15]))
                     }}>Load some Tracks!</button>
                 </li>
             </ul>
