@@ -12,18 +12,20 @@ export default function Splash() {
         e.preventDefault();
         const canvas = document.getElementById("splash-canvas");
         const ctx = canvas.getContext("2d");
-        ctx.scale(3.5, 3.5);
-        ctx.font = "6px Montserrat"
+        // ctx.scale(3.5, 3.5);
+        ctx.font = "48px Montserrat"
+        
         ctx.drawImage(splashImage, 
           20, 20,
           splashImage.width - 20, splashImage.height - 20,
-          0, -25,
-          100, 100);
+          0, -250,
+          canvas.width, splashImage.height * (canvas.width / splashImage.width));
           
         ctx.fillStyle = "#f50"
-        ctx.fillRect(0, 0, canvas.width, .3);
+        ctx.fillRect(0, 0, canvas.width, 2);
+        ctx.textAlign = "center"
         ctx.fillStyle = "white"
-        ctx.fillText("Make the next big wave.", 10, 26);
+        ctx.fillText("Make the next big wave.", canvas.width / 2, canvas.height * 5/8);
         
         
     }
