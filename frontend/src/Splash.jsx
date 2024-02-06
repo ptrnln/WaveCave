@@ -13,7 +13,6 @@ export default function Splash() {
         const canvas = document.getElementById("splash-canvas");
         const ctx = canvas.getContext("2d");
         // ctx.scale(3.5, 3.5);
-        ctx.font = "48px Montserrat"
         
         ctx.drawImage(splashImage, 
           20, 20,
@@ -23,6 +22,8 @@ export default function Splash() {
           
         ctx.fillStyle = "#f50"
         ctx.fillRect(0, 0, canvas.width, 2);
+        
+        ctx.font = "48px Montserrat";
         ctx.textAlign = "center"
         ctx.fillStyle = "white"
         ctx.fillText("Make the next big wave.", canvas.width / 2, canvas.height * 5/8);
