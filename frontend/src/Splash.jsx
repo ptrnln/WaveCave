@@ -2,61 +2,44 @@ import { useEffect } from "react";
 import './Splash.css'
 
 export default function Splash() {
-
-
-    const splash = <canvas 
-      className='splash'
-      width={window.innerWidth}
-      height={window.innerHeight}
-    />
-
-    const onLoader = () => {
-
-    }
-    
-    
         
-    const canvas = document.createElement('canvas');
+  
     const splashImage = new Image();
     //     
     splashImage.src = "/pexels-martin-lopez-2240771.jpg"
     
-    splashImage.onload = (e, width = window.width) => {
-        // 
-        // canvas.width = splashImage.width;
-        // canvas.height = splashImage.height;
-        // const ctx = canvas.getContext('2d');
-        // ctx.drawImage(splashImage, 0, 0);
-        // canvas.width = window.innerWidth;
-        // canvas.height = window.innerHeight;
-        const ratio = splashImage.height / splashImage.width
-        splashImage.width = this?.width;
-        splashImage.height = splashImage.width * ratio; 
-
+    splashImage.onload = (e) => {
+        e.preventDefault();
+        const canvas = document.getElementById("splash-canvas");
+        const ctx = canvas.getContext("2d");
+        ctx.scale(3.5, 3.5);
+        ctx.font = "6px Montserrat"
+        ctx.drawImage(splashImage, 
+          20, 20,
+          splashImage.width - 20, splashImage.height - 20,
+          0, -25,
+          100, 100);
+          
+        ctx.fillStyle = "#f50"
+        ctx.fillRect(0, 0, canvas.width, .3);
+        ctx.fillStyle = "white"
+        ctx.fillText("Make the next big wave.", 10, 26);
         
-        document.querySelector('div.splash').appendChild(splashImage)
+        
     }
 
-   
-    //     splashImage.width = Math.floor(splashImage.width / 4);
-    //     splashImage.height = Math.floor(splashImage.height / 4);
-    //     let frame;
-    //     const canvasRender = () => {
-            
-    //         ctx.clearRect(0, 0, canvas.width, canvas.height);
-    //         frame = requestAnimationFrame(canvasRender);
-    //         console.log('splash animation frame')
-    //     }
-    //     splashImage.onload = () => {
-    //         canvasRender()
-    //     }
-    //     return () => {
-    //         cancelAnimationFrame(frame)
-    //     }
 
     return (
         <div className="splash wrapper">
-
+            <canvas
+            id="splash-canvas"
+            className="splash-image display"
+            width={1200}
+            height={500}
+            alt={"credit Martin Lopez"}>
+                
+            </canvas>
         </div>
+        // <h1>Hello</h1>
     )
   }
