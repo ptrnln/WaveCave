@@ -16,10 +16,26 @@ class Api::PlaylistsController < ApplicationController
         @playlist = Playlist.new(playlist_params)
 
         if @playlist.save
-            
+            render :show
         else
-
+            render json: { errors: @playlist.errors.full_messages },
+                status: :unprocessable_entity
         end
+    end
+
+    def update
+        @playlist = Playlist.find(params[:id])
+
+        if @playlist.update(playlist_params)
+            render :show
+        else
+            render json: { errors: @playlist.errors.full_messages },
+                status: :unprocessable_entity
+        end
+    end
+
+    def destroy
+        Playlist.destroy(params[:id])
     end
 
     private
