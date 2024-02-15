@@ -17,11 +17,11 @@ button {
 
 @font-face {
     font-family: 'WaveCave-Repeat-Icons-2';
-    src:  url('fonts/WaveCave-Repeat-Icons-2.eot?vxbi38');
-    src:  url('fonts/WaveCave-Repeat-Icons-2.eot?vxbi38#iefix') format('embedded-opentype'),
-      url('fonts/WaveCave-Repeat-Icons-2.ttf?vxbi38') format('truetype'),
-      url('fonts/WaveCave-Repeat-Icons-2.woff?vxbi38') format('woff'),
-      url('fonts/WaveCave-Repeat-Icons-2.svg?vxbi38#WaveCave-Repeat-Icons-2') format('svg');
+    src:  url('/WaveCave-Repeat-Icons-2.eot?vxbi38');
+    src:  url('/WaveCave-Repeat-Icons-2.eot?vxbi38#iefix') format('embedded-opentype'),
+      url('/WaveCave-Repeat-Icons-2.ttf?vxbi38') format('truetype'),
+      url('/WaveCave-Repeat-Icons-2.woff?vxbi38') format('woff'),
+      url('/WaveCave-Repeat-Icons-2.svg?vxbi38#WaveCave-Repeat-Icons-2') format('svg');
     font-weight: normal;
     font-style: normal;
     font-display: block;
