@@ -18,12 +18,14 @@ class Track < ApplicationRecord
     validates :file_type, inclusion: { in: %w(wav mp3 flac) }
 
     belongs_to :artist, class_name: "User", foreign_key: "artist_id"
+    has_many :playlist_tracks
+    has_many :playlists, through: :playlist_tracks
 
     has_one_attached :photo
     has_one_attached :source
 
     validate :source_presence
-    validate :name_unique_on_artist
+    validate :name_unique_on_artist, on: :create
 
     private
 
@@ -35,7 +37,7 @@ class Track < ApplicationRecord
 
     def name_unique_on_artist
         return true if self.artist&.tracks&.none?{ |track| track.title == self.title }
-        self.errors.add(:title, "cannot be used more than once by the same artist")
+        self.errors.add(:title, ": '#{self.title}' cannot be used more than once by the same artist")
         return false
     end
 end

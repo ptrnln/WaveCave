@@ -28,7 +28,7 @@ export default function TrackUpdateForm() {
     const navigate = useNavigate();
 
     const [newTitle, setNewTitle] = useState('');
-    const [description, setDiscription] = useState('');
+    const [description, setDescription] = useState('');
     const [genre, setGenre] = useState(GENRES[0]);
     const [isNewGenre, setIsNewGenre] = useState(false);
     const [isAlbum, setIsAlbum] = useState(false);
@@ -36,13 +36,29 @@ export default function TrackUpdateForm() {
     const [imageFile, setImageFile] = useState(null);
     const [audioFile, setAudioFile] = useState(null);
     const [errors, setErrors] = useState([]);
-    const [trackData, setTrackData] = useState('');
     const [trackId, setTrackId] = useState(null);
     const [fileType, setFileType] = useState('');
 
     const currentUser = useSelector(state => state.session.user)
 
     const { title, username } = useParams();
+
+
+    async function getDuration(audioFile) {
+        const url = URL.createObjectURL(audioFile);
+       
+        return new Promise((resolve) => {
+            const audio = document.createElement("audio");
+            audio.muted = true;
+            const source = document.createElement("source");
+            source.src = url;
+            audio.preload= "metadata";
+            audio.appendChild(source);
+            audio.onloadedmetadata = function(){
+                resolve(audio.duration)
+            };
+        });
+    }
 
 
 
@@ -61,11 +77,10 @@ export default function TrackUpdateForm() {
                 image.src = trackData.photoUrl
                 setTrackId(Object.keys(data.track)[0])
                 setNewTitle(title)
-                setDiscription(trackData.discription || '');
+                setDescription(trackData.description || '');
                 setGenre(trackData.genre);
                 setIsNewGenre(!GENRES.includes(trackData.genre));
                 setDuration(trackData.duration);
-                setAudioFile(await fetch(trackData.sourceUrl));
                 setFileType(trackData.fileType)
                 setImageFile(trackData.photoUrl.length ? trackData.photoUrl : null);
                 
@@ -81,8 +96,7 @@ export default function TrackUpdateForm() {
 
     
     
-    const getFileType = (fileName) => {
-        
+    const getFileType = (fileName) => { 
         return fileName.match(generateFileTypeRegEx(SUPPORTED_FILE_TYPES))[1]
     }
 
@@ -93,7 +107,7 @@ export default function TrackUpdateForm() {
         setErrors([]);
         const response = await trackActions.updateTrack({
             id: trackId,
-            title,
+            title: newTitle,
             description,
             genre,
             duration,
@@ -101,7 +115,6 @@ export default function TrackUpdateForm() {
         }, audioFile, imageFile);
         
         if(response.errors) {
-
             setErrors(response.errors)
         } else {
             navigate(`/${currentUser.username}/${newTitle.replace(' ', '-')}`)
@@ -135,7 +148,7 @@ export default function TrackUpdateForm() {
                     rows="4" 
                     onChange={(e) => {
                         e.preventDefault();
-                        setDiscription(e.target.value);
+                        setDescription(e.target.value);
                     }}
                     value={description}
                     style={{resize: 'none'}}
@@ -195,7 +208,7 @@ export default function TrackUpdateForm() {
                         e.stopPropagation();
                         setAudioFile(e.target.files[0]);
                         setDuration(await getDuration(e.target.files[0]));
-                        setFileType(getFileType(e.target.files[0]))
+                        setFileType(getFileType(e.target.files[0].name))
                     }}
                 />
             </label>

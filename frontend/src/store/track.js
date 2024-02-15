@@ -77,7 +77,7 @@ export async function createTrack (trackData, audioFile, imageFile) {
     formData.append('track[genre]', genre);
     formData.append('track[duration]', duration);
     formData.append('track[file_type]', file_type);
-    formData.append('track[source]', audioFile);
+    if (audioFile) formData.append('track[source]', audioFile);
     if (imageFile) formData.append('track[photo]', imageFile)
     const response = await csrfFetch(`api/tracks`, {
         method: 'POST',
@@ -102,7 +102,7 @@ export async function updateTrack (trackData, audioFile, imageFile) {
     if(!!imageFile) formData.append('track[photo]', imageFile)
 
     const response = await csrfFetch(`/api/tracks/${id}`, {
-        method: 'PATCH',
+        method: 'PUT',
         body: formData
     })
     
