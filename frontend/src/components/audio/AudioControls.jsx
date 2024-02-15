@@ -43,11 +43,11 @@ export default function AudioControls({ handleNext }) {
     }
 
     useEffect(() => {
-        isShuffled ? setShuffleColor('Tomato') : setShuffleColor('Black')
+        isShuffled ? setShuffleColor('#f50') : setShuffleColor('Black')
     }, [isShuffled, setIsShuffled])
 
     useEffect(() => {
-        isRepeating === 'false' ? setRepeatColor('Black') : setRepeatColor('Tomato')
+        isRepeating === 'false' ? setRepeatColor('Black') : setRepeatColor('#f50')
     }, [isRepeating, setIsRepeating])
 
 
@@ -84,7 +84,9 @@ export default function AudioControls({ handleNext }) {
                 <span style={{color: repeatColor}}>
                     <div className="repeat button">
                         <i 
-                            className="fa fa-repeat" 
+                            className={
+                                isRepeating === 'once' ? "wc-icon-cycle-1" : "wc-icon-cycle"
+                            }
                             onClick={toggleRepeat}
                         ></i>
                     </div>
