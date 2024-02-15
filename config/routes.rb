@@ -8,7 +8,8 @@ Rails.application.routes.draw do
   namespace :api, defaults: { format: :json } do
     resources :users, only: [:index, :create]
     resource :session, only: [:show, :create, :destroy]
-    resources :tracks, only: [:index, :show, :create, :update, :destroy]
+    resources :tracks
+    resources :playlists
   end
   get '*path', to: "static_pages#frontend_index"
 end

@@ -48,7 +48,7 @@ class Api::TracksController < ApplicationController
 
     def update
         @track = Track.find(params[:id])
-        @track.source.attach(track_params[:source])
+        @track.source.attach(track_params[:source]) if track_params[:source]
         
         if @track.update(track_params)
             render :show
@@ -59,9 +59,8 @@ class Api::TracksController < ApplicationController
     end
 
     def destroy
-        
         Track.destroy(params[:id])
-        redirect_to controller: 'users', action: :show, username: current_user.username
+        # redirect_to controller: 'users', action: :show, username: current_user.username
     end
 
 # -------------- Track-specific helper methods ------------------
