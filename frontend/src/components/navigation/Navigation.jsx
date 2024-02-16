@@ -2,7 +2,7 @@ import { useDispatch, useSelector } from "react-redux";
 import './Navigation.css'
 import ProfileButton from "./ProfileButton";
 import { useRef } from "react";
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 import logo from '/WaveCave logo HomeNavLink.svg';
 import * as audioPlayerActions from '../../store/audioPlayer';
 import * as trackActions from '../../store/track';
@@ -10,7 +10,8 @@ import * as trackActions from '../../store/track';
 
 
 const Navigation = () => {
-    const dispatch = useDispatch()
+    const isLoggedIn = useSelector(state => !!state.session.user)
+    const dispatch = useDispatch();
     const profButtonRef = useRef();
     const sessionUser = useSelector(state => state.session.user);
 
@@ -28,7 +29,7 @@ const Navigation = () => {
         <div id='navigation-bar'>
             <ul>
                 <li key={'home-nav'}>
-                    <NavLink to='/' className='home-nav link'><img href="" width="100px" height="100%" className="logo" src={logo}></img></NavLink>
+                    <NavLink to={ isLoggedIn ? '/feed' : '/' } className='home-nav link'><img href="" width="100px" height="100%" className="logo" src={logo}></img></NavLink>
                 </li>
                 <li key={'site-name'}>
                     <span style={{'fontSize': 'xx-large', 'color': 'white'}}>WaveCave</span>
