@@ -11,7 +11,7 @@ export default function TrackIndexItem({ track }) {
     const dispatch = useDispatch();
     const navigate = useNavigate();
 
-    debugger
+    
 
     // const tracks = useSelector(state => state.tracks)
 

@@ -10,9 +10,9 @@ export default function TrackIndex() {
 
     useEffect(() => {
         fetch('/api/tracks').then(async val => {
-            const tracksData = Object.values(await val.json());
+            const tracksData = await val.json();
             dispatch(trackActions.receiveTracks(tracksData))
-            setTracks(tracksData);
+            setTracks(Object.values(tracksData.tracks));
             setLoaded(true);
         })
     }, [])
@@ -21,7 +21,7 @@ export default function TrackIndex() {
     return (
         <ul
             className="track-index">
-            {loaded && tracks.map(track => <li><TrackIndexItem track={Object.values(track)[0]} /></li>)}
+            {loaded && tracks.map(track => <li><TrackIndexItem track={track} /></li>)}
         </ul>
     )
 }
