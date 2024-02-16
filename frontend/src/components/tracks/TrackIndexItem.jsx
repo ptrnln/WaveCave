@@ -33,7 +33,7 @@ export default function TrackIndexItem({ track }) {
     }
 
     const navToUpdate = () => {
-        navigate(`/${username}/${track.title}/update`)
+        navigate(`/${track.artist.username}/${track.title}/update`)
     }
 
     return (
