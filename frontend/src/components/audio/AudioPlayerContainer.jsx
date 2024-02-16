@@ -48,7 +48,7 @@ export default function AudioPlayerContainer() {
         if(audioRef.current.currentTime >= 3) {
             dispatch(audioPlayerActions.playPrev())
         } else {
-            debugger
+            
         }
     }
 
