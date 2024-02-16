@@ -10,7 +10,8 @@ export default function TrackIndexItem({ track }) {
     const currentUser = useSelector(state => state.session.user)
     const dispatch = useDispatch();
     const navigate = useNavigate();
-    const { username } = useParams();
+
+    debugger
 
     // const tracks = useSelector(state => state.tracks)
 
@@ -31,16 +32,18 @@ export default function TrackIndexItem({ track }) {
         }
     }
 
-    const navToUpload = () => {
+    const navToUpdate = () => {
         navigate(`/${username}/${track.title}/update`)
     }
 
     return (
         <div className="track-index item">
             <h2>{track.title}</h2>
+            <p>{track.artist.username}</p>
+            <img src={track.photoUrl} style={{"max-width": "80px"}}alt="" />
             <NavLink to={`/${track.artist.username}/${track.title.replace(' ', '-')}`}>See track</NavLink>
             {track.artist.id === currentUser?.id ? <button onClick={handleDelete} value={track.id}>Delete</button>: false}
-            {track.artist.id === currentUser?.id ? <button onClick={navToUpload}>Update</button>: false}
+            {track.artist.id === currentUser?.id ? <button onClick={navToUpdate}>Update</button>: false}
         </div>
     )
 }

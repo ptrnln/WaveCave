@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { useDispatch } from 'react-redux';
-import { createBrowserRouter, Outlet, RouterProvider } from 'react-router-dom';
+import { createBrowserRouter, Outlet, RouterProvider, useNavigate } from 'react-router-dom';
 import LoginForm from './components/session/LoginForm';
 import SignUpForm from './components/session/SignUpForm';
 import Navigation from './components/navigation/Navigation';
@@ -11,6 +11,11 @@ import TrackView from './components/tracks/TrackView';
 import TrackUploadForm from './components/tracks/TrackUploadForm';
 import Splash from './Splash';
 import TrackUpdateForm from './components/tracks/TrackUpdateForm';
+import HomePage from './HomePage';
+import TrackIndex from './components/tracks/TrackIndex';
+
+
+
 
 function Layout() {
   const dispatch = useDispatch();
@@ -56,17 +61,24 @@ const trackLoader = async ({request, params}) => {
   throw { message: 'track not found' }
 }
 
+const loginLoader = async ({rrequest, params}) => {
+  const response = await fetch('/api/session');
+
+  return response.ok
+}
+
 const router = createBrowserRouter([
   {
     element: <Layout />,
     children: [
       {
         path: '',
-        element: <Splash />
+        loader: loginLoader,
+        element: <HomePage />
       },
       {
         path: '/feed',
-        element: <p>Hi</p>
+        element: <TrackIndex />
       },
       {
         path: "/login",

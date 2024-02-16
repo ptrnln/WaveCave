@@ -2,8 +2,9 @@ import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import csrfFetch from "../../store/csrf";
 import './TrackUpdateForm.css';
-import * as trackActions from '../../store/track'
-import { useSelector } from "react-redux";
+import * as trackActions from '../../store/track';
+import { useDispatch, useSelector } from "react-redux";
+
 
 
 const GENRES = [
@@ -26,6 +27,7 @@ const generateFileTypeRegEx = (fileTypeList) => {
 
 export default function TrackUpdateForm() {
     const navigate = useNavigate();
+    const dispatch = useDispatch();
 
     const [newTitle, setNewTitle] = useState('');
     const [description, setDescription] = useState('');
@@ -117,6 +119,7 @@ export default function TrackUpdateForm() {
         if(response.errors) {
             setErrors(response.errors)
         } else {
+            dispatch(trackActions.receiveTrack(response.track))
             navigate(`/${currentUser.username}/${newTitle.replace(' ', '-')}`)
         }
     }
