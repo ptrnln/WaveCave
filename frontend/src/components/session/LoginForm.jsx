@@ -16,11 +16,11 @@ function LoginForm() {
   const sessionUser = useSelector(state => state.session.user);
 
   const clickListener = (e) => {
-    debugger
+    
     const modal = document.querySelector(".login.modal");
     const loginButton = document.querySelector("button.nav-link.login");
     const signInButton = document.querySelector("button.nav-link.signup");
-    if(!modal.contains(e.target) && e.target !== loginButton && e.target !== signInButton) {
+    if(modal && !modal.contains(e.target) && e.target !== loginButton && e.target !== signInButton) {
       dispatch(sessionActions.hideModal());
     }
   };
