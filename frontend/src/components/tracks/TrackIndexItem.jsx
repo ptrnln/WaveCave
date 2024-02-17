@@ -40,7 +40,7 @@ export default function TrackIndexItem({ track }) {
         <div className="track-index item">
             <h2>{track.title}</h2>
             <p>{track.artist.username}</p>
-            <img src={track.photoUrl} style={{"max-width": "80px"}}alt="" />
+            <img src={track.photoUrl} style={{"maxWidth": "80px"}}alt="" />
             <NavLink to={`/${track.artist.username}/${track.title.replace(' ', '-')}`}>See track</NavLink>
             {track.artist.id === currentUser?.id ? <button onClick={handleDelete} value={track.id}>Delete</button>: false}
             {track.artist.id === currentUser?.id ? <button onClick={navToUpdate}>Update</button>: false}

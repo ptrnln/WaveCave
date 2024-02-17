@@ -55,7 +55,7 @@ export default function TrackUploadForm() {
     }
 
     const getFileType = (fileName) => {
-        return fileName.match(generateFileTypeRegEx(SUPPORTED_FILE_TYPES))[1]
+        return fileName.match(generateFileTypeRegEx(SUPPORTED_FILE_TYPES))?.[1] || null
     }
 
     // useEffect(() => {
@@ -66,25 +66,37 @@ export default function TrackUploadForm() {
         e.stopPropagation();
         e.preventDefault();
         setErrors([]);
-        if (!audioFile) {
-            setErrors(["Source file not found"]);
-            return
-        }
-        const response = await trackActions.createTrack({
-            title,
-            artistId: currentUser.id,
-            description,
-            genre,
-            duration,
-            file_type: getFileType(audioFile.name)
-        }, audioFile, imageFile);
         
-        if(response.errors) {
-            setErrors(response.errors)
-        } else {
+        try {
+            if (!audioFile) {
+                setErrors(["Source file not found"]);
+                return
+            }
+            const fileType = getFileType(audioFile.name);
             
-            navigate(`/${currentUser.username}/${title.replace(' ', '-')}`)
+            if(!SUPPORTED_FILE_TYPES.includes(fileType)) {
+                setErrors(["Audio file type not supported"])
+                return
+            }
+            setDuration(await getDuration(audioFile));
+            const response = await trackActions.createTrack({
+                title,
+                artistId: currentUser.id,
+                description,
+                genre,
+                duration,
+                fileType
+            }, audioFile, imageFile);
+
+            if(response.errors) {
+                setErrors(response.errors)
+            } else {
+                navigate(`/${currentUser.username}/${title.replace(' ', '-')}`)
+            }
+        } catch (err) {
+            setErrors([err])
         }
+        
     }
 
     return(
@@ -170,7 +182,6 @@ export default function TrackUploadForm() {
                     onChange={async (e) => {
                         e.stopPropagation();
                         setAudioFile(e.target.files[0]);
-                        setDuration(await getDuration(e.target.files[0]));
                     }}
                 />
             </label>

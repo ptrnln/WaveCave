@@ -42,8 +42,6 @@ class ApplicationController < ActionController::API
         headers['X-CSRF-Token'] = masked_authenticity_token(session)
     end
 
-    
-
     def invalid_authenticity_token
         render json: { message: 'Invalid authenticity token' }, 
           status: :unprocessable_entity

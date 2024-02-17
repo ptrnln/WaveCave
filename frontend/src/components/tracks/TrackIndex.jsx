@@ -21,7 +21,7 @@ export default function TrackIndex() {
     return (
         <ul
             className="track-index">
-            {loaded && tracks.map(track => <li><TrackIndexItem track={track} /></li>)}
+            {loaded && tracks.map(track => <li key={`track ${track.title}`}><TrackIndexItem track={track} /></li>)}
         </ul>
     )
 }
