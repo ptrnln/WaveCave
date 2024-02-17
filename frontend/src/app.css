@@ -27,3 +27,20 @@ time, mark, audio, video {
 h1 {
     font-size: xx-large;
 }
+
+.stop-scrolling {
+    overflow: hidden;
+}
+
+#greyout {
+    position: absolute;
+    height: 100%;
+    width: 100%;
+    background-color: rgba(0, 0, 0, 50%);
+    display: none;
+    z-index: 99;
+}
+
+#greyout.active {
+    display: inherit;
+}
