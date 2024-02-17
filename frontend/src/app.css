@@ -38,7 +38,7 @@ h1 {
     width: 100%;
     background-color: rgba(0, 0, 0, 50%);
     display: none;
-    z-index: 99;
+    z-index: 99
 }
 
 #greyout.active {
