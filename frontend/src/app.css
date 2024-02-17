@@ -27,3 +27,7 @@ time, mark, audio, video {
 h1 {
     font-size: xx-large;
 }
+
+.stop-scrolling {
+    overflow: hidden;
+}

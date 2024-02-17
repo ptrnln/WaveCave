@@ -1,20 +1,53 @@
 import csrfFetch, { storeCSRFToken } from "./csrf";
 
-const SET_USER = 'session/setUser'
-const REMOVE_USER = 'session/removeUser'
+const SET_USER = 'session/SET_USER'
+const REMOVE_USER = 'session/REMOVE_USER'
+const SHOW_MODAL = 'session/SHOW_MODAL'
+const HIDE_MODAL = 'session/HIDE_MODAL'
+const SET_ERRORS = 'session/SET_ERRORS'
+const CLEAR_ERRORS = 'session/CLEAR_ERRORS'
 
-const initialState = { user: null };
+const initialState = { 
+    user: null,
+    showModal: false,
+    errors: []
+};
 
-const setUser = user => {
+export const setUser = user => {
     return {
         type: SET_USER,
         payload: user
     }
 }
 
-const removeUser = () => {
+export const removeUser = () => {
     return {
         type: REMOVE_USER
+    }
+}
+
+export const showModal = () => {
+    return {
+        type: SHOW_MODAL
+    }
+}
+
+export const hideModal = () => {
+    return {
+        type: HIDE_MODAL
+    }
+}
+
+export const setErrors = errors => {
+    return {
+        type: SET_ERRORS,
+        errors
+    }
+}
+
+export const clearErrors = () => {
+    return {
+        type: CLEAR_ERRORS,
     }
 }
 
@@ -55,9 +88,10 @@ export const login = ({ credential, password }) => async dispatch => {
     });
     
     const data = await response.json();
-    dispatch(setUser(data.user));
-    // storeUserData(data.user)
-    return response;
+    if(data.user)  {
+        dispatch(setUser(data.user))
+    } else if(data.errors) dispatch(setErrors(data.errors))
+    return data;
 }
 
 export const logout = () => async dispatch => {
@@ -84,6 +118,14 @@ const sessionReducer = (state = initialState, action) => {
             return { ...state, user: action.payload }
         case REMOVE_USER:
             return { ...state, user: null }
+        case SHOW_MODAL:
+            return { ...state, showModal: true }
+        case HIDE_MODAL:
+            return { ...state, errors: [], showModal: false }
+        case SET_ERRORS:
+            return { ...state, errors: action.errors }
+        case CLEAR_ERRORS:
+            return { ...state, errors: [] }
         default:
             return state;
     }

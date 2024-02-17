@@ -122,7 +122,6 @@ const trackReducer = (state = initialState, action) => {
         case REMOVE_TRACK:
             return Object.keys(state).filter((key) => action.trackId !== key).map((key) => state[key])
         case REMOVE_TRACKS:
-            
             return Object.keys(state).filter((key) => {!action.trackIds.includes(key)}).map((key) => state[key])
         default:
             return state;
