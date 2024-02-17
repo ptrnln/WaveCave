@@ -75,8 +75,12 @@ require "open-uri"
   
     # More users
     10.times do 
+      username = Faker::Internet.unique.username(specifier: 3);
+      while username.include?('.') do
+        username = Faker::Internet.unique.username(specifier: 3);
+      end
       User.create!({
-        username: Faker::Internet.unique.username(specifier: 3),
+        username: username,
         email: Faker::Internet.unique.email,
         password: 'password'
       }) 
