@@ -12,9 +12,7 @@ export default function HomePage() {
 
     useEffect(() => {
         if(isLoggedIn) navigate('/feed');
-        const loginModal = document.getElementsByClassName("login.modal");
-        loginModal
-    }, [])
+    })
 
 
 
