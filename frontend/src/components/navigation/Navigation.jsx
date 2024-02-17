@@ -26,6 +26,11 @@ const Navigation = () => {
         location.href='/signup';
     }
 
+    const navToFeed = (e) => {
+        e.preventDefault();
+        location.href='/feed'
+    }
+
     const showLoginModal = (e) => {
         e.preventDefault();
         dispatch(sessionActions.showModal());
@@ -69,11 +74,14 @@ const Navigation = () => {
                     </li>
                 </> :
                 <>
+                    <li key='nav-link feed'>
+                        <button className="nav-link feed" onClick={navToFeed}>Feed</button>
+                    </li>
                     <li key={'nav-link login'}>
-                        <button className='nav-link login' onClick={showLoginModal}>Sign Up</button>
+                        <button className='nav-link login' onClick={navToSignUp}>Sign Up</button>
                     </li>
                     <li key={'nav-link signup'}>
-                        <button className='nav-link signup' onClick={navToSignUp}>Log In</button>
+                        <button className='nav-link signup' onClick={showLoginModal}>Log In</button>
                     </li>
                 </>
                 }

@@ -31,6 +31,7 @@ function Layout() {
     <>
       <Navigation />
       {isLoaded && <Outlet />}
+      <LoginForm />
       <AudioPlayerContainer />
     </>
   );

@@ -22,7 +22,6 @@ function LoginForm() {
 
     useEffect(() => {
       const clickListener = document.addEventListener('click', (e) => {
-        debugger
         e.preventDefault();
         const modal = document.querySelector(".login.modal");
         const loginButton = document.querySelector("button.nav-link.login");
@@ -37,15 +36,19 @@ function LoginForm() {
     }, [])
     
     useEffect(() => {
-      const modal = document.querySelector("div.login.modal")
+      const modal = document.querySelector("div.login.modal");
+      const greyout = document.querySelector("div#greyout");
+      debugger
       if(showModal) {
         if(modal.classList.contains("hidden")) modal.classList.remove("hidden");
         if(!document.body.classList.contains("stop-scrolling")) document.body.classList.add("stop-scrolling");
+        if(!greyout.classList.contains("active")) greyout.classList.add("active");
         if(!modal.classList.contains("shown")) modal.classList.add("shown");
       }
       else {
         if(modal.classList.contains("shown")) modal.classList.remove("shown");
-        
+        if(document.body.classList.contains("stop-scrolling")) document.body.classList.remove("stop-scrolling");
+        if(greyout.classList.contains("active")) greyout.classList.remove("active");
         if(!modal.classList.contains("hidden")) modal.classList.add("hidden");
       }
     }, [showModal])

@@ -10,6 +10,7 @@
     background-color: white;
     border-radius: 15px;
     margin-top: 5px;
+    z-index: 100;
 }
 
 .login.modal.hidden {
