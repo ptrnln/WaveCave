@@ -14,8 +14,6 @@ export default function HomePage() {
         if(isLoggedIn) navigate('/feed');
     })
 
-
-
     return (
         <div className="home">
             <Splash /> 
