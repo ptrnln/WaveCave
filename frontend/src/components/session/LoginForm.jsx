@@ -45,7 +45,7 @@ function LoginForm() {
     // useEffect(() => {
     //   const modal = document.querySelector("div.login.modal");
     //   const greyout = document.querySelector("div#greyout");
-    //   debugger
+    //   
     //   if(showModal) {
     //     if(modal.classList.contains("hidden")) modal.classList.remove("hidden");
     //     if(!document.body.classList.contains("stop-scrolling")) document.body.classList.add("stop-scrolling");
