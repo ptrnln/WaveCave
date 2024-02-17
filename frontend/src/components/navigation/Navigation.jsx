@@ -66,6 +66,9 @@ const Navigation = () => {
                 <li key={'site-name'}>
                     <span style={{'fontSize': 'xx-large', 'color': 'white'}}>WaveCave</span>
                 </li>
+                <li key='nav-link feed'>
+                        <button className="nav-link feed" onClick={navToFeed}>Feed</button>
+                </li>
                 { 
                 sessionUser ?
                 <> 
@@ -74,9 +77,6 @@ const Navigation = () => {
                     </li>
                 </> :
                 <>
-                    <li key='nav-link feed'>
-                        <button className="nav-link feed" onClick={navToFeed}>Feed</button>
-                    </li>
                     <li key={'nav-link login'}>
                         <button className='nav-link login' onClick={navToSignUp}>Sign Up</button>
                     </li>

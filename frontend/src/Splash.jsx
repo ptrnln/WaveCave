@@ -21,14 +21,12 @@ export default function Splash() {
           canvas.width, splashImage.height * (canvas.width / splashImage.width));
           
         ctx.fillStyle = "#f50"
-        ctx.fillRect(0, 0, canvas.width, 2);
+        ctx.fillRect(0, 0, canvas.width, 4);
         
         ctx.font = "48px Montserrat";
         ctx.textAlign = "center"
         ctx.fillStyle = "white"
-        ctx.fillText("Make the next big wave.", canvas.width / 2, canvas.height * 5/8);
-        
-        
+        ctx.fillText("Make the next big wave.", canvas.width / 2, canvas.height * 2/3);
     }
 
 
