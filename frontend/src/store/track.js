@@ -59,11 +59,11 @@ export const loadTrack = trackId => async dispatch => {
 
 export const loadTracks = trackIds => async dispatch => {
     
-    let tracks = []
+    let tracks = {}
     let i = 0;
     for(const trackId of trackIds) {
         const track = await dispatch(loadTrack(trackId));
-        tracks.push(track);
+        tracks[track.id] = track
     }
     return tracks
 }
@@ -118,11 +118,12 @@ const trackReducer = (state = initialState, action) => {
         case RECEIVE_TRACK:
             return { ...state, ...action.track }
         case RECEIVE_TRACKS:
+            debugger
             return { ...state, ...action.tracks }
         case REMOVE_TRACK:
-            return Object.keys(state).filter((key) => action.trackId !== key).map((key) => state[key])
+            return Object.fromEntries(Object.keys(state).filter((key) => action.trackId !== key).map((key) => [key, state[key]]))
         case REMOVE_TRACKS:
-            return Object.keys(state).filter((key) => {!action.trackIds.includes(key)}).map((key) => state[key])
+            return Object.fromEntries(Object.keys(state).filter((key) => {!action.trackIds.includes(key)}).map((key) => [key, state[key]]))
         default:
             return state;
     }
