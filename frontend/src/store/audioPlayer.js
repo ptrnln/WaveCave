@@ -203,8 +203,10 @@ export const audioPlayerReducer = (state = initialState, action) => {
                 }
             }
         case SET_SHUFFLE_OFF:
+            newIndex = state.queue.original.indexOf(state.queue.shuffled[state.currentIndex])
             return { ...state, 
-                isShuffled: false
+                isShuffled: false,
+                currentIndex: newIndex
             }
         case SET_REPEAT_OFF:
             return { ...state,
