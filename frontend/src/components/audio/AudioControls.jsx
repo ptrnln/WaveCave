@@ -8,8 +8,8 @@ export default function AudioControls({ handleNext }) {
 
     const isPlaying = useSelector(state => state.audio.isPlaying);
 
-    const [isShuffled, setIsShuffled] = useState(false);
-    const [isRepeating, setIsRepeating] = useState('false');
+    const isShuffled = useSelector(state => state.audio.isShuffled);
+    const isRepeating = useSelector(state => state.audio.isRepeating);
     const [shuffleColor, setShuffleColor] = useState('Black');
     const [repeatColor, setRepeatColor] = useState('Black');
 
@@ -23,32 +23,41 @@ export default function AudioControls({ handleNext }) {
             dispatch(audioPlayerActions.playTrack())
         }
     }
-    
+
     const toggleShuffle = (e) => {
-        setIsShuffled(shuffled => !shuffled)
-    }
-    
-    const toggleRepeat = (e) => {
-        switch(isRepeating) {
-            case 'false':
-                setIsRepeating('once');
-                break;
-            case 'once':
-                setIsRepeating('always');
-                break;
-            case 'always':
-                setIsRepeating('false');
-                break;
+        e.preventDefault();
+        if(isShuffled) {
+            dispatch(audioPlayerActions.setShuffleOff());
+        } else {
+            dispatch(audioPlayerActions.setShuffleOn());
         }
     }
 
+    const toggleRepeat = (e) => {
+        switch(isRepeating) {
+            case 'false':
+                dispatch(audioPlayerActions.setRepeatOnce());
+                break;
+            case 'once':
+                dispatch(audioPlayerActions.setRepeatAlways());
+                break;
+            case 'always':
+                dispatch(audioPlayerActions.setRepeatFalse());
+                break;
+            default:
+                console.log('lol react strict mode shit')
+        }
+    }
+    
+    
+
     useEffect(() => {
         isShuffled ? setShuffleColor('#f50') : setShuffleColor('Black')
-    }, [isShuffled, setIsShuffled])
+    }, [isShuffled])
 
     useEffect(() => {
         isRepeating === 'false' ? setRepeatColor('Black') : setRepeatColor('#f50')
-    }, [isRepeating, setIsRepeating])
+    }, [isRepeating])
 
 
 
@@ -62,7 +71,7 @@ export default function AudioControls({ handleNext }) {
                     }}/>     
                 </div>
                 <div className="play-pause button">
-                { isPlaying ? 
+                {isPlaying ? 
                     <i className='fa fa-pause' onClick={togglePlay} />
                     :
                     <i className='fa fa-play' onClick={togglePlay} />

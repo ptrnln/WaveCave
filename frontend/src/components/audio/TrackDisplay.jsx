@@ -5,7 +5,6 @@ import { useSelector } from "react-redux";
 
 
 export default function TrackDisplay() {
-
     
     const currentTrack = useSelector(state => {
         if(state.audio.isShuffled) {
