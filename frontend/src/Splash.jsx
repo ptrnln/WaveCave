@@ -6,7 +6,7 @@ export default function Splash() {
   
     const splashImage = new Image();
     //     
-    splashImage.src = "/pexels-martin-lopez-2240771.jpg"
+    splashImage.src = "/images/pexels-martin-lopez-2240771.jpg"
     
     splashImage.onload = (e) => {
         e.preventDefault();

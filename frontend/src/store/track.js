@@ -69,14 +69,14 @@ export const loadTracks = trackIds => async dispatch => {
 }
 
 export async function createTrack (trackData, audioFile, imageFile) {
-    const { title, description, genre, duration, file_type } = trackData;
+    const { title, description, genre, duration, fileType } = trackData;
     
     const formData = new FormData();
     formData.append('track[title]', title);
     formData.append('track[description]', description);
     formData.append('track[genre]', genre);
     formData.append('track[duration]', duration);
-    formData.append('track[file_type]', file_type);
+    formData.append('track[file_type]', fileType);
     if (audioFile) formData.append('track[source]', audioFile);
     if (imageFile) formData.append('track[photo]', imageFile)
     const response = await csrfFetch(`api/tracks`, {

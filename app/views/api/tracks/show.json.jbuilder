@@ -12,6 +12,6 @@ json.track do
         json.photoUrl @track.photo.attached? ? @track.photo.url : ''
         json.sourceUrl @track.source.url
         json.sourceName @track.source.filename
-        json.partial! 'api/users/artist', user: track.artist
+        json.partial! 'api/users/artist', user: @track.artist
     end
 end

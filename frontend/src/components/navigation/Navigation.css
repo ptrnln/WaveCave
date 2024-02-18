@@ -1,7 +1,7 @@
 div#navigation-bar li {
     marker: none;
     padding-right: 20px;
-    display: inline-block;
+    display: flex;
 }
 
 div#navigation-bar li li {
@@ -32,5 +32,9 @@ div#navigation-bar ul{
     border: 0;
     height: 48px;
     box-sizing: content-box;
+}
+
+div#navigation-bar li img {
+    cursor: pointer;
 }
 

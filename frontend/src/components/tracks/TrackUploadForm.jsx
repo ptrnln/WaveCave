@@ -19,7 +19,7 @@ const SUPPORTED_FILE_TYPES = [
 ]
 
 const generateFileTypeRegEx = (fileTypeList) => {
-    return new RegExp(`^.*\\.(${fileTypeList.join('|')})$`) 
+    return new RegExp(`.(${fileTypeList.join('|')})$`) 
 }
 
 export default function TrackUploadForm() {
@@ -55,7 +55,11 @@ export default function TrackUploadForm() {
     }
 
     const getFileType = (fileName) => {
-        return fileName.match(generateFileTypeRegEx(SUPPORTED_FILE_TYPES))?.[1] || null
+        const matchData = fileName.match(generateFileTypeRegEx(SUPPORTED_FILE_TYPES))
+        if (matchData) {
+            return matchData[1]
+        } 
+        return null
     }
 
     // useEffect(() => {
@@ -66,6 +70,7 @@ export default function TrackUploadForm() {
         e.stopPropagation();
         e.preventDefault();
         setErrors([]);
+        debugger
         
         try {
             if (!audioFile) {

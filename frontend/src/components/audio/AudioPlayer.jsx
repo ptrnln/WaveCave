@@ -21,12 +21,21 @@ export default function AudioPlayer({ audioRef, progressBarRef, handleNext }) {
 
 
     useEffect(() => {
-        if(isPlaying && audioRef.current?.loaded && audioRef.current.paused) {
-            audioRef.current.play();
-        } else if (!isPlaying && !audioRef.current.paused) {
+        if(isPlaying) {
+            
+            if(audioRef.current.loaded) {
+                audioRef.current.play();
+            } else {
+                audioRef.current.onloadeddata = (e) => {
+                    e.preventDefault();
+                    
+                    e.target.play();
+                }
+            }
+        } else {
             audioRef.current.pause();
         }
-    }, [isPlaying, audioRef])
+    })
 
     useEffect(() => {
         if(currentTrack !== undefined) {

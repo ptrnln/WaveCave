@@ -3,7 +3,7 @@ import './Navigation.css'
 import ProfileButton from "./ProfileButton";
 import { useRef } from "react";
 import { NavLink, useNavigate } from "react-router-dom";
-import logo from '/WaveCave logo HomeNavLink.svg';
+import logo from '/images/WaveCave logo HomeNavLink.svg';
 import * as audioPlayerActions from '../../store/audioPlayer';
 import * as trackActions from '../../store/track';
 import * as sessionActions from '../../store/session';

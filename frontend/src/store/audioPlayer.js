@@ -26,6 +26,7 @@ const initialState = {
     isPlaying: false,
     isShuffled: false,
     isRepeating: 'false',
+    hasRepeated: false,
     volume: 60,
 }
 
@@ -74,22 +75,65 @@ export const unloadTrack = trackId => {
     }
 }
 
-const shuffle = array => {
-    if(array.length <= 1) return array
-    let idx = array.length - 1, randIdx;
+export const setShuffleOn = () => {
+    return {
+        type: SET_SHUFFLE_ON,
+    }
+}
 
+export const setShuffleOff = () => {
+    return {
+        type: SET_SHUFFLE_OFF
+    }
+}
+
+export const setRepeatOnce = () => {
+    return {
+        type: SET_REPEAT_ONCE
+    }
+}
+
+export const setRepeatAlways = () => {
+    return {
+        type: SET_REPEAT_ALWAYS
+    }
+}
+
+export const setRepeatFalse = () => {
+    return {
+        type: SET_REPEAT_OFF
+    }
+}
+
+const shuffle = (queue, currentTrackId = queue[0]) => {
+    debugger
+    const indexOfId = queue.indexOf(currentTrackId);
+    const newQueue = queue.filter(ele => ele !== currentTrackId)
+    let idx = newQueue.length - 1, randIdx;
+    if(newQueue.length <= 1) return queue;
+    
     while (idx >= 0) {
         randIdx = Math.floor(Math.random() * idx + 1);
-        [array[idx], array[randIdx]] = [array[randIdx], array[idx]]
+        [newQueue[idx], newQueue[randIdx]] = [newQueue[randIdx], newQueue[idx]]
         
         idx--;
     }
-    
-    return array
+    let j = 0
+
+    const completedQueue = queue.map((ele, i)=> {
+        if(i === indexOfId) {
+            return ele
+        }
+        j++;
+        return newQueue[j - 1]
+    })
+    return completedQueue
 }
 
 export const audioPlayerReducer = (state = initialState, action) => {
     Object.freeze(state);
+
+    let queue, shuffledQueue, newIndex, repeated;
 
     switch(action.type) {
         case PLAY_TRACK:
@@ -99,10 +143,30 @@ export const audioPlayerReducer = (state = initialState, action) => {
         case PAUSE_TRACK:
             return { ...state, isPlaying: false }
         case PLAY_NEXT:
-            var newIndex = (state.queue.original.length - 1 === state.currentIndex) ? 0 : state.currentIndex + 1
+            if(!state.queue.original.length) return state
+
+            repeated = state.hasRepeated
+            newIndex = state.currentIndex
+
+            if(state.queue.original.length - 1 === state.currentIndex) {
+                switch(state.isRepeating) {
+                    case 'once':
+                        debugger
+                        if(!state.hasRepeated) newIndex = 0
+                        repeated = true
+                        break;
+                    case 'always':
+                        newIndex = 0
+                        repeated = true
+                        break;
+                    default:
+                        newIndex = state.currentIndex
+                }
+            } else newIndex = state.currentIndex + 1
             return { ...state, 
                 currentIndex: newIndex,
                 isPlaying: true,
+                hasRepeated: repeated
             };
         case PLAY_PREV:
             return { ...state,
@@ -119,32 +183,44 @@ export const audioPlayerReducer = (state = initialState, action) => {
                 }
             }
         case LOAD_TRACKS:
-            let shuffledQueue = shuffle([...action.trackIds])
+            queue = state.isShuffled ? state.queue.shuffled : state.queue.original
+            shuffledQueue = shuffle([...action.trackIds], queue[state.currentIndex])
             return { ...state,
                 queue: {
                     original: action.trackIds,
                     shuffled: shuffledQueue
                 },
+                hasRepeated: false
             };
         case SET_SHUFFLE_ON:
-            shuffledQueue = shuffle(state.queue.original)
-            
+            queue = state.isShuffled ? state.queue.shuffled : state.queue.original
+            shuffledQueue = shuffle(state.queue.original, queue[state.currentIndex])
             return { ...state,
                 isShuffled: true,
                 queue: {
+                    original: state.queue.original,
                     shuffled: shuffledQueue
                 }
             }
         case SET_SHUFFLE_OFF:
-            var newIndex = state.queue.original.indexOf(state.queue.shuffled[state.currentIndex])
             return { ...state, 
-                isShuffled: false,
-                currentIndex: newIndex
+                isShuffled: false
+            }
+        case SET_REPEAT_OFF:
+            return { ...state,
+                isRepeating: 'false'
+            }
+        case SET_REPEAT_ONCE:
+            return { ...state,
+                isRepeating: 'once'
+            }
+        case SET_REPEAT_ALWAYS:
+            return { ...state, 
+                isRepeating: 'always'
             }
         case UNLOAD_TRACK:
-            
             var oldTrackId = state.isShuffled ? state.queue.shuffled[state.currentIndex] : state.queue.original[state.currentIndex]
-            var newIndex = (state.currentIndex === state.queue.original.length - 1 || !!state.queue.original.length) ? 0 : state.currentIndex + 1
+            newIndex = (state.currentIndex === state.queue.original.length - 1 || !!state.queue.original.length) ? 0 : state.currentIndex + 1
             return { ...state,
                 currentIndex: newIndex,
                 queue: {
