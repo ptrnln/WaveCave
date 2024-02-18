@@ -70,7 +70,7 @@ export default function TrackUploadForm() {
         e.stopPropagation();
         e.preventDefault();
         setErrors([]);
-        debugger
+        
         
         try {
             if (!audioFile) {

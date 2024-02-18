@@ -19,7 +19,7 @@ class Api::TracksController < ApplicationController
         @track.artist_id ||= current_user.id
         @track.source.attach(track_params[:source])
         @track.photo.attach(track_params[:photo])
-        debugger
+        
 
         if @track.save 
             render :show

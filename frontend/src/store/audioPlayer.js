@@ -106,7 +106,7 @@ export const setRepeatFalse = () => {
 }
 
 const shuffle = (queue, currentTrackId = queue[0]) => {
-    debugger
+    
     const indexOfId = queue.indexOf(currentTrackId);
     const newQueue = queue.filter(ele => ele !== currentTrackId)
     let idx = newQueue.length - 1, randIdx;
@@ -151,7 +151,7 @@ export const audioPlayerReducer = (state = initialState, action) => {
             if(state.queue.original.length - 1 === state.currentIndex) {
                 switch(state.isRepeating) {
                     case 'once':
-                        debugger
+                        
                         if(!state.hasRepeated) newIndex = 0
                         repeated = true
                         break;
