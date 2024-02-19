@@ -24,8 +24,8 @@ time, mark, audio, video {
     font-family: "Montserrat";
 }
 
-h1 {
-    font-size: xx-large;
+#root {
+    font-size: 16px;
 }
 
 .stop-scrolling {

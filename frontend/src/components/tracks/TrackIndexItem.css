@@ -1,0 +1,32 @@
+.track-index h2 {
+    font-size: 2rem;
+}
+
+.track-index p {
+    font-style: thin;
+}
+
+.track-index.item {
+    display: flex;
+    background: none;
+    border: 1px solid lightgrey;
+    border-radius: 15px;
+    padding: 10px;
+    align-items: center;
+}
+
+.track-index button {
+    appearance: none;
+    min-width: 100px;
+    min-height: 50px;
+    width: 0%;
+    height: 0%;
+    background-color: lightgrey;
+    border: 0;
+    margin-left: 10px;
+    border-radius: 10px;
+}
+
+.track-index * {
+    padding: 5px;
+}

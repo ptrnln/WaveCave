@@ -2,7 +2,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { NavLink, useNavigate, useParams } from "react-router-dom";
 import * as trackActions from '../../store/track'
 import * as audioPlayerActions from '../../store/audioPlayer'
-import { useEffect } from "react";
+import './TrackIndexItem.css'
 import csrfFetch from "../../store/csrf";
 
 
@@ -10,8 +10,6 @@ export default function TrackIndexItem({ track }) {
     const currentUser = useSelector(state => state.session.user)
     const dispatch = useDispatch();
     const navigate = useNavigate();
-
-    
 
     // const tracks = useSelector(state => state.tracks)
 
@@ -38,10 +36,12 @@ export default function TrackIndexItem({ track }) {
 
     return (
         <div className="track-index item">
-            <h2>{track.title}</h2>
-            <p>{track.artist.username}</p>
-            <img src={track.photoUrl} style={{"maxWidth": "80px"}}alt="" />
+            <img src={track.photoUrl} style={{"maxWidth": "80px"}} alt="" />
+            <div id={`track-${track.id}-details`} className="track-index details">
+                <h2>{track.title}</h2>
+                <p>{track.artist.username}</p>
             <NavLink to={`/${track.artist.username}/${track.title.replace(' ', '-')}`}>See track</NavLink>
+            </div>
             {track.artist.id === currentUser?.id ? <button onClick={handleDelete} value={track.id}>Delete</button>: false}
             {track.artist.id === currentUser?.id ? <button onClick={navToUpdate}>Update</button>: false}
         </div>

@@ -14,21 +14,22 @@ const Navigation = () => {
     const isLoggedIn = useSelector(state => !!state.session.user)
     const dispatch = useDispatch();
     const profButtonRef = useRef();
+    const navigate = useNavigate();
     const sessionUser = useSelector(state => state.session.user);
 
     const navToLogin = (e) => {
         e.preventDefault(); 
-        location.href='/login';
+        navigate('/login', { replace: true });
     }
 
     const navToSignUp = (e) => {
         e.preventDefault();
-        location.href='/signup';
+        navigate('/signup');
     }
 
     const navToFeed = (e) => {
         e.preventDefault();
-        location.href='/feed'
+        navigate('/feed', { replace: true })
     }
 
     const showLoginModal = (e) => {
@@ -62,13 +63,13 @@ const Navigation = () => {
         <div id='navigation-bar'>
             <ul>
                 <li key={'home-nav'}>
-                    <NavLink to={ isLoggedIn ? '/feed' : '/' } className='home-nav link'><img href="" width="100px" height="100%" className="logo" src={logo}></img></NavLink>
+                    <NavLink to={ isLoggedIn ? '/feed' : '/' } className='home-nav link'><img href=""  className="logo" src={logo}></img></NavLink>
                 </li>
                 <li key={'site-name'}>
                     <span style={{'fontSize': 'xx-large', 'color': 'white'}}>WaveCave</span>
                 </li>
                 <li key='nav-link feed'>
-                        <button className="nav-link feed" onClick={navToFeed}>Feed</button>
+                    <NavLink to='/feed' className='feed-nav link'>Feed</NavLink>
                 </li>
                 { 
                 sessionUser ?
