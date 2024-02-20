@@ -21,6 +21,7 @@ class User < ApplicationRecord
   before_validation :ensure_session_token
 
   has_many :tracks, foreign_key: :artist_id, dependent: :destroy
+  has_many :playlists, foreign_key: :publisher_id, class_name: :Playlist, dependent: :destroy
   has_one_attached :photo
 
   attr_reader :password

@@ -12,26 +12,26 @@ export default function AudioPlayer({ audioRef, progressBarRef, handleNext }) {
         return state.tracks[state.audio.queue.original[state.audio.currentIndex]]
     })
     const isPlaying = useSelector(state => state.audio.isPlaying);
+    const vol = useSelector(state => state.audio.volume)
     
     const audio = <audio 
             className={`audio-track ${currentTrack?.title || ''}`}
             ref={audioRef}
             onEnded={handleNext}
+            volume={vol * .01}
+
         />
 
 
     useEffect(() => {
         if(isPlaying) {
-            
-            if(audioRef.current.loaded) {
-                audioRef.current.play();
-            } else {
-                audioRef.current.onloadeddata = (e) => {
-                    e.preventDefault();
-                    
-                    e.target.play();
-                }
-            }
+          
+        audioRef.current.onloadeddata = (e) => {
+            e.preventDefault();
+
+            e.target.play();
+        
+        }
         } else {
             audioRef.current.pause();
         }

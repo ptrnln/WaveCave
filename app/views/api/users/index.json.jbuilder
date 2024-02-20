@@ -5,6 +5,8 @@ json.users do
                 :id, 
                 :email, 
                 :username, 
+                :tracks,
+                :playlists,
                 :created_at, 
                 :updated_at
         end

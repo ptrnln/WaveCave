@@ -1,18 +1,17 @@
 import { useEffect, useState } from "react"
 import TrackIndexItem from "./TrackIndexItem";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import * as trackActions from '../../store/track'
 
 export default function TrackIndex() {
     const [loaded, setLoaded] = useState(false);
-    const [tracks, setTracks] = useState([]);
+    const tracks = useSelector(state => Object.values(state.tracks))
     const dispatch = useDispatch();
 
     useEffect(() => {
         fetch('/api/tracks').then(async val => {
             const tracksData = await val.json();
-            dispatch(trackActions.receiveTracks(tracksData))
-            setTracks(Object.values(tracksData.tracks));
+            dispatch(trackActions.receiveTracks(tracksData.tracks))
             setLoaded(true);
         })
     }, [])

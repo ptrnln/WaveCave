@@ -9,6 +9,7 @@ json.user do
                     :artist,
                     :description,
                     :genre
+                json.photo_url track.photo.url if track.photo.attached? 
             end
         end
     end

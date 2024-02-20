@@ -195,11 +195,12 @@ export default function TrackUpdateForm() {
                 ''}
             </label>
             <label htmlFor="audio-file">Add an audio file 
+            <br />
             <span 
                 style={{
                     fontStyle: 'italic',
                     fontSize: 'xx-small'
-                }}> (accepts '.wav', '.mp3', and '.FLAC' file types, leave blank to let file unchanged):
+                }}> (accepts '.wav', '.mp3', and '.FLAC' file types):
             </span>
                 <br />
                 <input 
@@ -216,11 +217,12 @@ export default function TrackUpdateForm() {
                 />
             </label>
             <label htmlFor="image-file">Add an image file 
+            <br />
             <span 
                 style={{
                     fontStyle: 'italic',
                     fontSize: 'xx-small'
-                }}> (accepts '.jpeg', '.jpg', and '.png' file types, leave blank to let file unchanged):
+                }}> (accepts '.jpeg', '.jpg', and '.png' file types):
             </span>
                 <br />
                 <input 
