@@ -47,7 +47,7 @@ const Navigation = () => {
         try {
             const response = await fetch('/api/tracks');
             const data = await response.json();
-            debugger
+            
             const tracks = data.tracks;
             dispatch(trackActions.receiveTracks(tracks));
             dispatch(audioPlayerActions.loadTracks(Object.keys(tracks)));

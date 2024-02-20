@@ -25,7 +25,7 @@ export default function AudioPlayer({ audioRef, progressBarRef, handleNext }) {
 
     useEffect(() => {
         if(isPlaying) {
-        debugger  
+          
         audioRef.current.onloadeddata = (e) => {
             e.preventDefault();
 
