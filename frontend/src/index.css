@@ -48,4 +48,11 @@ button {
     content: "\e900";
   }
   
+  button {
+    user-select: none;
+  }
+
+  .button {
+    user-select: none;
+  }
 

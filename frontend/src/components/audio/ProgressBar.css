@@ -26,6 +26,7 @@ span.time-display {
     top: 38%;
     padding-left: 10px;
     padding-right: 10px;
+    user-select: none;
 }
   
   /* Input range - firefox */
@@ -36,6 +37,7 @@ span.time-display {
     height: 2px;
     border-radius: 2px;
     cursor: pointer;
+    user-select: none;
 }
   
   /* played progress length - Chrome & safari*/

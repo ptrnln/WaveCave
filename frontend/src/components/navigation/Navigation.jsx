@@ -62,14 +62,14 @@ const Navigation = () => {
     return (
         <div id='navigation-bar'>
             <ul>
-                <li key={'home-nav'}>
+                <li key={'nav-link home'}>
                     <NavLink to={ isLoggedIn ? '/feed' : '/' } className='home-nav link'><img href=""  className="logo" src={logo}></img></NavLink>
                 </li>
                 <li key={'site-name'}>
-                    <span style={{'fontSize': 'xx-large', 'color': 'white'}}>WaveCave</span>
+                    <span id="site-name" style={{'fontSize': 'xx-large', 'color': 'white'}}>WaveCave</span>
                 </li>
                 <li key='nav-link feed'>
-                    <NavLink to='/feed' className='feed-nav link'>Feed</NavLink>
+                    <NavLink to='/feed' className='nav-link feed'>Feed</NavLink>
                 </li>
                 { 
                 sessionUser ?
@@ -91,7 +91,6 @@ const Navigation = () => {
                     <button onClick={handleLoadTracks}>Load some Tracks!</button>
                 </li>
             </ul>
-            {/* <a href="/login">Log In</a> */}
         </div>
     )
 }
