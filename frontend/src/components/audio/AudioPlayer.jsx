@@ -1,53 +1,66 @@
-import { useEffect } from "react";
-import { useSelector } from "react-redux"; // useDispatch
-import './AudioPlayerContainer.css'
-// import * as audioPlayerActions from "../../store/audioPlayer";
 
-export default function AudioPlayer({ audioRef, progressBarRef, handleNext }) {
-    // const dispatch = useDispatch();
-    const currentTrack = useSelector(state => {
-        if(state.audio.isShuffled) {
-            return state.tracks[state.audio.queue.shuffled[state.audio.currentIndex]]
-        }
-        return state.tracks[state.audio.queue.original[state.audio.currentIndex]]
-    })
-    const isPlaying = useSelector(state => state.audio.isPlaying);
-    const vol = useSelector(state => state.audio.volume)
+import './AudioPlayer.css'
+import { tracks } from '../../data/tracks'
+import { useEffect, useRef, useState } from "react";
+import TrackDisplay from "./TrackDisplay";
+import AudioControls from './AudioControls';
+import AudioItem from './AudioItem';
+import { shallowEqual, useDispatch, useSelector } from 'react-redux';
+import * as audioPlayerActions from '../../store/audioPlayer';
+import ProgressBar from './ProgressBar';
+
+export default function AudioPlayerContainer() {
+    const dispatch = useDispatch();
+    const currentIndex = useSelector(state => state.audio.currentIndex, shallowEqual)
+
+    // const [trackIndex, setTrackIndex] = useState(0);
+    // const [currentTrack, setCurrentTrack] = useState(tracks[trackIndex]);
     
-    const audio = <audio 
-            className={`audio-track ${currentTrack?.title || ''}`}
-            ref={audioRef}
-            onEnded={handleNext}
-            volume={vol * .01}
+    // const [timeProgress, setTimeProgress] = useState(0);
+    // const [duration, setDuration] = useState(0);
 
-        />
+    const audioRef = useRef();
+    const progressBarRef = useRef();
 
+    // useEffect(() => {
+    //     setCurrentTrack(tracks[trackIndex]);
+    //     setDuration(currentTrack.duration);
+    //     setTimeProgress(0);
+    // }, [trackIndex, currentTrack.duration])
 
-    useEffect(() => {
-        if(isPlaying) {
-          
-        audioRef.current.onloadeddata = (e) => {
-            e.preventDefault();
+    const handleNext = (e) => {
+        e.preventDefault();
+        dispatch(audioPlayerActions.playNext())
+        dispatch(audioPlayerActions.playTrack())
+    }
 
-            e.target.play();
-        
-        }
+    const handlePrev = (e) => {
+        e.preventDefault();
+        if(audioRef.current.currentTime <= 3 && !currentIndex == 0) {
+            dispatch(audioPlayerActions.playPrev())
         } else {
-            audioRef.current.pause();
+            audioRef.current.currentTime = 0;
         }
-    })
-
-    useEffect(() => {
-        if(currentTrack !== undefined) {
-            document.getElementsByClassName('audio-track')[0].src = currentTrack.sourceUrl
-        }
-    }, [currentTrack])
-
-
+    }
 
     return (
-        <>
-            {audio}
-        </>
+        <div className="audio-player">
+            <div className="inner">
+                <AudioControls {...{
+                    handleNext,
+                    handlePrev,
+                }}/>
+                <ProgressBar {...{
+                    audioRef,
+                    progressBarRef,
+                }}/>
+                 <AudioItem {...{
+                    audioRef,
+                    progressBarRef,
+                    handleNext
+                }}/>
+                <TrackDisplay />
+            </div>
+        </div>
     )
 }

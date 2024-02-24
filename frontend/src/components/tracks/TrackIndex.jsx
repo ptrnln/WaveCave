@@ -5,7 +5,7 @@ import * as trackActions from '../../store/track'
 
 export default function TrackIndex() {
     const [loaded, setLoaded] = useState(false);
-    const tracks = useSelector(state => Object.values(state.tracks))
+    const tracks = useSelector(state => state.tracks)
     const dispatch = useDispatch();
 
     useEffect(() => {
@@ -20,7 +20,7 @@ export default function TrackIndex() {
     return (
         <ul
             className="track-index">
-            {loaded && tracks.map(track => <li key={`track ${track.title}`}><TrackIndexItem track={track} /></li>)}
+            {loaded && Object.values(tracks).map(track => <li key={`track ${track.title}`}><TrackIndexItem track={track} /></li>)}
         </ul>
     )
 }
