@@ -87,8 +87,8 @@ const Navigation = () => {
                     </li>
                 </>
                 }
-                <li key={'load some tracks'}>
-                    <button onClick={handleLoadTracks}>Load some Tracks!</button>
+                <li key={'nav-link load-tracks'}>
+                    <button className={'nav-link load-tracks'}onClick={handleLoadTracks}>Load some Tracks!</button>
                 </li>
             </ul>
         </div>

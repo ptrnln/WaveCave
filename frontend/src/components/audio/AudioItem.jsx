@@ -46,6 +46,10 @@ export default function AudioItem({ audioRef, progressBarRef, handleNext }) {
     })
 
     useEffect(() => {
+        debugger
+    })
+
+    useEffect(() => {
         if(currentTrack !== undefined) {
             document.getElementsByClassName('audio-track')[0].src = currentTrack.sourceUrl
         }

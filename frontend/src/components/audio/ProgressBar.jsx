@@ -56,7 +56,7 @@ export default function ProgressBar({ progressBarRef, audioRef }) {
             <input 
                 type="range" 
                 ref={progressBarRef}
-                step={0.001}
+                step={0.0001}
                 defaultValue={0}
                 onChange={handleProgressChange}
             />

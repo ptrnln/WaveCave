@@ -16,7 +16,6 @@ function LoginForm() {
   const sessionUser = useSelector(state => state.session.user);
 
   const clickListener = (e) => {
-    
     const modal = document.querySelector(".login.modal");
     const loginButton = document.querySelector("button.nav-link.login");
     const signInButton = document.querySelector("button.nav-link.signup");
@@ -26,12 +25,16 @@ function LoginForm() {
   };
 
   const activateGreyout = () => {
-    document.querySelector("div#greyout").classList.add("active");
+    const greyout = document.querySelector("div#greyout");
+    greyout.classList.add("active");
+    if(greyout.classList.contains("inactive")) greyout.classList.remove("inactive");
     return true
   }
 
   const deactivateGreyout = () => {
-    document.querySelector("div#greyout").classList.remove("active");
+    const greyout = document.querySelector("div#greyout");
+    if(greyout.classList.contains("active")) greyout.classList.remove("active");
+    greyout.classList.add("inactive");
     return true
   }
 
@@ -99,8 +102,41 @@ function LoginForm() {
         </form>
       </div>
       :
-      deactivateGreyout() && false
-      }
+      deactivateGreyout() && 
+      <div className="login modal hidden">
+        <form className='login-form'>
+        <h1>Log In</h1>
+          <label>
+            Username or Email:
+            <input
+              type="text"
+              value={credential}
+              onChange={(e) => setCredential(e.target.value)}
+              required
+            />
+          </label>
+          <label>
+            Password:
+            <input
+              type="password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              required
+            />
+          </label>
+          <ul className="error messages">
+            {errors.map(error => <li>* {error}</li>)}
+          </ul>
+          <button 
+            className="login button"
+            type="submit"
+            onClick={handleSubmit}>Log In</button>
+          <button 
+            className="login button demo"
+            onClick={handleDemoLogin}>Demo Log In</button>
+        </form>
+      </div>
+    }
     </>
   );
 }

@@ -144,14 +144,13 @@ export const audioPlayerReducer = (state = initialState, action) => {
             return { ...state, isPlaying: false }
         case PLAY_NEXT:
             if(!state.queue.original.length) return state
-
+    
             repeated = state.hasRepeated
             newIndex = state.currentIndex
 
             if(state.queue.original.length - 1 === state.currentIndex) {
                 switch(state.isRepeating) {
                     case 'once':
-                        
                         if(!state.hasRepeated) newIndex = 0
                         repeated = true
                         break;

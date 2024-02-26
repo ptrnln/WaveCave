@@ -9,16 +9,13 @@ import { shallowEqual, useDispatch, useSelector } from 'react-redux';
 import * as audioPlayerActions from '../../store/audioPlayer';
 import ProgressBar from './ProgressBar';
 
-export default function AudioPlayerContainer() {
+export default function AudioPlayer() {
     const dispatch = useDispatch();
-    const currentIndex = useSelector(state => state.audio.currentIndex, shallowEqual)
-
-    // const [trackIndex, setTrackIndex] = useState(0);
-    // const [currentTrack, setCurrentTrack] = useState(tracks[trackIndex]);
-    
-    // const [timeProgress, setTimeProgress] = useState(0);
-    // const [duration, setDuration] = useState(0);
-
+    const currentIndex = useSelector(state => state.audio.currentIndex)
+    const tracks = useSelector(state => state.tracks);
+    const isRepeating = useSelector(state => state.audio.isRepeating);
+    const hasRepeated = useSelector(state => state.audio.hasRepeated);
+    const isPlaying = useSelector(state => state.audio.isPlaying);
     const audioRef = useRef();
     const progressBarRef = useRef();
 
@@ -28,12 +25,14 @@ export default function AudioPlayerContainer() {
     //     setTimeProgress(0);
     // }, [trackIndex, currentTrack.duration])
 
+    
+    
     const handleNext = (e) => {
         e.preventDefault();
-        dispatch(audioPlayerActions.playNext())
-        dispatch(audioPlayerActions.playTrack())
+        dispatch(audioPlayerActions.playNext());
+        if(!isPlaying) dispatch(audioPlayerActions.playTrack());
     }
-
+    
     const handlePrev = (e) => {
         e.preventDefault();
         if(audioRef.current.currentTime <= 3 && !currentIndex == 0) {
@@ -42,6 +41,12 @@ export default function AudioPlayerContainer() {
             audioRef.current.currentTime = 0;
         }
     }
+    
+    useEffect(() => {
+        if(tracks.length === 1 && (isRepeating === 'always' || isRepeating === 'once' && !hasRepeated)) {
+            audioRef.current.currentTime = 0
+        }
+    }, [isRepeating, handleNext]);
 
     return (
         <div className="audio-player">
