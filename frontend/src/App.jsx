@@ -6,7 +6,7 @@ import SignUpForm from './components/session/SignUpForm';
 import Navigation from './components/navigation/Navigation';
 import * as sessionActions from './store/session';
 import UserView from './components/users/UserView';
-import AudioPlayerContainer from './components/audio/AudioPlayerContainer';
+import AudioPlayer from './components/audio/AudioPlayer';
 import TrackView from './components/tracks/TrackView';
 import TrackUploadForm from './components/tracks/TrackUploadForm';
 import Splash from './Splash';
@@ -32,7 +32,7 @@ function Layout() {
       <Navigation />
       {isLoaded && <Outlet />}
       <LoginForm />
-      <AudioPlayerContainer />
+      <AudioPlayer />
     </>
   );
 }

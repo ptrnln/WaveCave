@@ -30,7 +30,7 @@ export default function ProgressBar({ progressBarRef, audioRef }) {
     }, [audioRef, progressBarRef.current?.value, handleProgressChange]);
     
     useEffect(() => {
-        if (isPlaying && audioRef.current?.paused) {
+        if (isPlaying ) {
           audioRef.current.play();
           playAnimationRef.current = requestAnimationFrame(updateProgress);
         } 
@@ -39,10 +39,6 @@ export default function ProgressBar({ progressBarRef, audioRef }) {
           cancelAnimationFrame(playAnimationRef.current);
         }
     }, [isPlaying, audioRef, updateProgress]);
-
-    useEffect(() => {
-
-    })
 
     const formatTime = time => {
         const formattedMinutes = Math.floor(time / 60)
@@ -60,7 +56,7 @@ export default function ProgressBar({ progressBarRef, audioRef }) {
             <input 
                 type="range" 
                 ref={progressBarRef}
-                step={0.001}
+                step={0.0001}
                 defaultValue={0}
                 onChange={handleProgressChange}
             />

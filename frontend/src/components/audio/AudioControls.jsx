@@ -3,7 +3,7 @@ import * as audioPlayerActions from '../../store/audioPlayer';
 import { useDispatch, useSelector } from "react-redux";
 import './AudioControls.css';
 
-export default function AudioControls({ handleNext }) {
+export default function AudioControls({ handleNext, handlePrev }) {
     const dispatch = useDispatch();
 
     const isPlaying = useSelector(state => state.audio.isPlaying);
@@ -65,10 +65,7 @@ export default function AudioControls({ handleNext }) {
         <div className="audio-controls container">
             <div className="track-controls container">
                 <div className="previous button">
-                    <i className="fa fa-step-backward" onClick={(e) => { 
-                        e.preventDefault(); 
-                        dispatch(audioPlayerActions.playPrev()) 
-                    }}/>     
+                    <i className="fa fa-step-backward" onClick={handlePrev}/>     
                 </div>
                 <div className="play-pause button">
                 {isPlaying ? 

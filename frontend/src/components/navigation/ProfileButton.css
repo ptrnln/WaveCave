@@ -11,3 +11,14 @@
     text-decoration: none;
     color: white;
   }
+
+  button:has(i.fa-solid.fa-user-circle) {
+    appearance: none;
+    border: none;
+    background: none;
+    color: lightgray;
+  }
+
+  button:has(i.fa-solid.fa-user-circle):hover {
+    color: white;
+  }

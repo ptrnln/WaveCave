@@ -1,12 +1,9 @@
 div#navigation-bar li {
     marker: none;
-    
     display: flex;
     flex-direction: row;
     align-items: center;
     height: 3rem;
-    padding-left: 5px;
-    padding-right: 5px;
     border-left: .5px solid black;
     border-right: .5px solid black;
 }
@@ -37,13 +34,18 @@ div#navigation-bar ul {
 }
 
 .nav-link {
+    user-select: none;
     position: relative;
     appearance: none;
     font: inherit;
-    color: white;
-    background-color: rgb(0, 0, 0);
+    color: lightgray;
+    background-color: inherit;
     border: 0;
-    padding: 1rem;
+    padding: 1rem 2rem;
+}
+
+.nav-link:hover {
+    color: white;
 }
 
 div#navigation-bar li img {
@@ -53,17 +55,24 @@ div#navigation-bar li img {
 
 div#navigation-bar li:has(> a.active) {
     text-decoration: none;
-    color: white;
-    background-color: rgb(70, 70, 70);
+    background-color: black;
     display: flex;
 }
 
 div#navigation-bar a {
     display: flex;
     text-align: center;
-    padding-left: 20px;
-    padding-right: 20px;
     text-decoration: none;
+    user-select: none;
+}
+
+span#site-name {
+    user-select: none;
+    padding-left: 10px;
+    padding-right: 10px;
+}
+
+a.nav-link:hover {
     color: white;
 }
 
