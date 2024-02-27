@@ -8,14 +8,16 @@ div.track-display canvas {
     padding-right: 20px;
 }
 
-div.track-display img {
+div.track-display > img, div.track-display > i {
     display: block;
     position: relative;
     max-height: 30px;
     max-width: 30px;
     top: 20%;
-    padding-left: 20px;
-    padding-right: 20px;
+    margin-left: 20px;
+    margin-right: 20px;
+    font-size: 30px;
+    border: 1px solid #d3d3d3
 }
 
 
@@ -33,6 +35,7 @@ span.track-details {
     position: relative;
     top: 20%;
     font-size: x-small;
+    cursor: pointer;
 }
 
 span.track-details.artist-name {

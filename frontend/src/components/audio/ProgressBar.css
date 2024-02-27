@@ -9,7 +9,7 @@
 }
 
 .progress-bar input[type="range"] {
-    --range-progress: 0;
+    --range-progress: 0.0;
     -webkit-appearance: none;
     appearance: initial;
     position: relative;
@@ -71,6 +71,7 @@ span.time-display {
     background-color: #f50;
     cursor: pointer;
     position: relative;
+    transition: .2s;
 }
   
   /* dragging thumb - chrome and safari */
@@ -99,6 +100,8 @@ span.time-display {
 
 .progress-bar input[type="range"]::-webkit-slider-thumb {
     transition-duration: 100ms;
+    transition-property: opacity;
+    transition-timing-function: ease-in-out;
     width: 8px;
     height: 8px;
     opacity: 0;
@@ -107,7 +110,8 @@ span.time-display {
 
 .progress-bar:hover input[type="range"]::-webkit-slider-thumb {
     transition-duration: 100ms;
-    transition-property: all;
+    transition-property: opacity;
+    transition-timing-function: ease-in-out;
     opacity: 1;
     border-radius: 50%;
 }

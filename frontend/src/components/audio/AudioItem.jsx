@@ -1,9 +1,10 @@
 import { useEffect } from "react";
 import { shallowEqual, useSelector } from "react-redux"; 
 
-export default function AudioItem({ audioRef, progressBarRef, handleNext }) {
+export default function AudioItem({ audioRef, handleNext }) {
+    
     const currentTrack = useSelector(state => {
-        if(state.audio.isShuffled) {
+        if (state.audio.isShuffled) {
             return state.tracks[state.audio.queue.shuffled[state.audio.currentIndex]]
         }
         return state.tracks[state.audio.queue.original[state.audio.currentIndex]]
@@ -17,8 +18,9 @@ export default function AudioItem({ audioRef, progressBarRef, handleNext }) {
             bObj[e] = b[e]
         });
 
-        return shallowEqual(aObj, bObj) && shallowEqual(a.artist, b.artist)
-    })
+        return shallowEqual(aObj, bObj)
+    });
+
     const isPlaying = useSelector(state => state.audio.isPlaying);
     const vol = useSelector(state => state.audio.volume)
     
@@ -46,16 +48,10 @@ export default function AudioItem({ audioRef, progressBarRef, handleNext }) {
     })
 
     useEffect(() => {
-        debugger
-    })
-
-    useEffect(() => {
         if(currentTrack !== undefined) {
             document.getElementsByClassName('audio-track')[0].src = currentTrack.sourceUrl
         }
     }, [currentTrack])
-
-
 
     return (
         <>

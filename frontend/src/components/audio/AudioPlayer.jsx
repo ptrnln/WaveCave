@@ -1,13 +1,13 @@
 
 import './AudioPlayer.css'
-import { tracks } from '../../data/tracks'
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef } from "react";
 import TrackDisplay from "./TrackDisplay";
 import AudioControls from './AudioControls';
 import AudioItem from './AudioItem';
-import { shallowEqual, useDispatch, useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import * as audioPlayerActions from '../../store/audioPlayer';
 import ProgressBar from './ProgressBar';
+import QueueControl from './QueueControl';
 
 export default function AudioPlayer() {
     const dispatch = useDispatch();
@@ -65,6 +65,7 @@ export default function AudioPlayer() {
                     handleNext
                 }}/>
                 <TrackDisplay />
+                <QueueControl />
             </div>
         </div>
     )
