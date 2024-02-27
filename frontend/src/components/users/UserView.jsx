@@ -11,8 +11,6 @@ export default function UserView() {
     const tracks = useSelector(state => state.tracks);
     const [trackIndexItems, setTrackIndexItems] = useState([]);
 
-    const currentUser = useSelector(state => state.session.user);
-
     useEffect(() => {
         user.tracks ? dispatch(trackActions.loadTracks(Object.keys(user.tracks))) : null
     }, [])
@@ -33,9 +31,11 @@ export default function UserView() {
                 
                 <div id="user-view page">
                     <h1>{ user.username }</h1>
-                    {
-                        trackIndexItems.map(track => <><TrackIndexItem track={track}/></>)
-                    }
+                    <ul>
+                        {
+                            trackIndexItems.map(track => <li key={track.id}><TrackIndexItem track={track}/></li>)
+                        }
+                    </ul>
                 </div>
                 :
                 <></>

@@ -1,7 +1,7 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import './TrackUploadForm.css';
 import * as trackActions from '../../store/track';
-import { Navigate, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 
 const GENRES = [
@@ -96,7 +96,7 @@ export default function TrackUploadForm() {
             if(response.errors) {
                 setErrors(response.errors)
             } else {
-                navigate(`/${currentUser.username}/${title.replace(' ', '-')}`)
+                navigate(`/${currentUser.username}/${title.replace(' ', '%20')}`)
             }
         } catch (err) {
             setErrors([err])

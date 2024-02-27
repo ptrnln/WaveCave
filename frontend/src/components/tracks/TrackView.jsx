@@ -1,14 +1,12 @@
 import { Outlet, useLoaderData, useParams } from "react-router-dom"
 
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import * as audioActions from '../../store/audioPlayer'
 
 export default function TrackView() {
     const dispatch = useDispatch();
     const { title } = useParams();
     const track = Object.values(useLoaderData())[0];
-
-    const user = track.artist
     
     async function handleClick (e) {
         const trackData = await dispatch(audioActions.loadTracks([track.id]))
@@ -20,10 +18,12 @@ export default function TrackView() {
             
             <Outlet />
             :
-            <div className="track-view">
+            <div className="track-view container">
                 <span className="track-view title">{title}</span>
                 <br />
                 <span className="track-view artist-info">{track.artist.username}</span>
+                <br />
+                <span className="track-view description">{track.description}</span>
                 <button onClick={handleClick}>Play this track</button>
             </div>
     )

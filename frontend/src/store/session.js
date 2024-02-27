@@ -52,12 +52,16 @@ export const clearErrors = () => {
 }
 
 export const restoreSession = () => async dispatch => {
-    const response = await fetch("/api/session");
-    storeCSRFToken(response);
-    const data = await response.json();
-    dispatch(setUser(data.user));
-    return response;
-};
+    try {
+        const response = await fetch("/api/session");
+        storeCSRFToken(response);
+        const data = await response.json();
+        dispatch(setUser(data.user));
+        return response;
+    } catch {
+        
+    };
+    }
 
 export const signUp = user => async dispatch => {
     const { username, email, password } = user;

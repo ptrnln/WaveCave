@@ -16,7 +16,6 @@ export default function TrackIndex() {
         })
     }, [])
 
-    
     return (
         <ul
             className="track-index">

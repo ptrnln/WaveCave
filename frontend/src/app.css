@@ -53,3 +53,31 @@ time, mark, audio, video {
     display: inherit;
     opacity: 1;
 }
+
+div#dev-links-container {
+    position: absolute;
+    bottom: 46px;
+    z-index: 98;
+    margin-bottom: 6px;
+    margin-left: 2px;
+    font-size: .8rem;
+    color: rgba(0, 0, 0, 40%);
+    vertical-align: baseline;
+}
+
+div#dev-links-container * {
+    user-select: none;
+}
+
+.dev-link {
+    color: rgba(0, 0, 0, 30%);
+    font-size: 2rem;
+    margin: 5px;
+}
+
+.dev-link:hover {
+    color: black;
+}
+
+
+

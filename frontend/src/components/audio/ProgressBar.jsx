@@ -10,8 +10,9 @@ export default function ProgressBar({ progressBarRef, audioRef }) {
 
     const handleProgressChange = (e) => {
         e.stopPropagation()
+        
         const newValue = progressBarRef.current ? progressBarRef.current.value : 0
-        audioRef.current.currentTime = (progressBarRef.current.value / 100) * audioRef.current.duration;
+        audioRef.current.currentTime = (progressBarRef.current.value / 100.0) * audioRef.current.duration;
         progressBarRef.current.style.setProperty(
             '--range-progress',
             `${newValue}%`
@@ -19,7 +20,8 @@ export default function ProgressBar({ progressBarRef, audioRef }) {
     };
 
     const updateProgress = useCallback(() => {
-        const newValue = audioRef.current ? (audioRef.current.currentTime / audioRef.current.duration) * 100 : 0
+        
+        const newValue = audioRef.current ? (audioRef.current.currentTime / audioRef.current.duration) * 100.0 : 0
         setTime(audioRef.current?.currentTime || 0);
         progressBarRef.current.value = newValue;
         progressBarRef.current.style.setProperty(
@@ -30,8 +32,8 @@ export default function ProgressBar({ progressBarRef, audioRef }) {
     }, [audioRef, progressBarRef.current?.value, handleProgressChange]);
     
     useEffect(() => {
-        if (isPlaying ) {
-          audioRef.current.play();
+        if (isPlaying) {
+        //   audioRef.current.play();
           playAnimationRef.current = requestAnimationFrame(updateProgress);
         } 
         if (!isPlaying && !audioRef.current?.paused) {

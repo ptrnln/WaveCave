@@ -10,16 +10,19 @@ function LoginForm() {
   const [credential, setCredential] = useState('');
   const [password, setPassword] = useState('');
   const errors = useSelector(state => state.session.errors);
-  // const [modalState, setModalState] = useState('username/email');
+  // const [modalState, setModalState] = useState('credential');
   
   const showModal = useSelector(state => state.session.showModal);
-  const sessionUser = useSelector(state => state.session.user);
 
   const clickListener = (e) => {
     const modal = document.querySelector(".login.modal");
     const loginButton = document.querySelector("button.nav-link.login");
     const signInButton = document.querySelector("button.nav-link.signup");
-    if(modal && !modal.contains(e.target) && e.target !== loginButton && e.target !== signInButton) {
+    if(modal && 
+      !modal.classList.contains('hidden') &&
+      !modal.contains(e.target) && 
+      e.target !== loginButton && 
+      e.target !== signInButton) {
       dispatch(sessionActions.hideModal());
     }
   };
@@ -37,14 +40,6 @@ function LoginForm() {
     greyout.classList.add("inactive");
     return true
   }
-
-  useEffect(() => {
-    window.addEventListener('click', clickListener) 
-    return () => {
-      window.removeEventListener('click', clickListener);
-    }
-  }, [])
-
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -65,9 +60,19 @@ function LoginForm() {
     }
   }
 
+  useEffect(() => {
+    if(showModal) {
+      document.addEventListener('click', clickListener);
+      activateGreyout();
+    } else {
+      document.removeEventListener('click', clickListener);
+      deactivateGreyout();
+    }
+  }, [showModal])
+
   return (
     <>
-      {showModal ? activateGreyout() &&
+      {showModal ? 
       <div className="login modal">
         <form className='login-form'>
         <h1>Log In</h1>
@@ -102,7 +107,6 @@ function LoginForm() {
         </form>
       </div>
       :
-      deactivateGreyout() && 
       <div className="login modal hidden">
         <form className='login-form'>
         <h1>Log In</h1>
