@@ -33,7 +33,7 @@ export default function ProgressBar({ progressBarRef, audioRef }) {
     
     useEffect(() => {
         if (isPlaying) {
-        //   audioRef.current.play();
+          audioRef.current.play();
           playAnimationRef.current = requestAnimationFrame(updateProgress);
         } 
         if (!isPlaying && !audioRef.current?.paused) {
