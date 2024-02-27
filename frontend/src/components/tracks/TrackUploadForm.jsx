@@ -24,7 +24,7 @@ const generateFileTypeRegEx = (fileTypeList) => {
 
 export default function TrackUploadForm() {
     const [title, setTitle] = useState('');
-    const [description, setDiscription] = useState('');
+    const [description, setDescription] = useState('');
     const [genre, setGenre] = useState(GENRES[0]);
     const [isNewGenre, setIsNewGenre] = useState(false);
     const [isAlbum, setIsAlbum] = useState(false);
@@ -70,7 +70,6 @@ export default function TrackUploadForm() {
         e.stopPropagation();
         e.preventDefault();
         setErrors([]);
-        
         
         try {
             if (!audioFile) {
@@ -128,7 +127,7 @@ export default function TrackUploadForm() {
                     rows="4" 
                     onChange={(e) => {
                         e.stopPropagation();
-                        setDiscription(e.target.value);
+                        setDescription(e.target.value);
                     }}
                     value={description}
                     style={{resize: 'none'}}
@@ -187,6 +186,7 @@ export default function TrackUploadForm() {
                     onChange={async (e) => {
                         e.stopPropagation();
                         setAudioFile(e.target.files[0]);
+                        setDuration(await getDuration(e.target.files[0]))
                     }}
                 />
             </label>

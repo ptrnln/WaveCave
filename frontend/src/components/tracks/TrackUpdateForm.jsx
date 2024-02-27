@@ -120,7 +120,7 @@ export default function TrackUpdateForm() {
             setErrors(response.errors)
         } else {
             dispatch(trackActions.receiveTrack(response.track))
-            navigate(`/${currentUser.username}/${newTitle.replace(' ', '-')}`)
+            navigate(`/${currentUser.username}/${newTitle.replace(' ', '%20')}`)
         }
     }
 

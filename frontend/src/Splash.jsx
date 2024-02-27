@@ -32,7 +32,7 @@ export default function Splash() {
 
     return (
         <div className="splash wrapper">
-            <a href="#" title="Image courtesy of Martin Lopez - 2019">
+            <a title="Image courtesy of Martin Lopez - 2019">
             <canvas
             id="splash-canvas"
             className="splash-image display"
