@@ -59,7 +59,7 @@ export const restoreSession = () => async dispatch => {
         dispatch(setUser(data.user));
         return response;
     } catch {
-        
+
     };
     }
 
@@ -86,7 +86,7 @@ export const signUp = user => async dispatch => {
 };
 
 export const login = ({ credential, password }) => async dispatch => {
-    const response = await csrfFetch('api/session', {
+    const response = await csrfFetch('/api/session', {
         method: 'POST',
         body: JSON.stringify({ credential, password })
     });

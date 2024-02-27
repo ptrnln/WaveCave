@@ -10,6 +10,7 @@ function LoginForm() {
   const [credential, setCredential] = useState('');
   const [password, setPassword] = useState('');
   const errors = useSelector(state => state.session.errors);
+  
   // const [modalState, setModalState] = useState('credential');
   
   const showModal = useSelector(state => state.session.showModal);
