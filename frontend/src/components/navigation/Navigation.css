@@ -1,3 +1,8 @@
+div#navigation-bar {
+    background-color: rgb(35, 35, 35);
+    width: 100%;
+}
+
 div#navigation-bar li {
     marker: none;
     display: flex;
@@ -5,27 +10,19 @@ div#navigation-bar li {
     align-items: center;
     height: 3rem;
     border-left: .5px solid black;
-
 }
 
-div#navigation-bar li * {
-    display: flex;
-}
 
 div#navigation-bar > ul > li:last-child {
     border-right: .5px solid black;
-}
-
-
-div#navigation-bar li li {
-    display: flex;
 }
 
 div#navigation-bar ul {
     display: flex;
     flex-direction: row;
     justify-content: center;
-    background-color: rgb(35, 35, 35);
+    align-content: flex-start;
+    background-color: inherit;
     height: 0%;
 }
 

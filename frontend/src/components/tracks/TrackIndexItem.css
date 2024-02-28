@@ -30,3 +30,7 @@
 .track-index * {
     padding: 5px;
 }
+
+.track-index.item i {
+    color: rgb(190, 190, 190);
+}

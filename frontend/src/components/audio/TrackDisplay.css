@@ -9,15 +9,19 @@ div.track-display canvas {
 }
 
 div.track-display > img, div.track-display > i {
-    display: block;
+    display: flex;
     position: relative;
-    max-height: 30px;
-    max-width: 30px;
+    height: 30px;
+    width: 30px;
     top: 20%;
     margin-left: 20px;
     margin-right: 20px;
-    font-size: 30px;
-    border: 1px solid #d3d3d3
+    font-size: 25px;
+    border: 1px solid #d3d3d3;
+    color: rgb(190, 190, 190);
+    justify-content: center;
+    vertical-align: auto;
+    align-items: center;
 }
 
 
