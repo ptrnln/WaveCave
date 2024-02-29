@@ -31,7 +31,7 @@ export default function UserView() {
                 
                 <div id="user-view page">
                     <h1>{ user.username }</h1>
-                    <ul>
+                    <ul className="track-index">
                         {
                             trackIndexItems.map(track => <li key={track.id}><TrackIndexItem track={track}/></li>)
                         }

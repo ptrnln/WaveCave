@@ -18,7 +18,7 @@ export default function TrackIndex() {
     }, [])
 
     return (
-        <div className="track-index">
+        <div className="track-index container">
             <h1>Tracks</h1>
             <ul
                 className="track-index">

@@ -58,12 +58,3 @@
     text-align: center;
 }
 
-div.profile-menu {
-    color: white;
-    display: flex;
-    flex-direction: row;
-}
-
-div.profile-menu * {
-    margin: 5px;
-}

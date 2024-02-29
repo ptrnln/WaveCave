@@ -1,0 +1,15 @@
+
+.track-view.container {
+    display: flex;
+    flex-direction: column;
+}
+
+.track-view.container div {
+    background-color: lightgray;
+    padding: 10px;
+    border-radius: 10px;
+}
+
+.track-view.container button {
+    width: fit-content;
+}

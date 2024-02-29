@@ -38,9 +38,6 @@ const SignUpForm = () => {
         <>
             <form className='SignUpForm' onSubmit={handleSubmit}>
                 <h1>Sign Up</h1>
-                <ul>
-                    {errors.map(error => <li key={error}>{error}</li>)}
-                </ul>
                 <label htmlFor="email">Email:
                     <input type="text" value={email} onChange={e => setEmail(e.target.value)} />
                 </label>
@@ -53,6 +50,9 @@ const SignUpForm = () => {
                 <label htmlFor="confirmPassword">Confirm Password:
                     <input type="password" value={confirmPassword} onChange={e => setConfirmPassword(e.target.value)} />
                 </label>
+                <ul className="errors">
+                    {errors.map(error => <li key={error}>{error}</li>)}
+                </ul>
                 <button type="submit">Sign Up</button>
             </form>
         </>

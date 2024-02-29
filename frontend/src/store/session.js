@@ -10,7 +10,11 @@ const CLEAR_ERRORS = 'session/CLEAR_ERRORS'
 const initialState = { 
     user: null,
     showModal: false,
-    errors: []
+    errors: {
+        credential: [],
+        password: [],
+        overall: []
+    }
 };
 
 export const setUser = user => {
@@ -127,11 +131,11 @@ const sessionReducer = (state = initialState, action) => {
         case SHOW_MODAL:
             return { ...state, showModal: true }
         case HIDE_MODAL:
-            return { ...state, errors: [], showModal: false }
+            return { ...state, errors: initialState.errors, showModal: false }
         case SET_ERRORS:
             return { ...state, errors: action.errors }
         case CLEAR_ERRORS:
-            return { ...state, errors: [] }
+            return { ...state, errors: initialState.errors }
         default:
             return state;
     }

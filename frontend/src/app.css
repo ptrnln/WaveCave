@@ -103,13 +103,27 @@ div.app {
 }
 
 
-.content {
+div.content {
     /* position: fixed; */
 
     width: 1190px;
     height: calc(100% - 96px);
     overflow-y: scroll;
     /* top: 48px; */
+}
+
+div.content h1 {
+    font-size: 3rem;
+}
+
+label[for=errors] {
+    font-size: x-small;
+    color: #f50;
+}
+
+.errors {
+    font-size: x-small;
+    color: #f50;
 }
 
 

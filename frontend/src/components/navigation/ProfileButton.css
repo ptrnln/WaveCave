@@ -29,3 +29,84 @@
   button:has(i.fa-solid.fa-user-circle):hover {
     color: white;
   } */
+
+.profile-menu {
+  display: none;
+  background-color: inherit;
+}
+  
+.profile-dropdown * {
+  display: flex;
+  justify-content: center;
+  text-align: center;
+  padding: 0 15px;
+}
+
+.profile-dropdown a {
+  padding: 15px;
+  background: none;
+  font: inherit;
+  text-decoration: none;
+  color: lightgray;
+  font-size: x-small;
+}
+
+
+.profile-dropdown button {
+  appearance: none;
+  background: inherit;
+  border: none;
+  color: lightgray;
+  font-size: x-small;
+}
+
+.profile-dropdown li:hover, .profile-dropdown li *:hover {
+  color: white;
+}
+
+div.profile-dropdown-container {
+  height: 0;
+  overflow: hidden;
+  transition: all 0.3s ease;
+  
+}
+
+ul#profile-dropdown {
+  display: flex;
+  flex-direction: column;
+  position: absolute;
+  top: 39px;
+  left: 0;
+  width: fit-content;
+  min-height: 140px;
+
+  z-index: 0;
+  background-color: inherit;
+}
+
+ul#profile-dropdown>li {
+  border: 0;
+}
+  
+div.profile-menu {
+  color: white;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  align-items: flex-start;
+}
+
+div.profile-menu {
+  color: white;
+  display: flex;
+  flex-direction: row;
+}
+
+div.profile-menu button:has(i) {
+  margin: 5px;
+}
+
+div.profile-menu:has(ul) {
+  position: relative;
+  display: inline-block;
+}
