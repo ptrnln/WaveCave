@@ -10,7 +10,11 @@ const CLEAR_ERRORS = 'session/CLEAR_ERRORS'
 const initialState = { 
     user: null,
     showModal: false,
-    errors: []
+    errors: {
+        credential: [],
+        password: [],
+        overall: []
+    }
 };
 
 export const setUser = user => {
@@ -54,12 +58,14 @@ export const clearErrors = () => {
 export const restoreSession = () => async dispatch => {
     try {
         const response = await fetch("/api/session");
-        storeCSRFToken(response);
-        const data = await response.json();
-        dispatch(setUser(data.user));
+        if(response.ok) {
+            storeCSRFToken(response);
+            const data = await response.json();
+            dispatch(setUser(data.user));
+        }
         return response;
     } catch {
-
+        return
     };
     }
 
@@ -125,11 +131,11 @@ const sessionReducer = (state = initialState, action) => {
         case SHOW_MODAL:
             return { ...state, showModal: true }
         case HIDE_MODAL:
-            return { ...state, errors: [], showModal: false }
+            return { ...state, errors: initialState.errors, showModal: false }
         case SET_ERRORS:
             return { ...state, errors: action.errors }
         case CLEAR_ERRORS:
-            return { ...state, errors: [] }
+            return { ...state, errors: initialState.errors }
         default:
             return state;
     }

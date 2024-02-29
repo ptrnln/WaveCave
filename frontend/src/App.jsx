@@ -28,19 +28,22 @@ function Layout() {
   }, [dispatch]);
 
   return (
+    <>
     <div className='app'>
       <Navigation />
-      {isLoaded && <Outlet />}
-      <LoginForm />
-      <div id='dev-links-container'>
-        <a id='git-link' className='dev-link' href='https://github.com/PlasmaNuke'><i className='fa-brands fa-github' /></a>
-        <a className='dev-link' href='https://www.linkedin.com/in/peter-nolan-45828b2ab'><i className='fa-brands fa-linkedin' /></a>
-        <br />
-        <span className='dev-cred'>Developed by Peter Nolan 2024</span>
-
+      <div className='content'>
+        {isLoaded && <Outlet />}
       </div>
+      <LoginForm />
       <AudioPlayer />
     </div>
+    <div id='dev-links-container'>
+      <a id='git-link' className='dev-link' href='https://github.com/PlasmaNuke'><i className='fa-brands fa-github' /></a>
+      <a className='dev-link' href='https://www.linkedin.com/in/peter-nolan-45828b2ab'><i className='fa-brands fa-linkedin' /></a>
+      <br />
+      <span className='dev-cred'>Developed by Peter Nolan 2024</span>
+    </div>
+    </>
   );
 }
 

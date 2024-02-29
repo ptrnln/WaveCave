@@ -85,6 +85,9 @@ function LoginForm() {
               onChange={(e) => setCredential(e.target.value)}
               required
             />
+            <ul className="errors">
+                {errors.credential.map(error => <li>* {error}</li>)}
+            </ul>
           </label>
           <label>
             Password:
@@ -95,8 +98,8 @@ function LoginForm() {
               required
             />
           </label>
-          <ul className="error messages">
-            {errors.map(error => <li>* {error}</li>)}
+          <ul className="errors">
+            {errors.password.map(error => <li>* {error}</li>)}
           </ul>
           <button 
             className="login button"
@@ -130,7 +133,7 @@ function LoginForm() {
             />
           </label>
           <ul className="error messages">
-            {errors.map(error => <li>* {error}</li>)}
+            {errors.overall.map(error => <li>* {error}</li>)}
           </ul>
           <button 
             className="login button"

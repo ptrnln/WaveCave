@@ -7,10 +7,6 @@
     font-family: 'Monsterrat';
 }
 
-.app {
-  overflow-y: scroll;
-}
-
 ::-webkit-scrollbar {
   display: none;
 }
