@@ -1,4 +1,4 @@
-
+/* 
   .profile-dropdown * {
     display: flex;
     flex-direction: column;
@@ -28,4 +28,4 @@
 
   button:has(i.fa-solid.fa-user-circle):hover {
     color: white;
-  }
+  } */
