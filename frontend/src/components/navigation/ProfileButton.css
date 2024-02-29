@@ -75,7 +75,7 @@ ul#profile-dropdown {
   display: flex;
   flex-direction: column;
   position: absolute;
-  top: 39px;
+  top: 37px;
   left: 0;
   width: fit-content;
   min-height: 140px;
@@ -109,4 +109,19 @@ div.profile-menu button:has(i) {
 div.profile-menu:has(ul) {
   position: relative;
   display: inline-block;
+}
+
+
+div.profile-menu button {
+  appearance: none;
+  background-color: inherit;
+  border: 0;
+  color: lightgray;
+}
+
+div.profile-menu button:hover {
+  appearance: none;
+  background-color: inherit;
+  border: 0;
+  color: white;
 }
