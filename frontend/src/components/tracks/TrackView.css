@@ -13,3 +13,23 @@
 .track-view.container button {
     width: fit-content;
 }
+
+div.track-view.body {
+    display: flex;
+    flex-direction: row;
+}
+
+div.track-view img {
+    max-width: 180px;
+    max-height: 180px;
+}
+
+div.track-view a {
+    color: inherit;
+    text-decoration: none;
+}
+
+div.track-view a:hover {
+    color: #f50;
+    text-decoration: none;
+}

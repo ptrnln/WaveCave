@@ -81,13 +81,15 @@ ul#profile-dropdown {
   min-height: 140px;
   z-index: 0;
   background-color: inherit;
+  border-top: 1px solid black;
 }
 
 ul#profile-dropdown>li {
   border: 0;
   text-wrap: nowrap;
+  border-bottom: 1px solid black;
 }
-  
+
 div.profile-menu {
   color: white;
   display: flex;

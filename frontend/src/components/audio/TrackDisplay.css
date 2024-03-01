@@ -32,7 +32,7 @@ div.track-display {
 div.track-details {
     display: flex;
     flex-direction: column;
-    width: 100px;
+    text-wrap: nowrap;
 }
 
 span.track-details {
