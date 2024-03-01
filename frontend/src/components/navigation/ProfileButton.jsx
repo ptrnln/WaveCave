@@ -12,14 +12,9 @@ function ProfileButton({ user }) {
     const dropdownRef = useRef(null)
     
     const toggleMenu = (e) => {
-      e.stopPropagation(); // Keep click from bubbling up to document and triggering closeMenu
+      e.stopPropagation();
       setShowMenu(!showMenu);
     };
-
-    const handleUploadClick = (e) => {
-      e.preventDefault();
-
-    }
     
     useEffect(() => {
       if (!showMenu) return;
