@@ -79,13 +79,13 @@ ul#profile-dropdown {
   left: 0;
   width: fit-content;
   min-height: 140px;
-
   z-index: 0;
   background-color: inherit;
 }
 
 ul#profile-dropdown>li {
   border: 0;
+  text-wrap: nowrap;
 }
   
 div.profile-menu {
