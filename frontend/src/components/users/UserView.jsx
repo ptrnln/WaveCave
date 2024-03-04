@@ -8,7 +8,7 @@ import TrackIndexItem from "../tracks/TrackIndexItem";
 export default function UserView() {
     const user = useLoaderData();
     const dispatch = useDispatch();
-    const [trackIndexItems, setTrackIndexItems] = useState([]);
+
 
     useEffect(() => {
         user.tracks ? dispatch(trackActions.loadTracks(Object.keys(user.tracks))) : null
@@ -17,10 +17,6 @@ export default function UserView() {
     useEffect(() => {
         dispatch(userActions.viewUser({ username: user.username }));
     }, [dispatch, user.username])
-
-    useEffect(() => {
-        if(!!user.tracks) setTrackIndexItems(Object.values(user.tracks))
-    }, [tracks])
     
     
     return (
@@ -32,7 +28,7 @@ export default function UserView() {
                     <h1>{ user.username }</h1>
                     <ul className="track-index">
                         {
-                            trackIndexItems.map(track => <li key={track.id}><TrackIndexItem track={track}/></li>)
+                            user.tracks.map(track => <li key={track.id}><TrackIndexItem track={track}/></li>)
                         }
                     </ul>
                 </div>
