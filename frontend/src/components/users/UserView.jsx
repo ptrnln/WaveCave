@@ -27,7 +27,7 @@ export default function UserView() {
                     <h1>{ user.username }</h1>
                     <ul className="track-index">
                         {
-                            Object.values(user.tracks).map(track => <li key={track.id}><TrackIndexItem track={track}/></li>)
+                            user.tracks && Object.values(user.tracks).map(track => <li key={track.id}><TrackIndexItem track={track}/></li>)
                         }
                     </ul>
                 </div>
