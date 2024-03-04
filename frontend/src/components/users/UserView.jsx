@@ -22,7 +22,7 @@ export default function UserView() {
     return (
         <>
             {
-                window.location.href.match(new RegExp('[^/]+(?=/$|$)'))[0].replace('%20', ' ') === user.username ?
+                window.location.href.match(new RegExp('[^/]+(?=/$|$)'))[0] === encodeURIComponent(user.username) ?
                 
                 <div id="user-view page">
                     <h1>{ user.username }</h1>
