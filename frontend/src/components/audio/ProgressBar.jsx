@@ -20,7 +20,6 @@ export default function ProgressBar({ progressBarRef, audioRef }) {
     };
 
     const updateProgress = useCallback(() => {
-        
         const newValue = audioRef.current ? (audioRef.current.currentTime / audioRef.current.duration) * 100.0 : 0
         setTime(audioRef.current?.currentTime || 0);
         progressBarRef.current.value = newValue;
