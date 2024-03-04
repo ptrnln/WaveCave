@@ -1,7 +1,8 @@
-import { NavLink, Outlet, useLoaderData, useParams } from "react-router-dom"
+import { NavLink, Outlet, useParams } from "react-router-dom"
 import './TrackView.css'
 import { useDispatch, useSelector } from "react-redux";
 import * as audioActions from '../../store/audioPlayer';
+import * as trackActions from '../../store/track';
 import { useEffect } from "react";
 
 export default function TrackView() {
@@ -18,18 +19,20 @@ export default function TrackView() {
    })
     
     async function handleClick (e) {
-        const trackData = await dispatch(audioActions.loadTracks([track.id]))
+        e.preventDefault();
+        // const trackData = await 
+        dispatch(audioActions.loadTracks([track.id]));
         dispatch(audioActions.playTrack());
     }
 
-    const dateTrack = timestamp => {
-        const release = new Date(timestamp);
-        const now = new Date();
+    // const dateTrack = timestamp => {
+    //     const release = new Date(timestamp);
+    //     const now = new Date();
 
-        const timeAgoInSeconds = (now - release) / 1000;
+    //     const timeAgoInSeconds = (now - release) / 1000;
 
-        return "not implemented"
-    }
+    //     return "not implemented"
+    // }
 
     useEffect(() => {
         if(!track) {

@@ -20,19 +20,9 @@ const Navigation = () => {
         navigate('/signup');
     }
 
-    const navToFeed = (e) => {
-        e.preventDefault();
-        navigate('/feed', { replace: true })
-    }
-
     const showLoginModal = (e) => {
         e.preventDefault();
         dispatch(sessionActions.showModal());
-    }
-
-    const hideLoginModal = (e) => {
-        e.preventDefault();
-        dispatch(sessionActions.hideModal());
     }
 
     const handleLoadTracks = async (e) => {

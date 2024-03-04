@@ -5,7 +5,7 @@ import './QueueControl.css'
 
 export default function QueueControl () {
     const [display, setDisplay] = useState(false)
-    const currentIndex = useSelector(state => state.audio.currentIndex);
+    // const currentIndex = useSelector(state => state.audio.currentIndex);
     const tracks = useSelector(state => {
         const queue = state.audio.isShuffled ?
             state.audio.queue.shuffled

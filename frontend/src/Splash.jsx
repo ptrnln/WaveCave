@@ -1,4 +1,3 @@
-import { useEffect } from "react";
 import './Splash.css'
 
 export default function Splash() {

@@ -66,8 +66,8 @@ export const restoreSession = () => async dispatch => {
         return response;
     } catch {
         return
-    };
     }
+}
 
 export const signUp = user => async dispatch => {
     const { username, email, password } = user;

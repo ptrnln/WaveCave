@@ -1,5 +1,3 @@
-import { tracks } from "../data/tracks";
-
 export const PLAY_TRACK = 'audioPlayer/PLAY_TRACK';
 export const PAUSE_TRACK = 'audioPlayer/PAUSE_TRACK';
 export const PLAY_NEXT = 'audioPlayer/PLAY_NEXT';
