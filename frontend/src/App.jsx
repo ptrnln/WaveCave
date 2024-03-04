@@ -53,9 +53,8 @@ const userLoader = async ({ params }) => {
   if(response.ok) {
     const data = await response.json();
     if(data.user) {
-      
       return data.user
-    } else throw { message: `User ${params.username} does not exist`, status: 404 };
+    }
   } 
 }
 
