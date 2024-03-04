@@ -8,7 +8,6 @@ import TrackIndexItem from "../tracks/TrackIndexItem";
 export default function UserView() {
     const user = useLoaderData();
     const dispatch = useDispatch();
-    const tracks = useSelector(state => state.tracks);
     const [trackIndexItems, setTrackIndexItems] = useState([]);
 
     useEffect(() => {
@@ -20,7 +19,7 @@ export default function UserView() {
     }, [dispatch, user.username])
 
     useEffect(() => {
-        if(!!user.tracks) setTrackIndexItems(Object.values(tracks))
+        if(!!user.tracks) setTrackIndexItems(Object.values(user.tracks))
     }, [tracks])
     
     
