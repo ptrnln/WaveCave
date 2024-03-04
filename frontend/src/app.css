@@ -126,5 +126,8 @@ label[for=errors] {
     color: #f50;
 }
 
+.dev-links-container {
+    pointer-events: none;
+}
 
 
