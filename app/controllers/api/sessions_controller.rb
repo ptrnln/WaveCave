@@ -26,7 +26,7 @@ class Api::SessionsController < ApplicationController
             login!(@user)
             render '/api/users/show'
         else
-            errors.overall.push("Invalid credentials/password");
+            errors[:overall].push("Invalid credentials/password");
             render json: { errors: errors }, status: :unauthorized
         end
     end
