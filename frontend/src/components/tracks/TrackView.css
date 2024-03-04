@@ -33,3 +33,29 @@ div.track-view a:hover {
     color: #f50;
     text-decoration: none;
 }
+
+div.track-view .fa-solid.fa-compact-disc {
+    font-size: 180px;
+    color: darkgrey;
+}
+
+i.fa-solid.fa-play-circle {
+    display: none;
+    position: absolute;
+    transform: translate(50%, 50%);
+    color: #f50;
+    font-size: 90px;
+    z-index: 10;
+}
+
+button:hover i.fa-solid.fa-play-circle {
+    display: inherit;
+}
+
+button.play-track {
+    transition: all 2ms ease-in-out;
+    appearance: none;
+    border: 0;
+    padding: 0;
+    background: inherit;
+}

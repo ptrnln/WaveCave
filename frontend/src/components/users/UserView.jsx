@@ -20,7 +20,7 @@ export default function UserView() {
     }, [dispatch, user.username])
 
     useEffect(() => {
-        if(!!user.tracks) setTrackIndexItems(Object.values(user.tracks))
+        if(!!user.tracks) setTrackIndexItems(Object.values(tracks))
     }, [tracks])
     
     

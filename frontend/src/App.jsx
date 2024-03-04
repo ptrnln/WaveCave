@@ -103,7 +103,6 @@ const router = createBrowserRouter([
         children: [
           {
             path: ':title',
-            loader: trackLoader,
             element: <TrackView />,
             // errorElement: <ErrorPage />,
             children: [

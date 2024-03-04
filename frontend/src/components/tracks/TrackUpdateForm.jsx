@@ -83,8 +83,7 @@ export default function TrackUpdateForm() {
                 setGenre(trackData.genre);
                 setIsNewGenre(!GENRES.includes(trackData.genre));
                 setDuration(trackData.duration);
-                setFileType(trackData.fileType)
-                setImageFile(trackData.photoUrl.length ? trackData.photoUrl : null);
+                setFileType(trackData.fileType);
                 
                 return data
             } else {
@@ -104,6 +103,7 @@ export default function TrackUpdateForm() {
 
 
     async function handleSubmit(e) {
+        debugger
         e.stopPropagation();
         e.preventDefault();
         setErrors([]);
@@ -119,7 +119,7 @@ export default function TrackUpdateForm() {
         if(response.errors) {
             setErrors(response.errors)
         } else {
-            dispatch(trackActions.receiveTrack(response.track))
+            await dispatch(trackActions.receiveTrack(response.track))
             navigate(`/${currentUser.username}/${newTitle.replace(' ', '%20')}`)
         }
     }
