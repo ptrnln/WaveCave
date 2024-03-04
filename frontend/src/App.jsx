@@ -47,7 +47,8 @@ function Layout() {
 }
 
 
-const userLoader = async ({params}) => {
+const userLoader = async ({ params }) => {
+  debugger
   const response = await fetch(`/api/users/${params.username}`);
   if(response.ok) {
     const data = await response.json();
