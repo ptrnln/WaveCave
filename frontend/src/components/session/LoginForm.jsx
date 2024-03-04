@@ -100,6 +100,7 @@ function LoginForm() {
           </label>
           <ul className="errors">
             {errors.password.map(error => <li>* {error}</li>)}
+            {errors.overall.map(error => <li>* {error}</li>)}
           </ul>
           <button 
             className="login button"
@@ -133,7 +134,6 @@ function LoginForm() {
             />
           </label>
           <ul className="error messages">
-            {errors.overall.map(error => <li>* {error}</li>)}
           </ul>
           <button 
             className="login button"
