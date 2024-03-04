@@ -31,7 +31,7 @@ export default function TrackIndexItem({ track }) {
     }
 
     const navToUpdate = () => {
-        navigate(`/${track.artist.username}/${track.title}/update`)
+        navigate(`/${encodeURIComponent(track.artist.username)}/${encodeURIComponent(track.title)}/update`)
     }
 
     return (
@@ -40,7 +40,7 @@ export default function TrackIndexItem({ track }) {
             <div id={`track-${track.id}-details`} className="track-index details">
                 <h2>{track.title}</h2>
                 <p>{track.artist.username}</p>
-            <NavLink to={`/${track.artist.username}/${track.title.replace(' ', '%20')}`}>See track</NavLink>
+            <NavLink to={`/${encodeURIComponent(track.artist.username)}/${encodeURIComponent(track.title)}`}>See track</NavLink>
             </div>
             {track.artist.id === currentUser?.id ? <button onClick={handleDelete} value={track.id}>Delete</button>: false}
             {track.artist.id === currentUser?.id ? <button onClick={navToUpdate}>Update</button>: false}
