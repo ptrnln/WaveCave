@@ -7,6 +7,7 @@ import TrackIndexItem from "../tracks/TrackIndexItem";
 
 export default function UserView() {
     const user = useLoaderData();
+    debugger
     const dispatch = useDispatch();
 
     useEffect(() => {
@@ -21,7 +22,7 @@ export default function UserView() {
     return (
         <>
             {
-                window.location.href.match(new RegExp('[^/]+(?=/$|$)'))[0] === user.username ?
+                window.location.href.match(new RegExp('[^/]+(?=/$|$)'))[0].replace('%20', ' ') === user.username ?
                 
                 <div id="user-view page">
                     <h1>{ user.username }</h1>
