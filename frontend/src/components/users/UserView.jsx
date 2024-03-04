@@ -1,13 +1,11 @@
 import { useEffect } from "react";
 import { useDispatch } from "react-redux";
-import * as userActions from '../../store/user'
 import { Outlet, useLoaderData } from "react-router-dom";
 import * as trackActions from '../../store/track'
 import TrackIndexItem from "../tracks/TrackIndexItem";
 
 export default function UserView() {
-    const user = useLoaderData();
-    debugger
+    const { user } = useLoaderData();
     
     const dispatch = useDispatch();
 
@@ -23,13 +21,22 @@ export default function UserView() {
     return (
         <>
             {
-                window.location.href.match(new RegExp('[^/]+(?=/$|$)'))[0] === encodeURIComponent(user.username) ?
+                user && window.location.href.match(new RegExp('[^/]+(?=/$|$)'))[0] === encodeURIComponent(user.username) ?
                 
                 <div id="user-view page">
                     <h1>{ user.username }</h1>
                     <ul className="track-index">
                         {
-                            user.tracks && Object.values(user.tracks).map(track => <li key={track.id}><TrackIndexItem track={track}/></li>)
+                            user.tracks && Object.values(user.tracks).map(track => <li key={track.id}><TrackIndexItem track={{
+                                ...track,
+                                artist: {
+                                    id: user.id,
+                                    username: user.username,
+                                    email: user.email,
+                                    createdAt: user.createdAt,
+                                    updatedAt: user.updatedAt
+                                }
+                            }}/></li>)
                         }
                     </ul>
                 </div>
