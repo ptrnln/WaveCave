@@ -11,7 +11,7 @@ export default function TrackView() {
     const track = useSelector(state => {
     let result
     Object.keys(state.tracks).forEach(id => {
-        if(title === state.tracks[id].title && username === state.tracks[id].artist.username) {
+        if(decodeURIComponent(title) === state.tracks[id].title && decodeURIComponent(username) === state.tracks[id].artist.username) {
             result = state.tracks[id];
         }
     })

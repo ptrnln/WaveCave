@@ -32,8 +32,8 @@ class Api::TracksController < ApplicationController
     def show
         
         if params[:title] && params[:username] 
-            @user = User.find_by(username: params[:username]) 
-            @track = Track.find_by(title: params[:title].gsub('%20', ' '), artist_id: @user.id)
+            @user = User.find_by(username: CGI.unescape(params[:username])) 
+            @track = Track.find_by(title: CGI.unescape(params[:title]), artist_id: @user.id)
         else
             @track = Track.find(params[:id])
         end
