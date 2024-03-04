@@ -12,12 +12,12 @@ export default function UserView() {
     const dispatch = useDispatch();
 
     useEffect(() => {
-        user.tracks ? dispatch(trackActions.loadTracks(Object.keys(user.tracks))) : null
+        if (user.tracks) dispatch(trackActions.loadTracks(Object.keys(user.tracks)))
     }, [])
 
-    useEffect(() => {
-        dispatch(userActions.viewUser({ username: user.username }));
-    }, [dispatch, user.username])
+    // useEffect(() => {
+    //     dispatch(userActions.viewUser({ username: user.username }));
+    // }, [dispatch, user.username])
     
     
     return (
