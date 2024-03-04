@@ -66,12 +66,12 @@ export default function TrackView() {
                         <div className="track-view artist-info">
                             { track && <NavLink to={ `/${track.artist.username}`}><i className="fa-solid fa-user" /> {track.artist.username}</NavLink> }
                         </div>
-                        <div className="track-view date">
+                        {/* <div className="track-view date">
                             <i className="fa-solid fa-clock" /> { track && dateTrack(track.createdAt) }
-                        </div>
+                        </div> */}
                         <br />
                         <div className="track-view description">
-                            <p>{ track && track.description }</p>
+                            <i className="fa-solid fa-circle-info" /> <p>{ track && track.description }</p>
                         </div>
                     </div>
                 </div>
