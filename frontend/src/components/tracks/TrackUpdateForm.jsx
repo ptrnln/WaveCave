@@ -103,7 +103,7 @@ export default function TrackUpdateForm() {
 
 
     async function handleSubmit(e) {
-        debugger
+        
         e.stopPropagation();
         e.preventDefault();
         setErrors([]);
