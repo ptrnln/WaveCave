@@ -48,8 +48,7 @@ function Layout() {
 
 
 const userLoader = async ({params}) => {
-  const username = encodeURIComponent(params.username);
-  const response = await fetch(`/api/users/${username}`);
+  const response = await fetch(`/api/users/${params.username}`);
   if(response.ok) {
     const data = await response.json();
     if(data.user) {
