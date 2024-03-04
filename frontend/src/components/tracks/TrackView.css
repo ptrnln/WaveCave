@@ -60,6 +60,6 @@ button.play-track {
     background: inherit;
 }
 
-p {
+.track-view p {
     display: inline;
 }
