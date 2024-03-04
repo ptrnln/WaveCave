@@ -7,6 +7,7 @@ import TrackIndexItem from "../tracks/TrackIndexItem";
 
 export default function UserView() {
     const user = useLoaderData();
+    debugger
     
     const dispatch = useDispatch();
 
