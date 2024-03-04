@@ -10,13 +10,13 @@ SAVE_USERS = [
     "BEATZ GOD",
     "KooShnoo",
     "lsherm",
-    "Pete",
+    # "Pete",
 ]
 
 SAVE_TRACKS = [
   "Ishan's Campanella",
   "Ghost",
-  "Concrete Skies",
+  # "Concrete Skies",
 ]
 
 
