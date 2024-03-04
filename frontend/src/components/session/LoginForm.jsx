@@ -47,7 +47,7 @@ function LoginForm() {
     const loginData = await dispatch(sessionActions.login({credential, password}));
     if(!loginData.errors) {
       dispatch(sessionActions.hideModal());
-    }
+    } else dispatch(sessionActions.setErrors(loginData.errors));
   }
 
   const handleDemoLogin = async (e) => {
