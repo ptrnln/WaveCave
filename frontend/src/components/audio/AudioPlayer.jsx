@@ -46,7 +46,7 @@ export default function AudioPlayer() {
         if(tracks.length === 1 && (isRepeating === 'always' || isRepeating === 'once' && !hasRepeated)) {
             audioRef.current.currentTime = 0
         }
-    }, [isRepeating, handleNext]);
+    }, [hasRepeated, tracks.length, isRepeating]);
 
     return (
         <div className="audio-player">

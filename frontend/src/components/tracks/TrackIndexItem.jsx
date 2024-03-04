@@ -1,5 +1,5 @@
 import { useDispatch, useSelector } from "react-redux";
-import { NavLink, useNavigate, useParams } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 import * as trackActions from '../../store/track'
 import * as audioPlayerActions from '../../store/audioPlayer'
 import './TrackIndexItem.css'

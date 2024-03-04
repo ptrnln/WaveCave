@@ -69,7 +69,7 @@ function LoginForm() {
       document.removeEventListener('click', clickListener);
       deactivateGreyout();
     }
-  }, [showModal])
+  }, [showModal, clickListener])
 
   return (
     <>

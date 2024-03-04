@@ -34,6 +34,7 @@ export default function AudioControls({ handleNext, handlePrev }) {
     }
 
     const toggleRepeat = (e) => {
+        e.preventDefault();
         switch(isRepeating) {
             case 'false':
                 dispatch(audioPlayerActions.setRepeatOnce());
