@@ -19,6 +19,10 @@ div.track-view.body {
     flex-direction: row;
 }
 
+div.track-view.details {
+    width: 100%;
+}
+
 div.track-view img {
     max-width: 180px;
     max-height: 180px;
@@ -52,7 +56,7 @@ button:hover i.fa-solid.fa-play-circle {
     display: inherit;
 }
 
-button.play-track {
+button.play-track.overlay {
     transition: all 2ms ease-in-out;
     appearance: none;
     border: 0;
@@ -62,4 +66,18 @@ button.play-track {
 
 .track-view p {
     display: inline;
+}
+
+button.play-track.button {
+    position: relative;
+    float: right;
+    height: min-content;
+    /* margin-top: 150px; */
+    top: 148px;
+    border: 0;
+    padding: 10px;
+    border-radius: 5px;
+    background-color: #f50;
+    color: white;
+    text-wrap: nowrap;
 }

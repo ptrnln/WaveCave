@@ -56,11 +56,12 @@ export default function TrackView() {
             <Outlet />
             :
             <div className="track-view container">
+                <br />
                 <h1 className="track-view title">{title}</h1>
                 <br />
                 <div className="track-view body">
                     { track && (
-                        <button className="play-track button" onClick={handleClick}>
+                        <button className="play-track overlay" onClick={handleClick}>
                             <i className="fa-solid fa-play-circle" />
                             { track.photoUrl ? <img src={track.photoUrl} /> : <i className="fa-solid fa-compact-disc" />}
                         </button>
@@ -74,9 +75,16 @@ export default function TrackView() {
                         </div> */}
                         <br />
                         <div className="track-view description">
-                            <i className="fa-solid fa-circle-info" /> <p>{ track && track.description }</p>
+                            <i className="fa-solid fa-comment" /> <p>{ track && track.description }</p>
+                        </div>
+
+                        <div className="track-view genre">
+                            <i className="fa-solid fa-radio" /> <p>{ track && track.genre }</p>
                         </div>
                     </div>
+                <button className="play-track button" onClick={handleClick} >
+                    <i className="fa-solid fa-play" /> Play this track!
+                </button>
                 </div>
             </div>
     )
