@@ -11,7 +11,8 @@ export default function TrackView() {
     const track = useSelector(state => {
     let result
     Object.keys(state.tracks).forEach(id => {
-        if(decodeURIComponent(title) === state.tracks[id].title && decodeURIComponent(username) === state.tracks[id].artist.username) {
+        if(decodeURIComponent(title) === state.tracks[id].title && 
+        decodeURIComponent(username) === state.tracks[id].artist.username) {
             result = state.tracks[id];
         }
     })
@@ -63,12 +64,19 @@ export default function TrackView() {
                     { track && (
                         <button className="play-track overlay" onClick={handleClick}>
                             <i className="fa-solid fa-play-circle" />
-                            { track.photoUrl ? <img src={track.photoUrl} /> : <i className="fa-solid fa-compact-disc" />}
+                            { track.photoUrl ? 
+                                <img src={track.photoUrl} /> 
+                                : 
+                                <i className="fa-solid fa-compact-disc" />
+                            }
                         </button>
                     )}
                     <div className="track-view details">
                         <div className="track-view artist-info">
-                            { track && <NavLink to={ `/${track.artist.username}`}><i className="fa-solid fa-user" /> {track.artist.username}</NavLink> }
+                            { track && 
+                            <NavLink to={ `/${track.artist.username}`}>
+                                <i className="fa-solid fa-user" /> {track.artist.username}
+                            </NavLink> }
                         </div>
                         {/* <div className="track-view date">
                             <i className="fa-solid fa-clock" /> { track && dateTrack(track.createdAt) }
