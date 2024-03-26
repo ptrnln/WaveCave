@@ -11,9 +11,9 @@ json.tracks do
             :duration, 
             :created_at,
             :updated_at;
-            json.photoUrl track.photo.attached? ? track.photo.url : nil
-            json.sourceUrl track.source.url
-            json.sourceName track.source.filename 
+            json.photo_url track.photo.attached? ? track.photo.url : nil
+            json.source_url track.source.url
+            json.source_name track.source.filename 
             json.partial! 'api/users/artist', user: track.artist
         end
     end 
