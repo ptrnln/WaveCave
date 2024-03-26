@@ -5,6 +5,6 @@ json.set! track.id do
         :description,
         :genre,
         :created_at,
-        :updated_at,
-        json.photo_url do track.photo.attached ? track.photo.url : '' end
+        :updated_at
+        json.photo_url track.photo.attached ? track.photo.url : '' 
 end
