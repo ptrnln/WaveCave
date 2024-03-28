@@ -21,7 +21,7 @@ class Api::SessionsController < ApplicationController
             end
             errors[:credential].push("Username/email field cannot be blank.")
 
-            render json: { errors: errors }, status: :unprocessable_entity
+            render json: { errors: errors }, status: :unauthorized
         elsif @user
             login!(@user)
             render '/api/users/show'
