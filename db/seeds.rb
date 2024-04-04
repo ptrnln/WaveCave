@@ -20,22 +20,22 @@ SAVE_TRACKS = [
 ]
 
 
-SEED_TRACKS_LIST = {
-  1 => {
-    :title => 'CBAT',
-    :description => 'It just has a really good rhythm',
-    :genre => 'Stroke-core',
-    :file_type => 'mp3',
-    :source_url => "https://wavecave-seeds.s3.amazonaws.com/Hudson+Mohawke+-+Cbat.mp3"
-  },
-  # 2: {
-  #   title: "Spider-Man: The Animated Series (SEGA Genesis) - Fun House",
-  #   description: "Best song ever maybe?",
-  #   genre: 'Clown-core',
-  #   file_type: 'mp3',
-  #   source_url: 
-  # }
-}
+# SEED_TRACKS_LIST = {
+#   1 => {
+#     :title => 'CBAT',
+#     :description => 'It just has a really good rhythm',
+#     :genre => 'Stroke-core',
+#     :file_type => 'mp3',
+#     :source_url => "https://wavecave-seeds.s3.amazonaws.com/Hudson+Mohawke+-+Cbat.mp3"
+#   },
+#   # 2: {
+#   #   title: "Spider-Man: The Animated Series (SEGA Genesis) - Fun House",
+#   #   description: "Best song ever maybe?",
+#   #   genre: 'Clown-core',
+#   #   file_type: 'mp3',
+#   #   source_url: 
+#   # }
+# }
 require "open-uri"
 # ApplicationRecord.transaction do 
     puts "Destroying ActiveStorage associations..."
@@ -86,19 +86,19 @@ require "open-uri"
       }) 
     end
 
-    puts('Creating tracks...')
-    f = URI.open(SEED_TRACKS_LIST[1][:source_url])
-    t = Track.new({
-      :title => SEED_TRACKS_LIST[1][:title],
-      :description => SEED_TRACKS_LIST[1][:description],
-      :artist_id => Random.new().rand(13..21),
-      :genre => SEED_TRACKS_LIST[1][:genre],
-      :duration => 123,
-      :file_type => SEED_TRACKS_LIST[1][:file_type]
-    })
-    t.source.attach(io: f, filename: "Hudson+Mohawke+-+Cbat.mp3")
-    t.save! if t.source.attached?
-    puts('Created CBAT')
+    # puts('Creating tracks...')
+    # f = URI.open(SEED_TRACKS_LIST[1][:source_url])
+    # t = Track.new({
+    #   :title => SEED_TRACKS_LIST[1][:title],
+    #   :description => SEED_TRACKS_LIST[1][:description],
+    #   :artist_id => Random.new().rand(13..21),
+    #   :genre => SEED_TRACKS_LIST[1][:genre],
+    #   :duration => 123,
+    #   :file_type => SEED_TRACKS_LIST[1][:file_type]
+    # })
+    # t.source.attach(io: f, filename: "Hudson+Mohawke+-+Cbat.mp3")
+    # t.save! if t.source.attached?
+    # puts('Created CBAT')
 
     # 10.times do
     #   t = Track.new({
