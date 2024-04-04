@@ -6,7 +6,7 @@ import SignUpForm from './components/session/SignUpForm';
 import Navigation from './components/navigation/Navigation';
 import * as sessionActions from './store/session';
 import UserView from './components/users/UserView';
-import AudioPlayer from './components/audio/AudioPlayer';
+import AudioPlayer from './components/audio_player/AudioPlayer';
 import TrackView from './components/tracks/TrackView';
 import TrackUploadForm from './components/tracks/TrackUploadForm';
 import TrackUpdateForm from './components/tracks/TrackUpdateForm';
