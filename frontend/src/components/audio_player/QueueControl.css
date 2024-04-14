@@ -16,14 +16,13 @@ div.queue-item {
     align-items: center;
     padding: 5px 0;
     border-bottom: 1px solid #d3d3d3;
+    min-width: 250px;    
 }
 
 div.queue-control-header {
     text-wrap: nowrap;
     border-bottom: #d3d3d3;
 }
-
-
 
 div#queue-control {
     display: flex;
