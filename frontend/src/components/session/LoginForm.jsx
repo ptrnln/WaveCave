@@ -44,7 +44,11 @@ function LoginForm() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    document.querySelectorAll('.login-form button').forEach(button => button.disabled = true);
+    document
+      .querySelectorAll('.login-form button')
+      .forEach(button => button.disabled = true);
+    setCredential('');
+    setPassword('');
     const loginData = await dispatch(sessionActions.login({credential, password}));
     if(!loginData.errors) {
       dispatch(sessionActions.hideModal());
@@ -56,6 +60,8 @@ function LoginForm() {
     document
       .querySelectorAll('.login-form button')
       .forEach(button => button.disabled = true);
+    setCredential('');
+    setPassword('');
     const loginData = await dispatch(sessionActions.login({
       credential: 'Demo-lition',
       password: 'password'
