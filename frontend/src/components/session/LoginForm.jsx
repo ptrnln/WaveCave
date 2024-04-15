@@ -10,6 +10,7 @@ function LoginForm() {
   const [credential, setCredential] = useState('');
   const [password, setPassword] = useState('');
   const errors = useSelector(state => state.session.errors);
+  const currentUser = useSelector(state => state.session.user);
   
   // const [modalState, setModalState] = useState('credential');
   
@@ -47,12 +48,7 @@ function LoginForm() {
     document
       .querySelectorAll('.login-form button')
       .forEach(button => button.disabled = true);
-    setCredential('');
-    setPassword('');
-    const loginData = await dispatch(sessionActions.login({credential, password}));
-    if(!loginData.errors) {
-      dispatch(sessionActions.hideModal());
-    }
+    dispatch(sessionActions.login({credential, password}));
   }
 
   const handleDemoLogin = async (e) => {
@@ -60,15 +56,10 @@ function LoginForm() {
     document
       .querySelectorAll('.login-form button')
       .forEach(button => button.disabled = true);
-    setCredential('');
-    setPassword('');
-    const loginData = await dispatch(sessionActions.login({
+    dispatch(sessionActions.login({
       credential: 'Demo-lition',
       password: 'password'
     }))
-    if(!loginData.errors) {
-      dispatch(sessionActions.hideModal());
-    }
   }
 
   useEffect(() => {
@@ -83,6 +74,22 @@ function LoginForm() {
       deactivateGreyout();
     }
   }, [showModal])
+
+  useEffect(() => {
+    if(currentUser) {
+      setCredential('');
+      setPassword('');
+      dispatch(sessionActions.hideModal());
+    }
+  }, [currentUser])
+  
+  useEffect(() => {
+    if(Object.keys(errors).some(key => errors[key].length > 0)) {
+      document
+        .querySelectorAll('.login-form button')
+        .forEach(button => button.disabled = false);
+    }
+  }, [errors])
 
   return (
     <>
