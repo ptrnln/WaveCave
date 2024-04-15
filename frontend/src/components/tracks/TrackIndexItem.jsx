@@ -16,7 +16,7 @@ export default function TrackIndexItem({ track }) {
     async function handleDelete (e) {
         
         e.preventDefault();
-        await dispatch(audioPlayerActions.unloadTrack(e.target.value));
+        await dispatch(audioPlayerActions.dequeueTrack(e.target.value));
         await dispatch(trackActions.removeTrack(e.target.value));
         const response = await csrfFetch(`/api/tracks/${e.target.value}`, {
             method: 'DELETE'
