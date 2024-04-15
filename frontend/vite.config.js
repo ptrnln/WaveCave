@@ -8,7 +8,7 @@ export default defineConfig(({ mode }) => ({
     react(),
     eslint({
       lintOnStart: true,
-      failOnError: false
+      failOnError: false // mode === 'production'
     })
   ],
   // To automatically open the app in the browser whenever the server starts,

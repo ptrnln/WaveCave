@@ -1,3 +1,60 @@
+// Purpose: Redux store for audio player state management
+
+// ---------- TO DO ----------
+// - Rename 'original' to 'native' in queue object and in all references
+// - Define thunk action creators:
+//      - createPlaylist - creates a new playlist
+//      - savePlaylist - saves currently active playlist
+//      - loadPlaylist - loads a playlist into the queue
+
+// ---- STANDARD ACTION TYPES ----
+// PLAY_TRACK           f(x) => { type: PLAY_TRACK }
+// PAUSE_TRACK          f(x) => { type: PAUSE_TRACK }
+// PLAY_NEXT            f(x) => { type: PLAY_NEXT }
+// PLAY_PREV            f(x) => { type: PLAY_PREV }
+// REPLAY_TRACK         f(x) => { type: REPLAY_TRACK }
+// SET_SHUFFLE_ON       f(x) => { type: SET_SHUFFLE_ON }
+// SET_SHUFFLE_OFF      f(x) => { type: SET_SHUFFLE_OFF }
+// SET_REPEAT_OFF       f(x) => { type: SET_REPEAT_OFF }
+// SET_REPEAT_ONCE      f(x) => { type: SET_REPEAT_ONCE }
+// SET_REPEAT_ALWAYS    f(x) => { type: SET_REPEAT_ALWAYS }
+// LOAD_TRACKS          f(x) => { type: LOAD_TRACKS, trackIds }
+// LOAD_TRACK           f(x) => { type: LOAD_TRACK, trackId }
+// SET_VOLUME           f(x) => { type: SET_VOLUME, volume }
+// UNLOAD_TRACKS        f(x) => { type: UNLOAD_TRACKS }
+// UNLOAD_TRACK         f(x) => { type: UNLOAD_TRACK, trackId }
+// ---- STANDARD ACTION CREATORS ----
+// playTrack: sets isPlaying to true
+// pauseTrack: sets isPlaying to false
+// playNext: increments currentIndex by 1
+// playPrev: decrements currentIndex by 1 or resets track progression
+// loadTrack: sets currentIndex to 0 and sets queue to [action.trackId]
+// loadTracks: sets queue to action.trackIds
+// unloadTrack: removes track from queue and increments currentIndex by 1
+// setShuffleOn: shuffles queue and sets isShuffled to true
+// setShuffleOff: sets isShuffled to false
+// setRepeatOnce: sets isRepeating to 'once'
+// setRepeatAlways: sets isRepeating to 'always'
+// setRepeatFalse: sets isRepeating to 'false'
+// ---- THUNK ACTION CREATORS ----
+// ---- REDUCER ----
+// initialState: { 
+//  queue: { 
+//      original: [], 
+//      shuffled: [] 
+//  }, 
+//  currentIndex: 0, 
+//  currentTrackId: null, 
+//  isPlaying: false, 
+//  isShuffled: false, 
+//  isRepeating: 'false', 
+//  volume: 60
+// }
+
+
+
+
+
 export const PLAY_TRACK = 'audioPlayer/PLAY_TRACK';
 export const PAUSE_TRACK = 'audioPlayer/PAUSE_TRACK';
 export const PLAY_NEXT = 'audioPlayer/PLAY_NEXT';

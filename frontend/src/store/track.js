@@ -47,20 +47,25 @@ export const removeTracks = trackIds => {
     }
 }
 
-export const loadTrack = trackId => async dispatch => {
-    const response = await fetch(`/api/tracks/${trackId}`);
-
-    if(response.ok) {
-        let data = await response.json();
-        dispatch(receiveTrack(data.track));
-        return data.track;
+export const loadTrack = trackId => async (dispatch, getState) => {
+    const track = getState().tracks[trackId];
+    if(track === undefined) {
+        const response = await fetch(`/api/tracks/${trackId}`);
+    
+        if(response.ok) {
+            let data = await response.json();
+            dispatch(receiveTrack(data.track));
+            return data.track;
+        } else {
+            return response.error
+        }
+    } else {
+        return track;
     }
 }
 
 export const loadTracks = trackIds => async dispatch => {
-    
     let tracks = {}
-    let i = 0;
     for(const trackId of trackIds) {
         const track = await dispatch(loadTrack(trackId));
         tracks[track.id] = track
@@ -120,7 +125,7 @@ const trackReducer = (state = initialState, action) => {
         case RECEIVE_TRACKS:
             return { ...state, ...action.tracks }
         case REMOVE_TRACK:
-            return Object.fromEntries(Object.keys(state).filter((key) => action.trackId !== key).map((key) => [key, state[key]]))
+            return _.omit(state, action.trackId)
         case REMOVE_TRACKS:
             return Object.fromEntries(Object.keys(state).filter((key) => !action.trackIds.includes(key)).map((key) => [key, state[key]]))
         default:
