@@ -62,13 +62,22 @@ export const newPlaylist = (trackIds = []) => {
     }
 }
 
-export const createPlaylist = playlist => async (dispatch) => {
+export const createPlaylist = playlist => async (dispatch, getState) => {
+
+    const trackIds = playlist.trackIds || [];
+
     const response = await csrfFetch('/api/playlists', {
         method: 'POST',
-        body: JSON.stringify(playlist)
+        body: JSON.stringify(playlist.filter(key => key !== 'trackIds'))
     })
 
     if(response.ok) {
+        trackIds.forEach(async trackId => {
+            await csrfFetch(`/api/playlist_tracks/`, {
+                method: 'POST',
+                body: JSON.stringify({ trackId })
+            })
+        })
         const data = await response.json();
         dispatch(receivePlaylist(data.playlist))
         return data;
@@ -139,6 +148,7 @@ export default function playlistReducer(state = initialState, action) {
                     title: '',
                     description: '',
                     isPublic: true,
+                    trackIds: action.payload
                 } }
             }
             if(action.payload.length === 0) {
