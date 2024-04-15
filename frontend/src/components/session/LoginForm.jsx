@@ -44,6 +44,7 @@ function LoginForm() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    document.querySelectorAll('.login-form button').forEach(button => button.disabled = true);
     const loginData = await dispatch(sessionActions.login({credential, password}));
     if(!loginData.errors) {
       dispatch(sessionActions.hideModal());
@@ -52,6 +53,9 @@ function LoginForm() {
 
   const handleDemoLogin = async (e) => {
     e.preventDefault();
+    document
+      .querySelectorAll('.login-form button')
+      .forEach(button => button.disabled = true);
     const loginData = await dispatch(sessionActions.login({
       credential: 'Demo-lition',
       password: 'password'
@@ -63,13 +67,16 @@ function LoginForm() {
 
   useEffect(() => {
     if(showModal) {
+      document
+        .querySelectorAll('.login-form button')
+        .forEach(button => button.disabled = false);
       document.addEventListener('click', clickListener);
       activateGreyout();
     } else {
       document.removeEventListener('click', clickListener);
       deactivateGreyout();
     }
-  }, [showModal, clickListener])
+  }, [showModal])
 
   return (
     <>
