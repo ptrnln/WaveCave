@@ -182,7 +182,6 @@ export default function TrackUploadForm() {
                     type="file" 
                     className="audio-file input" 
                     accept=".wav,.mp3,.flac"
-                    // multiple
                     onChange={async (e) => {
                         e.stopPropagation();
                         setAudioFile(e.target.files[0]);
