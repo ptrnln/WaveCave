@@ -43,4 +43,4 @@ export default function Splash() {
         </div>
         // <h1>Hello</h1>
     )
-  }
+}
