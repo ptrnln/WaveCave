@@ -75,10 +75,10 @@ a.nav-link:hover {
 
  */
 
- div#navigation-bar {
+div#navigation-bar {
     background-color: rgb(35, 35, 35);
     width: 100%;
- }
+}
  
 
 div#navigation-bar li {
