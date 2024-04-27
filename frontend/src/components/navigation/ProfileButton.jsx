@@ -12,14 +12,9 @@ function ProfileButton({ user }) {
     const dropdownRef = useRef(null)
     
     const toggleMenu = (e) => {
-      e.stopPropagation(); // Keep click from bubbling up to document and triggering closeMenu
+      e.stopPropagation();
       setShowMenu(!showMenu);
     };
-
-    const handleUploadClick = (e) => {
-      e.preventDefault();
-
-    }
     
     useEffect(() => {
       if (!showMenu) return;
@@ -47,12 +42,12 @@ function ProfileButton({ user }) {
           <i className="fa-solid fa-user-circle" />
         </button>
         {showMenu && (
-          <ul className="profile-dropdown" ref={dropdownRef}>
-            <NavLink to={`/${user.username}`}>{user.username}</NavLink>
-            <li>{user.email}</li>
+          <ul id="profile-dropdown" className="profile-dropdown" ref={dropdownRef}>
             <li>
-              {/* <button onClick={handleUploadClick}>Upload Tracks</button> */}
-              <NavLink className="nav-button" to='/upload'>Upload Tracks</NavLink>
+              <NavLink to={`/${user.username}`} onClick={toggleMenu}>{user.username}</NavLink>
+            </li>
+            <li>
+              <NavLink className="nav-button" to='/upload' onClick={toggleMenu}>Upload Tracks</NavLink>
             </li>
             <li>
               <button onClick={logout}>Log Out</button>

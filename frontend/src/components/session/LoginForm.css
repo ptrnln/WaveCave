@@ -1,5 +1,5 @@
 .login.modal {
-    max-width: 300px;
+    max-width: 250px;
     max-height: 250px;
     width: 100%;
     height: 100%;
@@ -11,10 +11,14 @@
     border-radius: 15px;
     margin-top: 5px;
     z-index: 100;
+    transition: all .7s ease-in-out;
+    animation-duration: .2s;
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, 25%);
 }
 
 .login.modal.hidden {
-    display: none;
+    top: -250px;
+    transition: .7s ease-in-out;
 }
 
 .error {
@@ -54,12 +58,3 @@
     text-align: center;
 }
 
-div.profile-menu {
-    color: white;
-    display: flex;
-    flex-direction: row;
-}
-
-div.profile-menu * {
-    margin: 5px;
-}

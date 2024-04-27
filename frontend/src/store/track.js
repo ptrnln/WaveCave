@@ -47,20 +47,25 @@ export const removeTracks = trackIds => {
     }
 }
 
-export const loadTrack = trackId => async dispatch => {
-    const response = await fetch(`/api/tracks/${trackId}`);
-
-    if(response.ok) {
-        let data = await response.json();
-        dispatch(receiveTrack(data.track));
-        return data.track;
+export const loadTrack = trackId => async (dispatch, getState) => {
+    const track = getState().tracks[trackId];
+    if(track === undefined) {
+        const response = await fetch(`/api/tracks/${trackId}`);
+    
+        if(response.ok) {
+            let data = await response.json();
+            dispatch(receiveTrack(data.track));
+            return data.track;
+        } else {
+            return response.error
+        }
+    } else {
+        return track;
     }
 }
 
 export const loadTracks = trackIds => async dispatch => {
-    
     let tracks = {}
-    let i = 0;
     for(const trackId of trackIds) {
         const track = await dispatch(loadTrack(trackId));
         tracks[track.id] = track
@@ -93,13 +98,13 @@ export async function updateTrack (trackData, audioFile, imageFile) {
     const { id, title, description, genre, duration, fileType } = trackData;
     
     const formData = new FormData();
-    if(!!title) formData.append('track[title]', title);
-    if(!!description) formData.append('track[description]', description);
-    if(!!genre) formData.append('track[genre]', genre);
-    if(!!duration) formData.append('track[duration]', duration);
-    if(!!fileType) formData.append('track[fileType]', fileType);
-    if(!!audioFile) formData.append('track[source]', audioFile);
-    if(!!imageFile) formData.append('track[photo]', imageFile)
+    if(title) formData.append('track[title]', title);
+    if(description) formData.append('track[description]', description);
+    if(genre) formData.append('track[genre]', genre);
+    if(duration) formData.append('track[duration]', duration);
+    if(fileType) formData.append('track[fileType]', fileType);
+    if(audioFile) formData.append('track[source]', audioFile);
+    if(imageFile) formData.append('track[photo]', imageFile)
 
     const response = await csrfFetch(`/api/tracks/${id}`, {
         method: 'PUT',
@@ -118,12 +123,19 @@ const trackReducer = (state = initialState, action) => {
         case RECEIVE_TRACK:
             return { ...state, ...action.track }
         case RECEIVE_TRACKS:
-            
             return { ...state, ...action.tracks }
         case REMOVE_TRACK:
-            return Object.fromEntries(Object.keys(state).filter((key) => action.trackId !== key).map((key) => [key, state[key]]))
+            return Object
+                .fromEntries(Object
+                    .keys(state)
+                    .filter((key) => key !== action.trackId)
+                    .map((key) => [key, state[key]]))
         case REMOVE_TRACKS:
-            return Object.fromEntries(Object.keys(state).filter((key) => !action.trackIds.includes(key)).map((key) => [key, state[key]]))
+            return Object
+                .fromEntries(Object
+                    .keys(state)
+                    .filter((key) => !action.trackIds.includes(key))
+                    .map((key) => [key, state[key]]))
         default:
             return state;
     }

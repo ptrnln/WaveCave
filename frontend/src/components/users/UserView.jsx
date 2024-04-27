@@ -1,41 +1,44 @@
-import { useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import * as userActions from '../../store/user'
+import { useEffect } from "react";
+import { useDispatch } from "react-redux";
 import { Outlet, useLoaderData } from "react-router-dom";
 import * as trackActions from '../../store/track'
 import TrackIndexItem from "../tracks/TrackIndexItem";
 
 export default function UserView() {
-    const user = useLoaderData();
+    const { user } = useLoaderData();
+    
     const dispatch = useDispatch();
-    const tracks = useSelector(state => state.tracks);
-    const [trackIndexItems, setTrackIndexItems] = useState([]);
-
-    const currentUser = useSelector(state => state.session.user);
 
     useEffect(() => {
-        user.tracks ? dispatch(trackActions.loadTracks(Object.keys(user.tracks))) : null
+        if (user.tracks) dispatch(trackActions.loadTracks(Object.keys(user.tracks)))
     }, [])
 
-    useEffect(() => {
-        dispatch(userActions.viewUser({ username: user.username }));
-    }, [dispatch, user.username])
-
-    useEffect(() => {
-        if(!!user.tracks) setTrackIndexItems(Object.values(user.tracks))
-    }, [tracks])
+    // useEffect(() => {
+    //     dispatch(userActions.viewUser({ username: user.username }));
+    // }, [dispatch, user.username])
     
     
     return (
         <>
             {
-                window.location.href.match(new RegExp('[^/]+(?=/$|$)'))[0] === user.username ?
+                user && window.location.href.match(new RegExp('[^/]+(?=/$|$)'))[0] === encodeURIComponent(user.username) ?
                 
                 <div id="user-view page">
                     <h1>{ user.username }</h1>
-                    {
-                        trackIndexItems.map(track => <><TrackIndexItem track={track}/></>)
-                    }
+                    <ul className="track-index">
+                        {
+                            user.tracks && Object.values(user.tracks).map(track => <li key={track.id}><TrackIndexItem track={{
+                                ...track,
+                                artist: {
+                                    id: user.id,
+                                    username: user.username,
+                                    email: user.email,
+                                    createdAt: user.createdAt,
+                                    updatedAt: user.updatedAt
+                                }
+                            }}/></li>)
+                        }
+                    </ul>
                 </div>
                 :
                 <></>

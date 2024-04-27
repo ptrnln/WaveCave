@@ -1,15 +1,14 @@
 import { useState, useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { createBrowserRouter, Outlet, RouterProvider, useNavigate } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
+import { createBrowserRouter, Outlet, RouterProvider } from 'react-router-dom';
 import LoginForm from './components/session/LoginForm';
 import SignUpForm from './components/session/SignUpForm';
 import Navigation from './components/navigation/Navigation';
 import * as sessionActions from './store/session';
 import UserView from './components/users/UserView';
-import AudioPlayerContainer from './components/audio/AudioPlayerContainer';
+import AudioPlayer from './components/audio_player/AudioPlayer';
 import TrackView from './components/tracks/TrackView';
 import TrackUploadForm from './components/tracks/TrackUploadForm';
-import Splash from './Splash';
 import TrackUpdateForm from './components/tracks/TrackUpdateForm';
 import HomePage from './HomePage';
 import TrackIndex from './components/tracks/TrackIndex';
@@ -29,44 +28,46 @@ function Layout() {
 
   return (
     <>
+    <div className='app'>
       <Navigation />
-      {isLoaded && <Outlet />}
+      <div className='content'>
+        {isLoaded && <Outlet />}
+      </div>
       <LoginForm />
-      <AudioPlayerContainer />
+      <AudioPlayer />
+    </div>
+    <div id='dev-links-container'>
+      <a id='git-link' className='dev-link' href='https://github.com/PlasmaNuke'><i className='fa-brands fa-github' /></a>
+      <a className='dev-link' href='https://www.linkedin.com/in/peter-nolan-45828b2ab'><i className='fa-brands fa-linkedin' /></a>
+      <br />
+      <span className='dev-cred'>Developed by Peter Nolan 2024</span>
+    </div>
     </>
   );
 }
 
 
-const userLoader = async ({request, params}) => {
+const userLoader = async ({ params }) => {
+  
   const response = await fetch(`/api/users/${params.username}`);
   if(response.ok) {
     const data = await response.json();
-    if(data.user) {
-      
-      return data.user
-    } else throw { message: `User ${params.username} does not exist`, status: 404 };
-  } 
-}
-
-const trackLoader = async ({request, params}) => {
-  const response = await fetch(`/api/users/${params.username}/tracks/${params.title}`).catch((reasons) => { throw reasons})
-  
-  if(response.ok) {
-    const data = await response.json();
-    if(data.track) {
-      
-      return data.track
-    }
+    
+    return data
   }
-  throw { message: 'track not found' }
 }
 
-const loginLoader = async ({rrequest, params}) => {
-  const response = await fetch('/api/session');
-
-  return response.ok
-}
+// const trackLoader = async ({request, params}) => {
+//   const response = await fetch(`/api/users/${params.username}/tracks/${params.title}`).catch((reasons) => {throw reasons})
+  
+//   if(response.ok) {
+//     const data = await response.json();
+//     if(data.track) {
+//       return data.track
+//     }
+//   }
+//   throw { message: 'track not found' }
+// }
 
 const router = createBrowserRouter([
   {
@@ -74,7 +75,6 @@ const router = createBrowserRouter([
     children: [
       {
         path: '',
-        loader: loginLoader,
         element: <HomePage />
       },
       {
@@ -101,7 +101,6 @@ const router = createBrowserRouter([
         children: [
           {
             path: ':title',
-            loader: trackLoader,
             element: <TrackView />,
             // errorElement: <ErrorPage />,
             children: [

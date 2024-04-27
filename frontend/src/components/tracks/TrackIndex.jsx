@@ -2,10 +2,11 @@ import { useEffect, useState } from "react"
 import TrackIndexItem from "./TrackIndexItem";
 import { useDispatch, useSelector } from "react-redux";
 import * as trackActions from '../../store/track'
+import './TrackIndex.css'
 
 export default function TrackIndex() {
     const [loaded, setLoaded] = useState(false);
-    const tracks = useSelector(state => Object.values(state.tracks))
+    const tracks = useSelector(state => state.tracks)
     const dispatch = useDispatch();
 
     useEffect(() => {
@@ -16,11 +17,13 @@ export default function TrackIndex() {
         })
     }, [])
 
-    
     return (
-        <ul
-            className="track-index">
-            {loaded && tracks.map(track => <li key={`track ${track.title}`}><TrackIndexItem track={track} /></li>)}
-        </ul>
+        <div className="track-index container">
+            <h1>Tracks</h1>
+            <ul
+                className="track-index">
+                {loaded && Object.values(tracks).map(track => <li key={`track ${track.title}`}><TrackIndexItem track={track} /></li>)}
+            </ul>
+        </div>
     )
 }

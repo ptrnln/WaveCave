@@ -1,7 +1,7 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import './TrackUploadForm.css';
 import * as trackActions from '../../store/track';
-import { Navigate, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 
 const GENRES = [
@@ -24,7 +24,7 @@ const generateFileTypeRegEx = (fileTypeList) => {
 
 export default function TrackUploadForm() {
     const [title, setTitle] = useState('');
-    const [description, setDiscription] = useState('');
+    const [description, setDescription] = useState('');
     const [genre, setGenre] = useState(GENRES[0]);
     const [isNewGenre, setIsNewGenre] = useState(false);
     const [isAlbum, setIsAlbum] = useState(false);
@@ -71,7 +71,6 @@ export default function TrackUploadForm() {
         e.preventDefault();
         setErrors([]);
         
-        
         try {
             if (!audioFile) {
                 setErrors(["Source file not found"]);
@@ -96,7 +95,7 @@ export default function TrackUploadForm() {
             if(response.errors) {
                 setErrors(response.errors)
             } else {
-                navigate(`/${currentUser.username}/${title.replace(' ', '-')}`)
+                navigate(`/${encodeURIComponent(currentUser.username)}/${encodeURIComponent(title)}`)
             }
         } catch (err) {
             setErrors([err])
@@ -128,7 +127,7 @@ export default function TrackUploadForm() {
                     rows="4" 
                     onChange={(e) => {
                         e.stopPropagation();
-                        setDiscription(e.target.value);
+                        setDescription(e.target.value);
                     }}
                     value={description}
                     style={{resize: 'none'}}
@@ -187,6 +186,7 @@ export default function TrackUploadForm() {
                     onChange={async (e) => {
                         e.stopPropagation();
                         setAudioFile(e.target.files[0]);
+                        setDuration(await getDuration(e.target.files[0]))
                     }}
                 />
             </label>

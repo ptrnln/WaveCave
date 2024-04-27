@@ -8,7 +8,6 @@ class Api::UsersController < ApplicationController
   end
 
   def create
-    
     @user = User.new(user_params)
 
     if (@user.save) 
@@ -21,12 +20,14 @@ class Api::UsersController < ApplicationController
   end
 
   def show
-    @user = User.find_by(username: params[:username])
+    @user = User.find_by(username: CGI.unescape(params[:username]))
+    @user ||= User.find_by(email: params[:credential])
+    @user ||= User.find_by(username: params[:credential])
     
     if @user
       render '/api/users/show'
     else
-      render json: { message: 'No user by that name' }
+      render json: { message: 'User not found' }
     end
   end
 # -------------------------------------------------------------

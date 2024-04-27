@@ -1,0 +1,36 @@
+div.queue-control.container {
+    font-size: .8rem;
+    position: relative;
+    /* right: 0; */
+    bottom: 33px;
+    left: 0;
+    text-wrap: nowrap;
+    background-color: #ececec;
+    padding: 5px 5px;
+    border-radius: 2%;
+}
+
+div.queue-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 5px 0;
+    border-bottom: 1px solid #d3d3d3;
+    min-width: 250px;    
+}
+
+div.queue-control-header {
+    text-wrap: nowrap;
+    border-bottom: #d3d3d3;
+}
+
+div#queue-control {
+    display: flex;
+    flex-direction: column-reverse;
+}
+
+button.queue-btn {
+    display: flex;
+    position: relative;
+    bottom: 14px;
+}
