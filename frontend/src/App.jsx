@@ -12,6 +12,7 @@ import TrackUploadForm from './components/tracks/TrackUploadForm';
 import TrackUpdateForm from './components/tracks/TrackUpdateForm';
 import HomePage from './HomePage';
 import TrackIndex from './components/tracks/TrackIndex';
+import ErrorPage from './ErrorPage';
 
 
 
@@ -97,17 +98,17 @@ const router = createBrowserRouter([
         path: '/:username',
         loader: userLoader,
         element: <UserView />,
-        // errorElement: <ErrorPage />,
+        errorElement: <ErrorPage />,
         children: [
           {
             path: ':title',
             element: <TrackView />,
-            // errorElement: <ErrorPage />,
+            errorElement: <ErrorPage />,
             children: [
               {
                 path: 'update',
                 element: <TrackUpdateForm />,
-                // errorElement: <ErrorPage />
+                errorElement: <ErrorPage />
               }
             ]
           }
