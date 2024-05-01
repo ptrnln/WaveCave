@@ -27,7 +27,7 @@ class Api::UsersController < ApplicationController
     if @user
       render '/api/users/show'
     else
-      render json: { message: 'User not found' }
+      render json: { message: 'User not found' }, status: :not_found
     end
   end
 # -------------------------------------------------------------
