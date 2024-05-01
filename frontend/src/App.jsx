@@ -55,6 +55,8 @@ const userLoader = async ({ params }) => {
     const data = await response.json();
     
     return data
+  } else {
+    throw { status: 404, message: 'user not found' }
   }
 }
 
@@ -103,12 +105,12 @@ const router = createBrowserRouter([
           {
             path: ':title',
             element: <TrackView />,
-            errorElement: <ErrorPage />,
+            // errorElement: <ErrorPage />,
             children: [
               {
                 path: 'update',
                 element: <TrackUpdateForm />,
-                errorElement: <ErrorPage />
+                // errorElement: <ErrorPage />
               }
             ]
           }
