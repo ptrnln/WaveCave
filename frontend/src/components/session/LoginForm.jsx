@@ -9,6 +9,7 @@ function LoginForm() {
   const dispatch = useDispatch();
   const [credential, setCredential] = useState('');
   const [password, setPassword] = useState('');
+  const [loginAttempt, setLoginAttempt] = useState(false);
   const errors = useSelector(state => state.session.errors);
   const currentUser = useSelector(state => state.session.user);
   
@@ -45,17 +46,13 @@ function LoginForm() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    document
-      .querySelectorAll('.login-form button')
-      .forEach(button => button.disabled = true);
+    setLoginAttempt(true);
     dispatch(sessionActions.login({credential, password}));
   }
 
   const handleDemoLogin = async (e) => {
     e.preventDefault();
-    document
-      .querySelectorAll('.login-form button')
-      .forEach(button => button.disabled = true);
+    setLoginAttempt(true);
     dispatch(sessionActions.login({
       credential: 'Demo-lition',
       password: 'password'
@@ -64,9 +61,8 @@ function LoginForm() {
 
   useEffect(() => {
     if(showModal) {
-      document
-        .querySelectorAll('.login-form button')
-        .forEach(button => button.disabled = false);
+      setCredential('');
+      setPassword('');
       document.addEventListener('click', clickListener);
       activateGreyout();
     } else {
@@ -82,14 +78,32 @@ function LoginForm() {
       dispatch(sessionActions.hideModal());
     }
   }, [currentUser])
-  
+
   useEffect(() => {
-    if(Object.keys(errors).some(key => errors[key].length > 0)) {
+    if(errors || currentUser) {
+      setLoginAttempt(false);
+    }
+  },[errors, currentUser])
+  
+  // useEffect(() => {
+  //   if(Object.keys(errors).some(key => errors[key].length > 0)) {
+  //     document
+  //       .querySelectorAll('.login-form button')
+  //       .forEach(button => button.disabled = false);
+  //   }
+  // }, [errors])
+
+  useEffect(() => {
+    if(!loginAttempt) {
       document
         .querySelectorAll('.login-form button')
         .forEach(button => button.disabled = false);
+    } else {
+      document
+        .querySelectorAll('.login-form button')
+        .forEach(button => button.disabled = true);
     }
-  }, [errors])
+  }, [loginAttempt])
 
   return (
     <>
