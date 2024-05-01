@@ -61,6 +61,8 @@ function LoginForm() {
 
   useEffect(() => {
     if(showModal) {
+      setCredential('');
+      setPassword('');
       document.addEventListener('click', clickListener);
       activateGreyout();
     } else {
