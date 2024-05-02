@@ -65,38 +65,42 @@ export default function AudioControls({ handleNext, handlePrev }) {
     return (
         <div className="audio-controls container">
             <div className="track-controls container">
-                <div className="previous button">
+                <button className="previous button">
                     <i className="fa fa-step-backward" onClick={handlePrev}/>     
-                </div>
-                <div className="play-pause button">
+                </button>
+                <button className="play-pause button" onClick={togglePlay}>
                 {isPlaying ? 
-                    <i className='fa fa-pause' onClick={togglePlay} />
+                    <i className='fa fa-pause' />
                     :
-                    <i className='fa fa-play' onClick={togglePlay} />
+                    <i className='fa fa-play'/>
                 }
-                </div>
-                <div className="next button">
+                </button>
+                <button className="next button">
                     <i className="fa fa-step-forward" onClick={handleNext}></i>
-                </div>
+                </button>
             </div>
             <div className="queue-controls container">
-                <span style={{color: shuffleColor}}>
-                    <div id="shuffle-button" className="shuffle button">
-                        <i 
-                            className="fa fa-random" 
-                            onClick={toggleShuffle}
-                        ></i>
-                    </div>
+                <span style={{color: isShuffled ? "#f50" : "Black"}}>
+                    <button id="shuffle-button" className="shuffle button"
+                        onClick={toggleShuffle}
+                        >
+                        <i className="fa fa-random"></i>
+                    </button>
                 </span>
-                <span style={{color: repeatColor}}>
-                    <div className="repeat button">
+                <span style={{
+                    color: ["once","always"]
+                                .some(v => v === isRepeating) ? 
+                                    "#f50"
+                                    :   
+                                    "Black"}}>
+                    <button className="repeat button">
                         <i 
                             className={
                                 isRepeating === 'once' ? "wc-icon-cycle-1" : "wc-icon-cycle"
                             }
                             onClick={toggleRepeat}
                         ></i>
-                    </div>
+                    </button>
                 </span>
             </div>
         </div>

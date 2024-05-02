@@ -1,13 +1,15 @@
 i {
     cursor: pointer;
+    color: inherit;
 }
 
-.audio-player {
+.audio-player * {
     user-select: none;
 }
 
 .audio-player button {
     appearance: none;
     border: 0;
-    background-color: inherit;
+    margin: auto auto auto auto;
+    color: inherit;
 }

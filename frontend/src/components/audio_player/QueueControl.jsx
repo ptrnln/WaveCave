@@ -13,23 +13,20 @@ export default function QueueControl () {
             state.audio.queue.original
         return (queue.slice(state.audio.currentIndex + 1).concat(queue.slice(0, state.audio.currentIndex))).map(idx => state.tracks[idx])
     })
-    const currentIndex = useSelector(state => state.audio.currentIndex);
 
     const toggleDisplay = (e) => {
         e.preventDefault();
         setDisplay(!display);
     }
 
-    const nextUp = tracks.slice(currentIndex + 1) + tracks;
-
     return (
         <>
-        <div id="queue-control">
+        <div id="queue-control container">
             <button className="queue-btn" onClick={toggleDisplay}>
                 <i className="fa-solid fa-music"/>
             </button>
             { display &&
-            (<div className="queue-control container">
+            (<div className="queue-control inner">
                 <div className="queue-control-header">Next Up</div>
                 <ul className="queue">
                     { tracks.map(track => <li key={`${track.title}`}><QueueItem track={track}/></li>)}
