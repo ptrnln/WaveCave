@@ -73,7 +73,7 @@ button.play-track.button {
     float: right;
     height: min-content;
     /* margin-top: 150px; */
-    top: 148px;
+    align-self: end;
     border: 0;
     padding: 10px;
     border-radius: 5px;
