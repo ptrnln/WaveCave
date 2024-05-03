@@ -111,9 +111,7 @@ export async function updateTrack (trackData, audioFile, imageFile) {
         body: formData
     })
     
-    let data = await response.json();
-    
-    return data
+    return response
 }
 
 const trackReducer = (state = initialState, action) => {
