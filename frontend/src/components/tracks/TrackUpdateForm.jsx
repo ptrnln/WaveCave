@@ -115,12 +115,15 @@ export default function TrackUpdateForm() {
             duration,
             fileType
         }, audioFile, imageFile);
+
+        console.log(response)
         
-        if(response.errors) {
-            setErrors(response.errors)
-        } else {
-            await dispatch(trackActions.receiveTrack(response.track))
+        if(response.ok) {
+            dispatch(trackActions.receiveTrack(response.track))
             navigate(`/${encodeURIComponent(currentUser.username)}/${encodeURIComponent(newTitle)}`)
+        } else {
+            console.alert(response.errors)
+            setErrors(response.errors)
         }
     }
 
@@ -235,7 +238,7 @@ export default function TrackUpdateForm() {
                     }}
                 />
             </label>
-            <label htmlFor="errors">{errors.length ? errors.join(", ") : null}</label>
+            <label htmlFor="errors">{errors.length ? errors.join(", ") : false}</label>
             <button type="submit">Submit</button>
         </form>
     )
