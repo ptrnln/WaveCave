@@ -1,13 +1,13 @@
 import { useRouteError } from "react-router-dom"
 
 export default function ErrorPage() {
-    const errors = useRouteError();
+    const error = useRouteError();
 
     return (
         <>
-        <h1>{errors.status}</h1>
-        <p>{errors.message}</p>
-        {errors.status === 404 &&
+        <h1>{error.status}</h1>
+        <p>{error.data.message}</p>
+        {error.status === 404 &&
             <img src="/images/404_img.svg" alt="404" />
         }
         </>

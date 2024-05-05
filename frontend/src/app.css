@@ -1,8 +1,8 @@
 
 @font-face {
     font-family: 'Montserrat';
-    src: url('/Montserrat-Regular.woff2') format('woff2'),
-        url('/Montserrat-Regular.woff') format('woff');
+    src: url('/fonts/Montserrat-Regular.woff2') format('woff2'),
+        url('/fonts/Montserrat-Regular.woff') format('woff');
     font-weight: normal;
     font-style: normal;
     font-display: swap;
@@ -68,10 +68,17 @@ html, body {
     opacity: 1;
 }
 
+/* @media screen and (max-width: 600px) {
+    div#dev-links-container {
+        
+    }
+    
+} */
 div#dev-links-container {
     position: fixed;
     bottom: 46px;
-    z-index: 98;
+    /* z-index: 98; */
+    width: clamp(100px, 10vw, 200%);
     margin-bottom: 6px;
     margin-left: 2px;
     font-size: .8rem;
@@ -106,7 +113,8 @@ div.app {
 div.content {
     /* position: fixed; */
 
-    width: 1190px;
+    /* width: 1190px; */
+    width: clamp(320px, 100%, 1190px);
     height: calc(100% - 96px);
     overflow-y: scroll;
     /* top: 48px; */

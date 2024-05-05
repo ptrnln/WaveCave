@@ -10,7 +10,6 @@ export async function deleteTrack (trackId) {
         method: 'DELETE'
     })
     
-
     if(response.ok) {
         const data = await response.json();
         return data
@@ -111,9 +110,7 @@ export async function updateTrack (trackData, audioFile, imageFile) {
         body: formData
     })
     
-    let data = await response.json();
-    
-    return data
+    return response
 }
 
 const trackReducer = (state = initialState, action) => {

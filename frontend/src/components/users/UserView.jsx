@@ -3,6 +3,7 @@ import { useDispatch } from "react-redux";
 import { Outlet, useLoaderData } from "react-router-dom";
 import * as trackActions from '../../store/track'
 import TrackIndexItem from "../tracks/TrackIndexItem";
+import '../tracks/TrackIndexItem.css'
 
 export default function UserView() {
     const { user } = useLoaderData();
