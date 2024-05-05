@@ -42,8 +42,13 @@ export default function TrackIndexItem({ track }) {
                 <p>{track.artist.username}</p>
             <NavLink to={`/${encodeURIComponent(track.artist.username)}/${encodeURIComponent(track.title)}`}>See track</NavLink>
             </div>
-            {track.artist.id === currentUser?.id ? <button onClick={handleDelete} value={track.id}>Delete</button>: false}
-            {track.artist.id === currentUser?.id ? <button onClick={navToUpdate}>Update</button>: false}
+            
+            { track.artist.id === currentUser?.id &&
+            <div className="track-index controls">
+                <button onClick={handleDelete} value={track.id}>Delete</button>
+                <button onClick={navToUpdate}>Update</button>
+            </div>
+             }
         </div>
     )
 }

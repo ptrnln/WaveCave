@@ -50,7 +50,7 @@ export default function AudioItem({ audioRef, handleNext }) {
 
     useEffect(() => {
         if(currentTrack !== undefined) {
-            document.getElementsByClassName('audio-track')[0].src = currentTrack.sourceUrl
+            document.querySelector('audio.audio-track').src = currentTrack.sourceUrl
         }
     }, [currentTrack])
 

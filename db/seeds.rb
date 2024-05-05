@@ -20,22 +20,6 @@ SAVE_TRACKS = [
 ]
 
 
-# SEED_TRACKS_LIST = {
-#   1 => {
-#     :title => 'CBAT',
-#     :description => 'It just has a really good rhythm',
-#     :genre => 'Stroke-core',
-#     :file_type => 'mp3',
-#     :source_url => "https://wavecave-seeds.s3.amazonaws.com/Hudson+Mohawke+-+Cbat.mp3"
-#   },
-#   # 2: {
-#   #   title: "Spider-Man: The Animated Series (SEGA Genesis) - Fun House",
-#   #   description: "Best song ever maybe?",
-#   #   genre: 'Clown-core',
-#   #   file_type: 'mp3',
-#   #   source_url: 
-#   # }
-# }
 require "open-uri"
 # ApplicationRecord.transaction do 
     puts "Destroying ActiveStorage associations..."
@@ -57,7 +41,6 @@ require "open-uri"
 
     puts "Destroying tables..."
     # Unnecessary if using `rails db:seed:replant`
-    
    
   
     puts "Resetting primary keys..."

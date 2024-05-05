@@ -10,7 +10,7 @@ class Api::TracksController < ApplicationController
         if @tracks
             render :index
         else
-            render nothing: true, status: :not_found
+            render nothing: true, status: :no_content
         end
     end
 
@@ -41,7 +41,7 @@ class Api::TracksController < ApplicationController
         if @track
             render :show
         else
-            render json: { message: 'Could not find this track' }, 
+            render json: { message: 'Track not found' }, 
                 status: :not_found
         end
     end
