@@ -71,7 +71,7 @@ html, body {
 div#dev-links-container {
     position: fixed;
     bottom: 46px;
-    z-index: 98;
+    /* z-index: 98; */
     margin-bottom: 6px;
     margin-left: 2px;
     font-size: .8rem;
@@ -106,7 +106,8 @@ div.app {
 div.content {
     /* position: fixed; */
 
-    width: 1190px;
+    /* width: 1190px; */
+    width: clamp(320px, 100%, 1190px);
     height: calc(100% - 96px);
     overflow-y: scroll;
     /* top: 48px; */

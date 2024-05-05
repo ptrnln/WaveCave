@@ -51,26 +51,25 @@ function Layout() {
 const userLoader = async ({ params }) => {
   
   const response = await fetch(`/api/users/${params.username}`);
+  
   if(response.ok) {
     const data = await response.json();
-    
     return data
   } else {
-    throw { status: 404, message: 'user not found' }
+    throw response
   }
 }
 
-// const trackLoader = async ({request, params}) => {
-//   const response = await fetch(`/api/users/${params.username}/tracks/${params.title}`).catch((reasons) => {throw reasons})
+const trackLoader = async ({ params }) => {
+  const response = await fetch(`/api/users/${params.username}/tracks/${params.title}`).catch((reasons) => {throw reasons})
   
-//   if(response.ok) {
-//     const data = await response.json();
-//     if(data.track) {
-//       return data.track
-//     }
-//   }
-//   throw { message: 'track not found' }
-// }
+  if(response.ok) {
+    const data = await response.json();
+    return data
+  } else {
+    throw response
+  }
+}
 
 const router = createBrowserRouter([
   {
@@ -104,8 +103,9 @@ const router = createBrowserRouter([
         children: [
           {
             path: ':title',
+            loader: trackLoader,
             element: <TrackView />,
-            // errorElement: <ErrorPage />,
+            errorElement: <ErrorPage />,
             children: [
               {
                 path: 'update',

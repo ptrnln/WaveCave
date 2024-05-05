@@ -14,10 +14,21 @@
     width: fit-content;
 }
 
-div.track-view.body {
+.track-view.body {
     display: flex;
-    flex-direction: row;
 }
+
+@media screen and (max-width: 500px) and (orientation: portrait){
+    .track-view.body {
+        flex-direction: column;
+    }
+}
+@media all and (min-width: 500px) {
+    .track-view.body {
+        flex-direction: row;
+    }
+}
+
 
 div.track-view.details {
     width: 100%;
@@ -73,6 +84,7 @@ button.play-track.button {
     float: right;
     height: min-content;
     /* margin-top: 150px; */
+    
     align-self: end;
     border: 0;
     padding: 10px;

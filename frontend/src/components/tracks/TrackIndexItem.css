@@ -5,7 +5,11 @@
 .track-index p {
     font-style: thin;
 }
-
+@media screen and (max-width: 600px) {
+    .track-index h2 {
+        font-size: 1.5rem;
+    }
+}
 .track-index.item {
     display: flex;
     background: none;

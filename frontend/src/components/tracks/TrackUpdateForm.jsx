@@ -33,7 +33,8 @@ export default function TrackUpdateForm() {
     const [description, setDescription] = useState('');
     const [genre, setGenre] = useState(GENRES[0]);
     const [isNewGenre, setIsNewGenre] = useState(false);
-    const [isAlbum, setIsAlbum] = useState(false);
+    // const [isAlbum, setIsAlbum] = useState(false);
+    // const [artist, setArtist] = useState('');
     const [duration, setDuration] = useState(0);
     const [imageFile, setImageFile] = useState(null);
     const [audioFile, setAudioFile] = useState(null);
@@ -54,7 +55,7 @@ export default function TrackUpdateForm() {
             audio.muted = true;
             const source = document.createElement("source");
             source.src = url;
-            audio.preload= "metadata";
+            audio.preload = "metadata";
             audio.appendChild(source);
             audio.onloadedmetadata = function(){
                 resolve(audio.duration)
@@ -64,8 +65,8 @@ export default function TrackUpdateForm() {
 
 
 
-    const audioReader = new FileReader();
-    const imageReader = new FileReader();
+    // const audioReader = new FileReader();
+    // const imageReader = new FileReader();
 
     useEffect(() => {
         async function getTrackData() {
@@ -77,8 +78,9 @@ export default function TrackUpdateForm() {
 
                 const image = new Image();
                 image.src = trackData.photoUrl
-                setTrackId(Object.keys(data.track)[0])
-                setNewTitle(title)
+                // setArtist(trackData.artist);
+                setTrackId(Object.keys(data.track)[0]);
+                setNewTitle(title);
                 setDescription(trackData.description || '');
                 setGenre(trackData.genre);
                 setIsNewGenre(!GENRES.includes(trackData.genre));
@@ -87,9 +89,9 @@ export default function TrackUpdateForm() {
                 
                 return data
             } else {
-                const data = await response.json()
-                setErrors(data.errors)
-                return data
+                const data = await response.json();
+                setErrors(data.errors);
+                return data;
             }
         }
         getTrackData();
@@ -98,13 +100,12 @@ export default function TrackUpdateForm() {
     
     
     const getFileType = (fileName) => { 
-        return fileName.match(generateFileTypeRegEx(SUPPORTED_FILE_TYPES))[1]
+        return fileName.match(generateFileTypeRegEx(SUPPORTED_FILE_TYPES))[1];
     }
 
 
     async function handleSubmit(e) {
         
-        e.stopPropagation();
         e.preventDefault();
         setErrors([]);
         const response = await trackActions.updateTrack({
@@ -116,17 +117,20 @@ export default function TrackUpdateForm() {
             fileType
         }, audioFile, imageFile);
 
-        console.log(response)
+        let data = await response.json();
         
         if(response.ok) {
-            dispatch(trackActions.receiveTrack(response.track))
+            dispatch(trackActions.receiveTrack(data.track))
             navigate(`/${encodeURIComponent(currentUser.username)}/${encodeURIComponent(newTitle)}`)
         } else {
-            console.alert(response.errors)
-            setErrors(response.errors)
+            console.alert(data.errors)
+            setErrors(data.errors)
         }
     }
 
+    // if(currentUser === null || currentUser.id !== artist.id) {
+    //     navigate(`/${encodeURIComponent(artist.username)}/${encodeURIComponent(title)}`)
+    // }
 
     return(
         <form 
@@ -187,7 +191,7 @@ export default function TrackUpdateForm() {
                             type="text" 
                             className="genre input"
                             onChange={(e) => {
-                                e.stopPropagation();
+                                e.preventDefault();
                                 setGenre(e.target.value);
                             }}
                             value={isNewGenre ? genre : ''}
@@ -212,10 +216,10 @@ export default function TrackUpdateForm() {
                     accept=".wav,.mp3,.flac"
                     // multiple
                     onChange={async (e) => {
-                        e.stopPropagation();
+                        e.preventDefault();
                         setAudioFile(e.target.files[0]);
                         setDuration(await getDuration(e.target.files[0]));
-                        setFileType(getFileType(e.target.files[0].name))
+                        setFileType(getFileType(e.target.files[0].name));
                     }}
                 />
             </label>

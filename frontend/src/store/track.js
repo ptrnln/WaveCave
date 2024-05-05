@@ -10,7 +10,6 @@ export async function deleteTrack (trackId) {
         method: 'DELETE'
     })
     
-
     if(response.ok) {
         const data = await response.json();
         return data
