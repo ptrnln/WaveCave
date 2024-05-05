@@ -68,10 +68,17 @@ html, body {
     opacity: 1;
 }
 
+/* @media screen and (max-width: 600px) {
+    div#dev-links-container {
+        
+    }
+    
+} */
 div#dev-links-container {
     position: fixed;
     bottom: 46px;
     /* z-index: 98; */
+    width: clamp(100px, 10vw, 200%);
     margin-bottom: 6px;
     margin-left: 2px;
     font-size: .8rem;
