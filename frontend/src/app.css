@@ -1,36 +1,11 @@
 
-@font-face {
-    font-family: 'Montserrat';
-    src: url('/fonts/Montserrat-Regular.woff2') format('woff2'),
-        url('/fonts/Montserrat-Regular.woff') format('woff');
-    font-weight: normal;
-    font-style: normal;
-    font-display: swap;
-}
-
-@font-face {
-    font-family: 'Montserrat';
-    src: url('/fonts/Monsterrat-Light.ttf') format('ttf');
-    font-weight: 100;
-    font-style: normal;
-    font-display: swap;
-}
-
-html, body, div, span, applet, object, iframe,
-h1, h2, h3, h4, h5, h6, p, blockquote, pre,
-a, abbr, acronym, address, big, cite, code,
-del, dfn, em, img, ins, kbd, q, s, samp,
-small, strike, strong, sub, sup, tt, var,
-b, u, i, center,
-dl, dt, dd, ol, ul, li,
-fieldset, form, label, legend,
-table, caption, tbody, tfoot, thead, tr, th, td,
-article, aside, canvas, details, embed, 
-figure, figcaption, footer, header, hgroup, 
-menu, nav, output, ruby, section, summary,
-time, mark, audio, video {
-    font-family: "Montserrat";
-}
+@import url(components/audio_player/AudioPlayer.css);
+@import url(components/audio_player/AudioControls.css);
+@import url(components/audio_player/QueueControl.css);
+@import url(components/audio_player/TrackDisplay.css);
+@import url(components/audio_player/ProgressBar.css);
+@import url(components/navigation/Navigation.css);
+@import url(components/navigation/ProfileButton.css);
 
 html, body {
     height: 100%
@@ -112,11 +87,11 @@ div.app {
 
 div.content {
     /* position: fixed; */
-
     /* width: 1190px; */
     width: clamp(320px, 100%, 1190px);
     height: calc(100% - 96px);
     overflow-y: scroll;
+    overflow-x: hidden;
     /* top: 48px; */
 }
 

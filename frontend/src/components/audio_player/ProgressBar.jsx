@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useRef, useState } from 'react'
-import './ProgressBar.css'
+// import './ProgressBar.css'
 import { useSelector } from 'react-redux';
 
 export default function ProgressBar({ progressBarRef, audioRef }) {

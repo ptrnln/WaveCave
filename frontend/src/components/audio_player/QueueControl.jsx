@@ -21,19 +21,17 @@ export default function QueueControl () {
 
     return (
         <>
-        <div id="queue-control container">
             <button className="queue-btn" onClick={toggleDisplay}>
                 <i className="fa-solid fa-music"/>
             </button>
             { display &&
-            (<div className="queue-control inner">
+            (<div className="queue-control-inner">
                 <div className="queue-control-header">Next Up</div>
                 <ul className="queue">
                     { tracks.map(track => <li key={`${track.title}`}><QueueItem track={track}/></li>)}
                 </ul>
             </div>)
             }
-        </div>
         </>
     )
     

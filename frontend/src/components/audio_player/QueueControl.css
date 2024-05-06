@@ -1,13 +1,19 @@
-/* div.queue-control.inner {
+div.queue-control-inner {
     font-size: .8rem;
-    position: relative;
-    right: 0; 
-    bottom: 33px;
-    left: 0;
+    position: absolute;
+
+    height: clamp(0, min-content, 500px);
+    bottom: 48px;
+    right: 0;
     text-wrap: nowrap;
     background-color: #ececec;
     padding: 5px 5px;
     border-radius: 2%;
+    border: 1px solid #d3d3d3;
+}
+
+/* div.queue-control.container {
+    
 } */
 
 div.queue-item {
@@ -24,11 +30,8 @@ div.queue-control-header {
     border-bottom: #d3d3d3;
 }
 
-/* div#queue-control {
+div#queue-control {
     display: flex;
     flex-direction: column-reverse;
-} */
+}
 
-/* div.queue-control.container+button.queue-btn {
-    bottom: 14px;
-} */
