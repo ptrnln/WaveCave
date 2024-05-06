@@ -13,9 +13,7 @@ import TrackUpdateForm from './components/tracks/TrackUpdateForm';
 import HomePage from './HomePage';
 import TrackIndex from './components/tracks/TrackIndex';
 import ErrorPage from './ErrorPage';
-
-
-
+import './app.css'
 
 function Layout() {
   const dispatch = useDispatch();
@@ -27,22 +25,24 @@ function Layout() {
     });
   }, [dispatch]);
 
+  // const isMobile = /iPhone|iPad|iPod|Android|webOS|BlackBerry/i.test(navigator.userAgent) || window.matchQuery('(max-width: 720px)');
+
   return (
     <>
-    <div className='app'>
-      <Navigation />
-      <div className='content'>
-        {isLoaded && <Outlet />}
+      <div className='app'>
+        <Navigation />
+        <div className='content'>
+          {isLoaded && <Outlet />}
+        </div>
+        <LoginForm />
+        <AudioPlayer />
       </div>
-      <LoginForm />
-      <AudioPlayer />
-    </div>
-    <div id='dev-links-container'>
-      <a id='git-link' className='dev-link' href='https://github.com/PlasmaNuke'><i className='fa-brands fa-github' /></a>
-      <a className='dev-link' href='https://www.linkedin.com/in/peter-nolan-45828b2ab'><i className='fa-brands fa-linkedin' /></a>
-      <br />
-      <span className='dev-cred'>Developed by Peter Nolan 2024</span>
-    </div>
+      <div id='dev-links-container'>
+        <a id='git-link' className='dev-link' href='https://github.com/ptrnln'><i className='fa-brands fa-github' /></a>
+        <a className='dev-link' href='https://www.linkedin.com/in/peter-nolan-45828b2ab'><i className='fa-brands fa-linkedin' /></a>
+        <br />
+        <span className='dev-cred'>Developed by Peter Nolan 2024</span>
+      </div>
     </>
   );
 }
