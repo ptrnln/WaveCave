@@ -1,28 +1,24 @@
-import { NavLink, Outlet, useParams } from "react-router-dom"
+import { NavLink, Outlet, useLoaderData } from "react-router-dom"
 import './TrackView.css'
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import * as audioActions from '../../store/audioPlayer';
-import * as trackActions from '../../store/track';
-import { useEffect } from "react";
+// import * as trackActions from '../../store/track';
+// import { useEffect } from "react";
 
 export default function TrackView() {
     const dispatch = useDispatch();
-    const { username, title } = useParams();
-    const track = useSelector(state => {
-    let result
-    Object.keys(state.tracks).forEach(id => {
-        if(decodeURIComponent(title) === state.tracks[id].title && 
-        decodeURIComponent(username) === state.tracks[id].artist.username) {
-            result = state.tracks[id];
-        }
-    })
-    return result || false
-   })
+    // const data = useLoaderData();
+
+    // const track = Object.values(data)[0];
+
+    const { id, title, description, genre, artist, photoUrl, /* createdAt */ } = Object.values(useLoaderData())[0];
     
+    
+
     async function handleClick (e) {
         e.preventDefault();
         // const trackData = await 
-        dispatch(audioActions.loadTracks([track.id]));
+        dispatch(audioActions.loadTracks([id]));
         dispatch(audioActions.playTrack());
     }
 
@@ -35,20 +31,20 @@ export default function TrackView() {
     //     return "not implemented"
     // }
 
-    useEffect(() => {
-        if(!track) {
-                const getTrackInfo = async () => {
-                const response = await fetch(`/api/users/${username}/tracks/${title}`);
+    // useEffect(() => {
+    //     if(!track) {
+    //             const getTrackInfo = async () => {
+    //             const response = await fetch(`/api/users/${track.username}/tracks/${track.title}`);
                 
-                if(response.ok) {
-                    const data = await response.json();
+    //             if(response.ok) {
+    //                 const data = await response.json();
 
-                    dispatch(trackActions.receiveTrack(data.track))
-                }
-            }
-            getTrackInfo();
-        }
-    }, [])
+    //                 dispatch(trackActions.receiveTrack(data.track))
+    //             }
+    //         }
+    //         getTrackInfo();
+    //     }
+    // }, [])
 
 
     return (
@@ -58,14 +54,14 @@ export default function TrackView() {
             :
             <div className="track-view container">
                 <br />
-                <h1 className="track-view title">{title}</h1>
+                <h1 className="track-view title">{ title }</h1>
                 <br />
                 <div className="track-view body">
-                    { track && (
-                        <button className="play-track overlay" onClick={handleClick}>
+                    { id && (
+                        <button className="play-track overlay" onClick={ handleClick }>
                             <i className="fa-solid fa-play-circle" />
-                            { track.photoUrl ? 
-                                <img src={track.photoUrl} /> 
+                            { photoUrl ? 
+                                <img src={ photoUrl } /> 
                                 : 
                                 <i className="fa-solid fa-compact-disc" />
                             }
@@ -73,9 +69,9 @@ export default function TrackView() {
                     )}
                     <div className="track-view details">
                         <div className="track-view artist-info">
-                            { track && 
-                            <NavLink to={ `/${track.artist.username}`}>
-                                <i className="fa-solid fa-user" /> {track.artist.username}
+                            { artist &&
+                            <NavLink to={ `/${ artist.username || '' }`}>
+                                <i className="fa-solid fa-user" /> { artist.username || '' }
                             </NavLink> }
                         </div>
                         {/* <div className="track-view date">
@@ -83,14 +79,14 @@ export default function TrackView() {
                         </div> */}
                         <br />
                         <div className="track-view description">
-                            <i className="fa-solid fa-comment" /> <p>{ track && track.description }</p>
+                            <i className="fa-solid fa-comment" /> <p>{ description || '' }</p>
                         </div>
 
                         <div className="track-view genre">
-                            <i className="fa-solid fa-radio" /> <p>{ track && track.genre }</p>
+                            <i className="fa-solid fa-radio" /> <p>{ genre || '' }</p>
                         </div>
                     </div>
-                <button className="play-track button" onClick={handleClick} >
+                <button className="play-track button" onClick={ handleClick } >
                     <i className="fa-solid fa-play" /> Play this track!
                 </button>
                 </div>

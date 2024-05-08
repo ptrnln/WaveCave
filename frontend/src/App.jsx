@@ -63,9 +63,11 @@ const userLoader = async ({ params }) => {
 const trackLoader = async ({ params }) => {
   const response = await fetch(`/api/users/${params.username}/tracks/${params.title}`).catch((reasons) => {throw reasons})
   
+  
   if(response.ok) {
     const data = await response.json();
-    return data
+    console.log(data.track)
+    return data.track
   } else {
     throw response
   }
