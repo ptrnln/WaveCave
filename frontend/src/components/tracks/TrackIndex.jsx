@@ -22,7 +22,7 @@ export default function TrackIndex() {
             <h1>Tracks</h1>
             <ul
                 className="track-index">
-                {loaded && Object.values(tracks).map(track => <li key={`track ${track.title}`}><TrackIndexItem track={track} /></li>)}
+                {loaded && Object.values(tracks).map(track => <li key={track.id}><TrackIndexItem track={track} /></li>)}
             </ul>
         </div>
     )

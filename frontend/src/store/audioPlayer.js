@@ -188,6 +188,7 @@ const shuffle = (queue, currentTrackId = queue[0]) => {
 
 export const audioPlayerReducer = (state = initialState, action) => {
     Object.freeze(state);
+    let newState = { ...state };
 
     let queue, shuffledQueue, newIndex, repeated;
 
@@ -276,15 +277,18 @@ export const audioPlayerReducer = (state = initialState, action) => {
                 isRepeating: 'always'
             }
         case DEQUEUE_TRACK:
-            var oldTrackId = state.isShuffled ? state.queue.shuffled[state.currentIndex] : state.queue.original[state.currentIndex]
-            newIndex = (state.currentIndex === state.queue.original.length - 1 || !!state.queue.original.length) ? 0 : state.currentIndex + 1
-            return { ...state,
-                currentIndex: newIndex,
-                queue: {
-                    original: state.queue.original.filter(id => id !== oldTrackId),
-                    queue: state.queue.shuffled.filter(id => id !== oldTrackId)
-                }
-            }
+            // var oldTrackId = state.isShuffled ? state.queue.shuffled[state.currentIndex] : state.queue.original[state.currentIndex]
+            // newIndex = (state.currentIndex === state.queue.original.length - 1 || !!state.queue.original.length) ? 0 : state.currentIndex + 1
+            // return { ...state,
+            //     currentIndex: newIndex,
+            //     queue: {
+            //         original: state.queue.original.filter(id => id !== oldTrackId),
+            //         queue: state.queue.shuffled.filter(id => id !== oldTrackId)
+            //     }
+            // }
+            delete newState.queue.original[action.trackId]
+            delete newState.queue.shuffled[action.trackId]
+            return newState;
         default:
             return state;
     }
