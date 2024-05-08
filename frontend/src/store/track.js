@@ -116,17 +116,16 @@ export async function updateTrack (trackData, audioFile, imageFile) {
 const trackReducer = (state = initialState, action) => {
     Object.freeze(state)
 
+    let newState = { ...state }
+
     switch(action.type) {
         case RECEIVE_TRACK:
             return { ...state, ...action.track }
         case RECEIVE_TRACKS:
             return { ...state, ...action.tracks }
         case REMOVE_TRACK:
-            return Object
-                .fromEntries(Object
-                    .keys(state)
-                    .filter((key) => key !== action.trackId)
-                    .map((key) => [key, state[key]]))
+            delete newState[action.trackId]
+            return newState
         case REMOVE_TRACKS:
             return Object
                 .fromEntries(Object
