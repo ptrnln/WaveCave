@@ -6,7 +6,7 @@ export default function ErrorPage() {
     return (
         <>
         <h1>{error.status}</h1>
-        <p>{error.data.message}</p>
+        <p>{error.data?.message}</p>
         {error.status === 404 &&
             <img src="/images/404_img.svg" alt="404" />
         }

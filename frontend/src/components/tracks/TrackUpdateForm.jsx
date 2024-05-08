@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { useNavigate, useParams } from "react-router-dom";
+import { Navigate, useNavigate, useParams } from "react-router-dom";
 import csrfFetch from "../../store/csrf";
 import './TrackUpdateForm.css';
 import * as trackActions from '../../store/track';
@@ -26,8 +26,8 @@ const generateFileTypeRegEx = (fileTypeList) => {
 }
 
 export default function TrackUpdateForm() {
-    const navigate = useNavigate();
     const dispatch = useDispatch();
+    const [isUpdated, setIsUpdated] = useState(false);
 
     const [newTitle, setNewTitle] = useState('');
     const [description, setDescription] = useState('');
@@ -120,8 +120,10 @@ export default function TrackUpdateForm() {
         let data = await response.json();
         
         if(response.ok) {
-            dispatch(trackActions.receiveTrack(data.track))
-            navigate(`/${encodeURIComponent(currentUser.username)}/${encodeURIComponent(newTitle)}`)
+            await dispatch(trackActions.receiveTrack(data.track));
+            // navigate(`/${encodeURIComponent(currentUser.username)}/${encodeURIComponent(newTitle)}`,
+            //     {replace: true})
+            setIsUpdated(true);
         } else {
             console.alert(data.errors)
             setErrors(data.errors)
@@ -133,6 +135,8 @@ export default function TrackUpdateForm() {
     // }
 
     return(
+        <>
+        { !isUpdated ?        
         <form 
             className="track-update" 
             htmlFor="track-update"
@@ -245,5 +249,9 @@ export default function TrackUpdateForm() {
             <label htmlFor="errors">{errors.length ? errors.join(", ") : false}</label>
             <button type="submit">Submit</button>
         </form>
+        :
+        <Navigate to={`/${encodeURIComponent(currentUser.username)}/${encodeURIComponent(newTitle)}`} />
+        }
+    </>
     )
 }

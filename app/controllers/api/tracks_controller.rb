@@ -51,7 +51,9 @@ class Api::TracksController < ApplicationController
         @track = Track.find(params[:id])
         @track.source.attach(track_params[:source]) if track_params[:source]
         
+        
         if @track.update(track_params)
+
             render :show
         else
             render json: { errors: @track.errors.full_messages },
