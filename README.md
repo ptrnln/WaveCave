@@ -40,7 +40,7 @@ export default function AudioPlayer({ audioRef, progressBarRef, handleNext }) {
 
 
     useEffect(() => {
-        if(isPlaying && audioRef.current?.loaded && audioRef.current.paused) {
+        if(isPlaying && audioRef.current?.paused) {
             audioRef.current.play();
         } else if (!isPlaying && !audioRef.current.paused) {
             audioRef.current.pause();
@@ -57,10 +57,10 @@ export default function AudioPlayer({ audioRef, progressBarRef, handleNext }) {
 
     return (
         <>
-		    <audio 
-	            className={`audio-track ${currentTrack?.title || ''}`}
-	            ref={audioRef}
-	            onEnded={handleNext}
+		<audio
+			className={`audio-track ${currentTrack?.title || ''}`}
+			ref={audioRef}
+			onEnded={handleNext}
 	        />
         </>
     )
