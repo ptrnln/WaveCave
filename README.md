@@ -60,8 +60,7 @@ export default function AudioPlayer({ audioRef, progressBarRef, handleNext }) {
 		<audio
 			className={`audio-track ${currentTrack?.title || ''}`}
 			ref={audioRef}
-			onEnded={handleNext}
-	        />
+			onEnded={handleNext} />
         </>
     )
 }
