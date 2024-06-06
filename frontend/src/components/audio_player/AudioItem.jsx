@@ -68,7 +68,10 @@ export default function AudioItem({ audioRef, handleNext }) {
         (async () => {
             if(currentTrack !== undefined && audioRef.current.src !== currentTrack.sourceUrl) {
                 audioRef.current.src = currentTrack.sourceUrl
+                console.log('loading')
+                const processStart = Date.now();
                 await audioRef.current.load();
+                console.log('loaded in: ', Date.now() - processStart)
             }
             if(currentTrack === undefined){
                 audioRef.current.src = ''
