@@ -11,7 +11,7 @@ export default function TrackDisplay() {
             return state.tracks[state.audio.queue.shuffled[state.audio.currentIndex]]
         }
         return state.tracks[state.audio.queue.original[state.audio.currentIndex]]
-    }, (a, b) => {
+    }, /* (a, b) => {
         if (!a || !b) return false
         // const filteredkeys = Object.keys(a).filter(k => !['photoUrl', 'sourceUrl', 'artist'].includes(k));
         // const aObj = new Object();
@@ -22,7 +22,7 @@ export default function TrackDisplay() {
         // });
 
         return a.id == b.id
-    })
+    } */)
 
     const navToTrack = (e) => {
         e.preventDefault();
