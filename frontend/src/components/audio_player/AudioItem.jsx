@@ -37,20 +37,25 @@ export default function AudioItem({ audioRef, handleNext }) {
 
     useEffect(() => {
         (async () => {
-        if(isPlaying && currentTrack !== undefined) {
+        if(isPlaying && audioRef.current.src) {
             try {
-                audioRef.current.play();
+                await audioRef.current.play();
             }
             catch(e) {
-                await audioRef.current.load();
-                // console.log(e)
-                audioRef.current.oncanplaythrough = (e) => {
-                    e.preventDefault();
-        
-                    audioRef.current.play();
+                try {
+                    await audioRef.current.load();
+
+                    audioRef.current.oncanplaythrough = (e) => {
+                        e.preventDefault();
+            
+                        audioRef.current.play();
+                    }
+                }
+                catch(e) {
+                    console.log(e);
                 }
             }
-            }
+        }
         if(!isPlaying) {
             audioRef.current.oncanplaythrough = undefined;
             if (!audioRef.current.paused) {
@@ -66,7 +71,7 @@ export default function AudioItem({ audioRef, handleNext }) {
         } else {
             document.querySelector('audio.audio-track').src = undefined
         }
-    }, [currentTrack])
+    }, [isPlaying, currentTrack])
 
     return (
         <>
