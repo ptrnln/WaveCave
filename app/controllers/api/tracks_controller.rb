@@ -30,7 +30,6 @@ class Api::TracksController < ApplicationController
     end
 
     def show
-        
         if params[:title] && params[:username] 
             @user = User.find_by(username: CGI.unescape(params[:username])) 
             @track = Track.find_by(title: CGI.unescape(params[:title]), artist_id: @user.id)
@@ -49,11 +48,11 @@ class Api::TracksController < ApplicationController
     def update
 
         @track = Track.find(params[:id])
+
         @track.source.attach(track_params[:source]) if track_params[:source]
         
         
         if @track.update(track_params)
-
             render :show
         else
             render json: { errors: @track.errors.full_messages },

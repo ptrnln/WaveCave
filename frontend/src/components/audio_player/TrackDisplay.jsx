@@ -13,15 +13,15 @@ export default function TrackDisplay() {
         return state.tracks[state.audio.queue.original[state.audio.currentIndex]]
     }, (a, b) => {
         if (!a || !b) return false
-        const filteredkeys = Object.keys(a).filter(k => !['photoUrl', 'sourceUrl', 'artist'].includes(k));
-        const aObj = new Object();
-        const bObj = new Object();
-        filteredkeys.forEach(e => {
-            aObj[e] = a[e]
-            bObj[e] = b[e]
-        });
+        // const filteredkeys = Object.keys(a).filter(k => !['photoUrl', 'sourceUrl', 'artist'].includes(k));
+        // const aObj = new Object();
+        // const bObj = new Object();
+        // filteredkeys.forEach(e => {
+        //     aObj[e] = a[e]
+        //     bObj[e] = b[e]
+        // });
 
-        return shallowEqual(aObj, bObj) && shallowEqual(a.artist, b.artist)
+        return a.id == b.id
     })
 
     const navToTrack = (e) => {
