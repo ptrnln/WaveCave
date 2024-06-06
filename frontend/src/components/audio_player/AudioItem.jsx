@@ -39,10 +39,10 @@ export default function AudioItem({ audioRef, handleNext }) {
         (async () => {
         if(isPlaying && currentTrack !== undefined) {
             try {
-                await audioRef.current.load();
                 audioRef.current.play();
             }
             catch(e) {
+                await audioRef.current.load();
                 // console.log(e)
                 audioRef.current.oncanplaythrough = (e) => {
                     e.preventDefault();
