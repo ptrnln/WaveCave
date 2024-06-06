@@ -37,7 +37,7 @@ export default function ProgressBar({ progressBarRef, audioRef }) {
         if (!isPlaying) {
             cancelAnimationFrame(playAnimationRef.current);
         }
-    }, [isPlaying, audioRef, updateProgress, playAnimationRef]);
+    }, [isPlaying, updateProgress, playAnimationRef]);
 
     const formatTime = time => {
         const formattedMinutes = Math.floor(time / 60)

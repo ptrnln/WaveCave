@@ -1,5 +1,5 @@
 import { useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux"; 
+import { useSelector } from "react-redux"; 
 // import * as audioPlayerActions from '../../store/audioPlayer';
 
 export default function AudioItem({ audioRef, handleNext }) {
@@ -32,10 +32,10 @@ export default function AudioItem({ audioRef, handleNext }) {
             ref={audioRef}
             onEnded={handleNext}
             volume={vol * .01}/>
-        
-
+    
 
     useEffect(() => {
+        debugger
         (async () => {
         if(isPlaying && audioRef.current.src) {
             try {
@@ -43,7 +43,7 @@ export default function AudioItem({ audioRef, handleNext }) {
             }
             catch(e) {
                 try {
-                    await audioRef.current.load();
+                    // await audioRef.current.load();
 
                     audioRef.current.oncanplaythrough = (e) => {
                         e.preventDefault();
@@ -63,14 +63,18 @@ export default function AudioItem({ audioRef, handleNext }) {
             }
         }
         })();
-    }, [isPlaying, currentTrack])
+    }, [isPlaying, audioRef, currentTrack])
 
     useEffect(() => {
-        if(currentTrack !== undefined) {
-            document.querySelector('audio.audio-track').src = currentTrack.sourceUrl
-        } else {
-            document.querySelector('audio.audio-track').src = undefined
-        }
+        (async () => {
+            if(currentTrack !== undefined && audioRef.current.src !== currentTrack.sourceUrl) {
+                audioRef.current.src = currentTrack.sourceUrl
+                await audioRef.current.load();
+            }
+            if(currentTrack === undefined){
+                audioRef.current.src = ''
+            }
+        })()
     }, [isPlaying, currentTrack])
 
     return (
