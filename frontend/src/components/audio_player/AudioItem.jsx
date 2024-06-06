@@ -35,7 +35,6 @@ export default function AudioItem({ audioRef, handleNext }) {
     
 
     useEffect(() => {
-        debugger
         (async () => {
         if(isPlaying && audioRef.current.src) {
             try {
@@ -43,7 +42,7 @@ export default function AudioItem({ audioRef, handleNext }) {
             }
             catch(e) {
                 try {
-                    // await audioRef.current.load();
+                    await audioRef.current.load();
 
                     audioRef.current.oncanplaythrough = (e) => {
                         e.preventDefault();
