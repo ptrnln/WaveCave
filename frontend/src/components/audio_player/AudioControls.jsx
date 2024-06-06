@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react"
+// import { useEffect, useState } from "react"
 import * as audioPlayerActions from '../../store/audioPlayer';
 import { useDispatch, useSelector } from "react-redux";
 // import './AudioControls.css';
@@ -7,7 +7,6 @@ export default function AudioControls({ handleNext, handlePrev }) {
     const dispatch = useDispatch();
 
     const isPlaying = useSelector(state => state.audio.isPlaying);
-
     const isShuffled = useSelector(state => state.audio.isShuffled);
     const isRepeating = useSelector(state => state.audio.isRepeating);
     // const [shuffleColor, setShuffleColor] = useState('Black');
@@ -17,7 +16,7 @@ export default function AudioControls({ handleNext, handlePrev }) {
 
     const togglePlay = (e) => {
         e.stopPropagation();
-        if(isPlaying)  {
+        if(isPlaying) {
             dispatch(audioPlayerActions.pauseTrack())
         } else {
             dispatch(audioPlayerActions.playTrack())
@@ -46,7 +45,7 @@ export default function AudioControls({ handleNext, handlePrev }) {
                 dispatch(audioPlayerActions.setRepeatFalse());
                 break;
             default:
-                console.log('lol react strict mode shit')
+                break;
         }
     }
     
