@@ -1,9 +1,9 @@
 import { useEffect } from "react";
-import { shallowEqual, useDispatch, useSelector } from "react-redux"; 
-import * as audioPlayerActions from '../../store/audioPlayer';
+import { useDispatch, useSelector } from "react-redux"; 
+// import * as audioPlayerActions from '../../store/audioPlayer';
 
 export default function AudioItem({ audioRef, handleNext }) {
-    const dispatch = useDispatch();
+    // const dispatch = useDispatch();
     
     const currentTrack = useSelector(state => {
         if (state.audio.isShuffled) {
@@ -31,27 +31,40 @@ export default function AudioItem({ audioRef, handleNext }) {
             className={`audio-track ${currentTrack?.title || ''}`}
             ref={audioRef}
             onEnded={handleNext}
-            volume={vol * .01}
-
-        />
+            volume={vol * .01}/>
+        
 
 
     useEffect(() => {
-        audioRef.current.oncanplaythrough = (e) => {
-            e.preventDefault();
-
-            dispatch(audioPlayerActions.playTrack());
-        }
+        (async () => {
+        if(isPlaying && currentTrack !== undefined) {
+            try {
+                await audioRef.current.load();
+                audioRef.current.play();
+            }
+            catch(e) {
+                // console.log(e)
+                audioRef.current.oncanplaythrough = (e) => {
+                    e.preventDefault();
+        
+                    audioRef.current.play();
+                }
+            }
+            }
         if(!isPlaying) {
             audioRef.current.oncanplaythrough = undefined;
+            if (!audioRef.current.paused) {
+                audioRef.current.pause();
+            }
         }
-    }, [isPlaying])
+        })();
+    }, [isPlaying, currentTrack])
 
     useEffect(() => {
         if(currentTrack !== undefined) {
             document.querySelector('audio.audio-track').src = currentTrack.sourceUrl
         } else {
-            document.querySelector('audio.audio-track').src = ''
+            document.querySelector('audio.audio-track').src = undefined
         }
     }, [currentTrack])
 
