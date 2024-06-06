@@ -1,10 +1,9 @@
 import './Splash.css'
 
 export default function Splash() {
-        
   
     const splashImage = new Image();
-    //     
+
     splashImage.src = "/images/pexels-martin-lopez-2240771.jpg"
     
     splashImage.onload = (e) => {
@@ -31,7 +30,7 @@ export default function Splash() {
 
     return (
         <div className="splash wrapper">
-            <a title="Image courtesy of Martin Lopez - 2019">
+            <a title="Image courtesy of Martin Lopez - https://pexels.com/@mediocrememories">
             <canvas
             id="splash-canvas"
             className="splash-image display"

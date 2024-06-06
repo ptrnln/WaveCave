@@ -1,7 +1,9 @@
 import { useEffect } from "react";
-import { shallowEqual, useSelector } from "react-redux"; 
+import { shallowEqual, useDispatch, useSelector } from "react-redux"; 
+import * as audioPlayerActions from '../../store/audioPlayer';
 
 export default function AudioItem({ audioRef, handleNext }) {
+    const dispatch = useDispatch();
     
     const currentTrack = useSelector(state => {
         if (state.audio.isShuffled) {
@@ -35,22 +37,21 @@ export default function AudioItem({ audioRef, handleNext }) {
 
 
     useEffect(() => {
-        if(isPlaying) {
-          
-        audioRef.current.onloadeddata = (e) => {
+        audioRef.current.oncanplaythrough = (e) => {
             e.preventDefault();
 
-            e.target.play();
-        
+            dispatch(audioPlayerActions.playTrack());
         }
-        } else {
-            audioRef.current.pause();
+        if(!isPlaying) {
+            audioRef.current.oncanplaythrough = undefined;
         }
-    })
+    }, [isPlaying])
 
     useEffect(() => {
         if(currentTrack !== undefined) {
             document.querySelector('audio.audio-track').src = currentTrack.sourceUrl
+        } else {
+            document.querySelector('audio.audio-track').src = ''
         }
     }, [currentTrack])
 

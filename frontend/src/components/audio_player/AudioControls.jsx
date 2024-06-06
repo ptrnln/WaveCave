@@ -10,8 +10,8 @@ export default function AudioControls({ handleNext, handlePrev }) {
 
     const isShuffled = useSelector(state => state.audio.isShuffled);
     const isRepeating = useSelector(state => state.audio.isRepeating);
-    const [shuffleColor, setShuffleColor] = useState('Black');
-    const [repeatColor, setRepeatColor] = useState('Black');
+    // const [shuffleColor, setShuffleColor] = useState('Black');
+    // const [repeatColor, setRepeatColor] = useState('Black');
 
     
 
@@ -52,13 +52,13 @@ export default function AudioControls({ handleNext, handlePrev }) {
     
     
 
-    useEffect(() => {
-        isShuffled ? setShuffleColor('#f50') : setShuffleColor('Black')
-    }, [isShuffled])
+    // useEffect(() => {
+    //     isShuffled ? setShuffleColor('#f50') : setShuffleColor('Black')
+    // }, [isShuffled])
 
-    useEffect(() => {
-        isRepeating === 'false' ? setRepeatColor('Black') : setRepeatColor('#f50')
-    }, [isRepeating])
+    // useEffect(() => {
+    //     isRepeating === 'false' ? setRepeatColor('Black') : setRepeatColor('#f50')
+    // }, [isRepeating])
 
 
 

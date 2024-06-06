@@ -11,7 +11,10 @@ export default function QueueControl () {
             state.audio.queue.shuffled
             :
             state.audio.queue.original
-        return (queue.slice(state.audio.currentIndex + 1).concat(queue.slice(0, state.audio.currentIndex))).map(idx => state.tracks[idx])
+        return (queue
+                    .slice(state.audio.currentIndex + 1)
+                    .concat(queue.slice(0, state.audio.currentIndex)))
+                    .map(idx => state.tracks[idx])
     })
 
     const toggleDisplay = (e) => {
