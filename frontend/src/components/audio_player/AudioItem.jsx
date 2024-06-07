@@ -68,9 +68,9 @@ export default function AudioItem({ audioRef, handleNext }) {
         })()
     }, [isPlaying, currentTrack])
 
-    return (
-        <>
-            {audio}
-        </>
-    )
+    return <audio 
+        className={`audio-track ${currentTrack?.title || ''}`}
+        ref={audioRef}
+        onEnded={handleNext}
+        volume={vol * .01}/>
 }
