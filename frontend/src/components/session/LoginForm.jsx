@@ -114,6 +114,7 @@ function LoginForm() {
           <label>
             Username or Email:
             <input
+              name="credential"
               type="text"
               value={credential}
               onChange={(e) => setCredential(e.target.value)}
@@ -126,6 +127,7 @@ function LoginForm() {
           <label>
             Password:
             <input
+              name="password"
               type="password"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
