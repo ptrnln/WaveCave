@@ -6,21 +6,13 @@ export default function AudioItem({ audioRef, handleNext }) {
     // const dispatch = useDispatch();
     
     const currentTrack = useSelector(state => {
-        if (state.audio.isShuffled) {
-            return state.tracks[state.audio.queue.shuffled[state.audio.currentIndex]]
-        }
-        return state.tracks[state.audio.queue.original[state.audio.currentIndex]]
-    }, (a, b) => {
-        // if ((!a && !!b) || (!!a && !b)) return false
-        // const filteredkeys = Object.keys(a).filter(k => !['photoUrl', 'sourceUrl', 'artist'].includes(k));
-        // const aObj = new Object();
-        // const bObj = new Object();
-        // filteredkeys.forEach(e => {
-        //     aObj[e] = a[e]
-        //     bObj[e] = b[e]
-        // });
+        const { queue, isShuffled, currentIndex } = state.audio
 
-        // return shallowEqual(aObj, bObj)
+        if(isShuffled) {
+            return state.tracks[queue.shuffled[currentIndex]]
+        }
+        return state.tracks[queue.original[currentIndex]]
+    }, (a, b) => {
         return a?.id === b?.id
     });
 
@@ -44,10 +36,10 @@ export default function AudioItem({ audioRef, handleNext }) {
                 try {
                     await audioRef.current.load();
 
-                    audioRef.current.oncanplaythrough = (e) => {
+                    audioRef.current.oncanplaythrough = async (e) => {
                         e.preventDefault();
             
-                        audioRef.current.play();
+                        await audioRef.current.play();
                     }
                 }
                 catch(e) {
@@ -66,7 +58,7 @@ export default function AudioItem({ audioRef, handleNext }) {
 
     useEffect(() => {
         (async () => {
-            if(currentTrack !== undefined && audioRef.current.src !== currentTrack.sourceUrl) {
+            if(currentTrack !== undefined && audioRef.current.src !== currentTrack?.sourceUrl) {
                 audioRef.current.src = currentTrack.sourceUrl
                 await audioRef.current.load();
             }

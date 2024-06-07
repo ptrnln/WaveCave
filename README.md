@@ -31,29 +31,56 @@ Below is the logic for the actual audio component, it reads information about th
 ```js
 export default function AudioPlayer({ audioRef, progressBarRef, handleNext }) {
     const currentTrack = useSelector(state => {
-        if(state.audio.isShuffled) {
-            return state.tracks[state.audio.queue.shuffled[state.audio.currentIndex]]
+        const { queue, isShuffled, currentIndex } = state.audio
+
+        if(isShuffled) {
+            return state.tracks[queue.shuffled[currentIndex]]
         }
-        return state.tracks[state.audio.queue.original[state.audio.currentIndex]]
+        return state.tracks[queue.original[currentIndex]]
     })
     const isPlaying = useSelector(state => state.audio.isPlaying);
 
+    useEffect(() => {
+        (async () => {
+        if(isPlaying && !!audioRef.current.src) {
+            try {
+                await audioRef.current.play();
+            }
+            catch(e) {
+                try {
+                    await audioRef.current.load();
+
+                    audioRef.current.oncanplaythrough = async (e) => {
+                        e.preventDefault();
+            
+                        await audioRef.current.play();
+                    }
+                }
+                catch(e) {
+                    console.log(e);
+                }
+            }
+        }
+        if(!isPlaying) {
+            audioRef.current.oncanplaythrough = undefined;
+            if (!audioRef.current.paused) {
+                audioRef.current.pause();
+            }
+        }
+        })();
+    }, [isPlaying, audioRef, currentTrack])
 
     useEffect(() => {
-        if(isPlaying && audioRef.current?.loaded && audioRef.current.paused) {
-            audioRef.current.play();
-        } else if (!isPlaying && !audioRef.current.paused) {
-            audioRef.current.pause();
-        }
-    }, [isPlaying])
-
-    useEffect(() => {
-        if(currentTrack !== undefined) {
-            document.getElementsByClassName('audio-track')[0].src = currentTrack.sourceUrl
-        }
-    }, [currentTrack])
-
-
+        (async () => {
+            if(currentTrack !== undefined && audioRef.current.src !== currentTrack?.sourceUrl) {
+                audioRef.current.src = currentTrack.sourceUrl
+                await audioRef.current.load();
+            }
+            if(currentTrack === undefined){
+                audioRef.current.src = ''
+            }
+        })()
+    }, [isPlaying, currentTrack])
 
     return (
         <>
@@ -100,12 +127,10 @@ export default function ProgressBar({ progressBarRef, audioRef }) {
     }, [audioRef, progressBarRef.current?.value, handleProgressChange]);
     
     useEffect(() => {
-        if (isPlaying && audioRef.current?.paused) {
-          audioRef.current.play();
+        if (isPlaying) {
           playAnimationRef.current = requestAnimationFrame(updateProgress);
         } 
-        if (!isPlaying && !audioRef.current?.paused) {
-          audioRef.current.pause();
+        if (!isPlaying) {
           cancelAnimationFrame(playAnimationRef.current);
         }
     }, [isPlaying, audioRef, updateProgress]);
