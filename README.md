@@ -29,7 +29,7 @@ A WaveCave user can also delete a track if it's not up to their standards.
 Below is the logic for the actual audio component, it reads information about the current state of the audio player from the React-Redux store and changes the source of, plays, and pauses the current audio element accordingly.
 
 ```js
-export default function AudioPlayer({ audioRef, progressBarRef, handleNext }) {
+export default function AudioItem({ audioRef, progressBarRef, handleNext }) {
     const currentTrack = useSelector(state => {
         const { queue, isShuffled, currentIndex } = state.audio
 
