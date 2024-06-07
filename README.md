@@ -4,7 +4,7 @@ Drop your bops at the [live site!](https://wavecave-2rxw.onrender.com)
 
 ## Introduction
 
-WaveCave is a clone of the ever popular music-sharing app SoundCloud. WaveCave, as SoundCloud does, seeks to connect musical artists with the world, allowing them to share their creative ideas and endeavors amongst like-minded musicians and producers. A WaveCave user can upload their music and playback theirs and others' tracks, as well as delete and update their own. As a musician myself, it was intriguing to me to learn what goes into building such a platform and making it state-of-the-art and user-friendly. 
+WaveCave is a clone of the popular music-sharing app SoundCloud. WaveCave, as SoundCloud does, seeks to connect musical artists with the world, allowing them to share their creative ideas and endeavors amongst like-minded musicians and producers. A WaveCave user can upload their music and playback theirs and others' tracks, as well as delete and update their own. As a musician myself, it was intriguing to me to learn what goes into building such a platform and making it state-of-the-art and user-friendly. 
 
 The technologies applied in this project include:
  - Languages: Ruby, JavaScript, JSX, HTML, and CSS
