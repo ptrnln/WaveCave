@@ -63,7 +63,6 @@ class Api::TracksController < ApplicationController
     def destroy
         Track.destroy(params[:id])
         render json: { message: 'Track successfully deleted' }
-        # redirect_to controller: 'users', action: :show, username: current_user.username
     end
 
 # -------------- Track-specific helper methods ------------------
