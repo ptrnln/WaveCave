@@ -60,6 +60,7 @@ export default function AudioPlayer({ audioRef, progressBarRef, handleNext }) {
                     console.log(e);
                 }
             }
+
         }
         if(!isPlaying) {
             audioRef.current.oncanplaythrough = undefined;
@@ -84,11 +85,10 @@ export default function AudioPlayer({ audioRef, progressBarRef, handleNext }) {
 
     return (
         <>
-		    <audio 
-	            className={`audio-track ${currentTrack?.title || ''}`}
-	            ref={audioRef}
-	            onEnded={handleNext}
-	        />
+		<audio
+			className={`audio-track ${currentTrack?.title || ''}`}
+			ref={audioRef}
+			onEnded={handleNext} />
         </>
     )
 }
