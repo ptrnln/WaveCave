@@ -29,7 +29,7 @@ export default function AudioItem({ audioRef, handleNext }) {
     useEffect(() => {
         (async () => {
         if(isPlaying && !!audioRef.current.src) {
-            try {
+            try {  
                 await audioRef.current.play();
             }
             catch(e) {
@@ -59,8 +59,16 @@ export default function AudioItem({ audioRef, handleNext }) {
     useEffect(() => {
         (async () => {
             if(currentTrack !== undefined && audioRef.current.src !== currentTrack?.sourceUrl) {
-                audioRef.current.src = currentTrack.sourceUrl
+
+                const response = await fetch(currentTrack.sourceUrl)
+
+                const data = await response.blob();
+                const localSource = URL.createObjectURL(data);
+
+
+                audioRef.current.src = localSource;
                 await audioRef.current.load();
+
             }
             if(currentTrack === undefined){
                 audioRef.current.src = ''
@@ -68,9 +76,5 @@ export default function AudioItem({ audioRef, handleNext }) {
         })()
     }, [isPlaying, currentTrack])
 
-    return <audio 
-        className={`audio-track ${currentTrack?.title || ''}`}
-        ref={audioRef}
-        onEnded={handleNext}
-        volume={vol * .01}/>
+    return audio;
 }
