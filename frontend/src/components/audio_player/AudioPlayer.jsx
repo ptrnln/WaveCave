@@ -18,14 +18,6 @@ export default function AudioPlayer() {
     const isPlaying = useSelector(state => state.audio.isPlaying);
     const audioRef = useRef();
     const progressBarRef = useRef();
-
-    // useEffect(() => {
-    //     setCurrentTrack(tracks[trackIndex]);
-    //     setDuration(currentTrack.duration);
-    //     setTimeProgress(0);
-    // }, [trackIndex, currentTrack.duration])
-
-    
     
     const handleNext = (e) => {
         e.preventDefault();

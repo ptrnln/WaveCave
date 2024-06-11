@@ -4,6 +4,7 @@ const RECEIVE_TRACK = 'tracks/RECEIVE_TRACK'
 const RECEIVE_TRACKS = 'tracks/RECEIVE_TRACKS'
 const REMOVE_TRACK = 'tracks/REMOVE_TRACK'
 const REMOVE_TRACKS = 'tracks/REMOVE_TRACKS'
+const RECEIVE_LOCAL_SOURCE = 'tracks/RECEIVE_LOCAL_SOURCE'
 
 export async function deleteTrack (trackId) {
     const response = await csrfFetch(`/api/tracks/${trackId}`, {
@@ -43,6 +44,25 @@ export const removeTracks = trackIds => {
     return {
         type: REMOVE_TRACKS,
         trackIds
+    }
+}
+
+export const receiveLocalSource = trackId => async (dispatch, getState) => {
+    const response = await fetch(getState().tracks[trackId].sourceUrl);
+
+    const data = await response.blob();
+    const localSource = URL.createObjectURL(data);
+    dispatch({
+        type: RECEIVE_LOCAL_SOURCE,
+        trackId,
+        localSource
+    })
+}
+
+export const loadTracksLocally = trackIds => async (dispatch) => {
+    // const tracks = getState().tracks
+    for(const trackId of trackIds) {
+        dispatch(receiveLocalSource(trackId))
     }
 }
 
@@ -95,13 +115,26 @@ export async function createTrack (trackData, audioFile, imageFile) {
 
 export async function updateTrack (trackData, audioFile, imageFile) {
     const { id, title, description, genre, duration, fileType } = trackData;
+
+    let mimeType;
+    switch (fileType) {
+        case 'mp3':
+            mimeType = 'mpeg'
+            break;
+        case 'wav':
+            mimeType = 'wav'
+            break;
+        case 'flac':
+            mimeType = 'flac'
+            break;
+    }
     
     const formData = new FormData();
     if(title) formData.append('track[title]', title);
     if(description) formData.append('track[description]', description);
     if(genre) formData.append('track[genre]', genre);
     if(duration) formData.append('track[duration]', duration);
-    if(fileType) formData.append('track[fileType]', fileType);
+    if(fileType) formData.append('track[fileType]', mimeType);
     if(audioFile) formData.append('track[source]', audioFile);
     if(imageFile) formData.append('track[photo]', imageFile)
 
@@ -127,11 +160,13 @@ const trackReducer = (state = initialState, action) => {
             delete newState[action.trackId]
             return newState
         case REMOVE_TRACKS:
-            return Object
-                .fromEntries(Object
-                    .keys(state)
-                    .filter((key) => !action.trackIds.includes(key))
-                    .map((key) => [key, state[key]]))
+            for(const trackId of action.trackIds) {
+                delete newState[trackId]
+            }
+            return newState
+        case RECEIVE_LOCAL_SOURCE:
+            newState[action.trackId].localSource = action.localSource
+            return newState;
         default:
             return state;
     }

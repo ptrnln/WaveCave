@@ -52,7 +52,7 @@
 // }
 
 import * as playListActions from './playlist';
-
+import * as trackActions from './track';
 
 
 const PLAY_TRACK = 'audioPlayer/PLAY_TRACK';
@@ -86,6 +86,8 @@ const initialState = {
     volume: 60,
 }
 
+
+
 export const playTrack = () => {
     return {
         type: PLAY_TRACK
@@ -117,11 +119,14 @@ export const enqueueTrack = trackId => {
     }
 }
 
-export const loadTracks = trackIds => {
-    return {
+export const loadTracks = trackIds => async dispatch => {
+
+    dispatch(trackActions.loadTracksLocally(trackIds));
+    
+    dispatch({
         type: ENQUEUE_TRACKS,
         trackIds
-    }
+    })
 }
 
 export const dequeueTrack = trackId => {

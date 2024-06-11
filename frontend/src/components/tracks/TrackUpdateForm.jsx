@@ -63,10 +63,10 @@ export default function TrackUpdateForm() {
         });
     }
 
+    useEffect(() => {
+        if(!!currentUser) return <Navigate to='/' />
+    }, [currentUser])
 
-
-    // const audioReader = new FileReader();
-    // const imageReader = new FileReader();
 
     useEffect(() => {
         async function getTrackData() {

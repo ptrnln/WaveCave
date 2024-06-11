@@ -57,7 +57,7 @@ export default function AudioItem({ audioRef, progressBarRef, handleNext }) {
                     }
                 }
                 catch(e) {
-                    console.log(e);
+                    
                 }
             }
 

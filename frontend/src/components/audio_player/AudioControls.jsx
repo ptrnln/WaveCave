@@ -64,8 +64,8 @@ export default function AudioControls({ handleNext, handlePrev }) {
     return (
         <div className="audio-controls container">
             <div className="track-controls container">
-                <button className="previous button">
-                    <i className="fa fa-step-backward" onClick={handlePrev}/>     
+                <button className="previous button" onClick={handlePrev}>
+                    <i className="fa fa-step-backward"/>     
                 </button>
                 <button className="play-pause button" onClick={togglePlay}>
                 {isPlaying ? 
@@ -74,16 +74,17 @@ export default function AudioControls({ handleNext, handlePrev }) {
                     <i className='fa fa-play'/>
                 }
                 </button>
-                <button className="next button">
-                    <i className="fa fa-step-forward" onClick={handleNext}></i>
+                <button className="next button" onClick={handleNext}>
+                    <i className="fa fa-step-forward"></i>
                 </button>
             </div>
             <div className="queue-controls container">
                 <span style={{color: isShuffled ? "#f50" : "Black"}}>
-                    <button id="shuffle-button" className="shuffle button"
-                        onClick={toggleShuffle}
-                        >
-                        <i className="fa fa-random"></i>
+                    <button 
+                        id="shuffle-button" 
+                        className="shuffle button"
+                        onClick={toggleShuffle}>
+                            <i className="fa fa-random"></i>
                     </button>
                 </span>
                 <span style={{
