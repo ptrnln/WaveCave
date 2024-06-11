@@ -20,7 +20,6 @@ ReactDOM.createRoot(document.getElementById('root')).render(
   </React.StrictMode>
 );
 
-
 if (import.meta.env.MODE !== 'production') {
   restoreCSRF();
   window.store = store;

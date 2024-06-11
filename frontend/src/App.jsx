@@ -5,6 +5,7 @@ import LoginForm from './components/session/LoginForm';
 import SignUpForm from './components/session/SignUpForm';
 import Navigation from './components/navigation/Navigation';
 import * as sessionActions from './store/session';
+import * as trackActions from './store/track';
 import UserView from './components/users/UserView';
 import AudioPlayer from './components/audio_player/AudioPlayer';
 import TrackView from './components/tracks/TrackView';
@@ -23,7 +24,10 @@ function Layout() {
     dispatch(sessionActions.restoreSession()).then(() => {
       setIsLoaded(true)
     });
+    dispatch(trackActions.reloadTracksLocally());
   }, [dispatch]);
+
+  
 
   // const isMobile = /iPhone|iPad|iPod|Android|webOS|BlackBerry/i.test(navigator.userAgent) || window.matchQuery('(max-width: 720px)');
 
