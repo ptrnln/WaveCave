@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Navigate, useNavigate, useParams } from "react-router-dom";
+import { Navigate, useParams } from "react-router-dom";
 import csrfFetch from "../../store/csrf";
 import './TrackUpdateForm.css';
 import * as trackActions from '../../store/track';
@@ -64,7 +64,7 @@ export default function TrackUpdateForm() {
     }
 
     useEffect(() => {
-        if(!!currentUser) return <Navigate to='/' />
+        if(!currentUser) return <Navigate to='/' />
     }, [currentUser])
 
 
@@ -95,7 +95,7 @@ export default function TrackUpdateForm() {
             }
         }
         getTrackData();
-    }, [])
+    }, [title, username])
 
     
     
@@ -120,12 +120,11 @@ export default function TrackUpdateForm() {
         let data = await response.json();
         
         if(response.ok) {
-            await dispatch(trackActions.receiveTrack(data.track));
+            dispatch(trackActions.receiveTrack(data.track));
             // navigate(`/${encodeURIComponent(currentUser.username)}/${encodeURIComponent(newTitle)}`,
             //     {replace: true})
             setIsUpdated(true);
         } else {
-            console.alert(data.errors)
             setErrors(data.errors)
         }
     }
@@ -184,7 +183,7 @@ export default function TrackUpdateForm() {
                     value={ isNewGenre ? "other" : genre }
                 >
                     {
-                        ...GENRES.map((genre) => (<option value={genre}>{genre}</option>))
+                        GENRES.map((genre, i) => (<option key={i} value={genre}>{genre}</option>))
                     }
                     <option value="other">Other</option>
                 </select>
@@ -211,7 +210,7 @@ export default function TrackUpdateForm() {
                 style={{
                     fontStyle: 'italic',
                     fontSize: 'xx-small'
-                }}> (accepts '.wav', '.mp3', and '.FLAC' file types):
+                }}> (accepts &apos;.wav&apos;, &apos;.mp3&apos;, and &apos;.FLAC&apos; file types):
             </span>
                 <br />
                 <input 
@@ -233,7 +232,7 @@ export default function TrackUpdateForm() {
                 style={{
                     fontStyle: 'italic',
                     fontSize: 'xx-small'
-                }}> (accepts '.jpeg', '.jpg', and '.png' file types):
+                }}> (accepts &apos;.jpeg&apos;, &apos;.jpg&apos;, and &apos;.png&apos; file types):
             </span>
                 <br />
                 <input 

@@ -1,5 +1,5 @@
 import { useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { Outlet, useLoaderData } from "react-router-dom";
 import * as trackActions from '../../store/track'
 import * as userActions from '../../store/user'
@@ -9,17 +9,17 @@ import '../tracks/TrackIndexItem.css'
 export default function UserView() {
     const { user } = useLoaderData();
 
-    const userTracks = useSelector(state => {
+    // const userTracks = useSelector(state => {
         
-        return state.users[user.id]?.tracks || {}
-    });
+    //     return state.users[user.id]?.tracks || {}
+    // });
     
     const dispatch = useDispatch();
 
     useEffect(() => {
         dispatch(userActions.receiveUser(Object.fromEntries([[user.id, user]])))
         if (user.tracks) dispatch(trackActions.loadTracks(Object.keys(user.tracks)))
-    }, [])
+    }, [user, dispatch])
 
     // useEffect(() => {
     //     dispatch(userActions.viewUser({ username: user.username }));

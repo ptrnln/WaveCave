@@ -62,7 +62,7 @@ export const newPlaylist = (trackIds = []) => {
     }
 }
 
-export const createPlaylist = playlist => async (dispatch, getState) => {
+export const createPlaylist = playlist => async (dispatch) => {
 
     const trackIds = playlist.trackIds || [];
 
@@ -151,9 +151,10 @@ export default function playlistReducer(state = initialState, action) {
                     trackIds: action.payload
                 } }
             }
-            if(action.payload.length === 0) {
+            // if(action.payload.length === 0) {
                 
-            }
+            // }
+            break;
         default:
             return state;
     }

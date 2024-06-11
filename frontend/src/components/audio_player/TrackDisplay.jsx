@@ -1,6 +1,6 @@
 import { useNavigate } from 'react-router-dom';
 import './TrackDisplay.css'
-import { shallowEqual, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 
 
 export default function TrackDisplay() {

@@ -51,7 +51,7 @@
 //  volume: 60
 // }
 
-import * as playListActions from './playlist';
+// import * as playListActions from './playlist';
 import * as trackActions from './track';
 
 
@@ -59,7 +59,6 @@ const PLAY_TRACK = 'audioPlayer/PLAY_TRACK';
 const PAUSE_TRACK = 'audioPlayer/PAUSE_TRACK';
 const PLAY_NEXT = 'audioPlayer/PLAY_NEXT';
 const PLAY_PREV = 'audioPlayer/PLAY_PREV';
-const REPLAY_TRACK = 'audioPlayer/REPLAY_TRACK';
 const SET_SHUFFLE_ON = 'audioPlayer/SHUFFLE_ON';
 const SET_SHUFFLE_OFF = 'audioPlayer/SHUFFLE_OFF';
 const SET_REPEAT_OFF = 'audioPlayer/REPEAT_OFF';
@@ -67,10 +66,10 @@ const SET_REPEAT_ONCE = 'audioPlayer/REPEAT_ONCE';
 const SET_REPEAT_ALWAYS = 'audioPlayer/REPEAT_ALWAYS';
 const ENQUEUE_TRACKS = 'audioPlayer/ENQUEUE_TRACKS';
 const ENQUEUE_TRACK = 'audioPlayer/ENQUEUE_TRACK';
-const SET_VOLUME = 'audioPlayer/SET_VOLUME';
-const CLEAR_QUEUE = 'audioPlayer/CLEAR_QUEUE';
+// const SET_VOLUME = 'audioPlayer/SET_VOLUME';
+// const CLEAR_QUEUE = 'audioPlayer/CLEAR_QUEUE';
 const DEQUEUE_TRACK = 'audioPlayer/DEQUEUE_TRACK';
-const DEQUEUE_TRACKS = 'audioPlayer/DEQUEUE_TRACKS';
+// const DEQUEUE_TRACKS = 'audioPlayer/DEQUEUE_TRACKS';
 
 const initialState = { 
     queue: {
@@ -120,7 +119,6 @@ export const enqueueTrack = trackId => {
 }
 
 export const loadTracks = trackIds => async dispatch => {
-
     dispatch(trackActions.loadTracksLocally(trackIds));
     
     dispatch({
@@ -167,11 +165,10 @@ export const setRepeatFalse = () => {
 }
 
 const shuffle = (queue, currentTrackId = queue[0]) => {
-    
+    if(queue.length <= 2) return queue;
     const indexOfId = queue.indexOf(currentTrackId);
     const newQueue = queue.filter(ele => ele !== currentTrackId)
     let idx = newQueue.length - 1, randIdx;
-    if(newQueue.length <= 1) return queue;
     
     while (idx >= 0) {
         randIdx = Math.floor(Math.random() * idx + 1);

@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { useSelector } from "react-redux"; 
 // import * as audioPlayerActions from '../../store/audioPlayer';
 
@@ -52,7 +52,7 @@ export default function AudioItem({ audioRef, handleNext }) {
     });
 
     const isPlaying = useSelector(state => state.audio.isPlaying);
-    const vol = useSelector(state => state.audio.volume);
+    // const volume = useSelector(state => state.audio.volume);
     
     useEffect(() => {
         (async () => {
@@ -88,13 +88,12 @@ export default function AudioItem({ audioRef, handleNext }) {
         if(currentTrackId) {
             audioRef.current.load()
         }
-    }, [currentTrackId])
+    }, [audioRef, currentTrackId])
 
     const audio = <audio 
             className={`audio-track ${currentTrackTitle || ''}`}
             ref={audioRef}
-            onEnded={handleNext}
-            volume={vol * .01}>
+            onEnded={handleNext}>
                 {currentTrackLocalSource && 
                 <source src={currentTrackLocalSource} type={`audio/${currentTrackFileType}`}/>}
                 {currentTrackSourceUrl &&

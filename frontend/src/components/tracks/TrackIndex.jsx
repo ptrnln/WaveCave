@@ -16,9 +16,7 @@ export default function TrackIndex() {
             dispatch(trackActions.receiveTracks(tracksData.tracks))
             setLoaded(true);
         })()
-    }, [])
-
-    
+    }, [dispatch])
 
     return (
         <div className="track-index container">

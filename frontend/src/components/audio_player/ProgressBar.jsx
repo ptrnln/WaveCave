@@ -28,7 +28,7 @@ export default function ProgressBar({ progressBarRef, audioRef }) {
             `${newValue}%`
         );
         playAnimationRef.current = requestAnimationFrame(updateProgress);
-    }, [audioRef, progressBarRef, progressBarRef.current?.value, handleProgressChange]);
+    }, [audioRef, progressBarRef, /*progressBarRef.current?.value, handleProgressChange*/]);
     
     useEffect(() => {
         if (isPlaying) {
