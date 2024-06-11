@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import * as sessionActions from "../../store/session";
 import './LoginForm.css'
@@ -17,7 +17,7 @@ function LoginForm() {
   
   const showModal = useSelector(state => state.session.showModal);
 
-  const clickListener = (e) => {
+  const clickListener = useCallback((e) => {
     const modal = document.querySelector(".login.modal");
     const loginButton = document.querySelector("button.nav-link.login");
     const signInButton = document.querySelector("button.nav-link.signup");
@@ -28,7 +28,7 @@ function LoginForm() {
       e.target !== signInButton) {
       dispatch(sessionActions.hideModal());
     }
-  };
+  }, [dispatch]);
 
   const activateGreyout = () => {
     const greyout = document.querySelector("div#greyout");
@@ -69,7 +69,11 @@ function LoginForm() {
       document.removeEventListener('click', clickListener);
       deactivateGreyout();
     }
-  }, [showModal])
+    return () => {
+      document.removeEventListener('click', clickListener);
+      deactivateGreyout();
+    }
+  }, [showModal, clickListener])
 
   useEffect(() => {
     if(currentUser) {
@@ -77,7 +81,7 @@ function LoginForm() {
       setPassword('');
       dispatch(sessionActions.hideModal());
     }
-  }, [currentUser])
+  }, [currentUser, dispatch])
 
   useEffect(() => {
     if(errors || currentUser) {
@@ -122,7 +126,7 @@ function LoginForm() {
               required
             />
             <ul className="errors">
-                {errors.credential.map(error => <li>* {error}</li>)}
+                {errors.credential.map((error, i) => <li className={"cred error"} key={i}>* {error}</li>)}
             </ul>
           </label>
           <label>
@@ -137,8 +141,8 @@ function LoginForm() {
             />
           </label>
           <ul className="errors">
-            {errors.password.map(error => <li>* {error}</li>)}
-            {errors.overall.map(error => <li>* {error}</li>)}
+            {errors.password.map((error, i) => <li className={"password error"} key={i}>* {error}</li>)}
+            {errors.overall.map((error, i) => <li className={"overall error"}key={i}>* {error}</li>)}
           </ul>
           <button 
             className="login button"

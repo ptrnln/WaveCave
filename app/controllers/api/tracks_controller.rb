@@ -37,15 +37,8 @@ class Api::TracksController < ApplicationController
             @track = Track.find(params[:id])
         end
 
-        # @blob = ActiveStorage::Blob.new(@track.source)
-
-        # File.open(@track.source.filename.to_s, 'wb') do |file|
-        #     file.write(@track.source.download)
-            # @blob = Base64.encode64(@track.source.download)
-        # end
-
         if @track
-            render :show # blob: @blob
+            render :show
         else
             render json: { message: 'Track not found' }, 
                 status: :not_found

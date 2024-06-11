@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import './TrackUploadForm.css';
 import * as trackActions from '../../store/track';
 import { Navigate, useNavigate } from "react-router-dom";
@@ -27,7 +27,7 @@ export default function TrackUploadForm() {
     const [description, setDescription] = useState('');
     const [genre, setGenre] = useState(GENRES[0]);
     const [isNewGenre, setIsNewGenre] = useState(false);
-    const [isAlbum, setIsAlbum] = useState(false);
+    // const [isAlbum, setIsAlbum] = useState(false);
     const [duration, setDuration] = useState(0);
     const [imageFile, setImageFile] = useState(null);
     const [audioFile, setAudioFile] = useState(null);
@@ -146,7 +146,7 @@ export default function TrackUploadForm() {
                     value={ isNewGenre ? "other" : genre }
                 >
                     {
-                        ...GENRES.map((genre) => (<option value={genre}>{genre}</option>))
+                        GENRES.map((genre, i) => (<option key={i} value={genre}>{genre}</option>))
                     }
                     <option value="other">Other</option>
                 </select>
@@ -172,7 +172,7 @@ export default function TrackUploadForm() {
                 style={{
                     fontStyle: 'italic',
                     fontSize: 'xx-small'
-                }}> (accepts '.wav', '.mp3', and '.FLAC' file types):
+                }}> (accepts &apos;.wav&apos;, &apos;.mp3&apos;, and &apos;.FLAC&apos; file types):
             </span>
                 <br />
                 <input 
@@ -192,7 +192,7 @@ export default function TrackUploadForm() {
                 style={{
                     fontStyle: 'italic',
                     fontSize: 'xx-small'
-                }}> (accepts '.jpeg', '.jpg', and '.png' file types):
+                }}> (accepts &apos;.jpeg&apos;, &apos;.jpg&apos;, and &apos;.png&apos; file types):
             </span>
                 <br />
                 <input 

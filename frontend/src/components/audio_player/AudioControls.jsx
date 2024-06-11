@@ -9,9 +9,6 @@ export default function AudioControls({ handleNext, handlePrev }) {
     const isPlaying = useSelector(state => state.audio.isPlaying);
     const isShuffled = useSelector(state => state.audio.isShuffled);
     const isRepeating = useSelector(state => state.audio.isRepeating);
-    // const [shuffleColor, setShuffleColor] = useState('Black');
-    // const [repeatColor, setRepeatColor] = useState('Black');
-
     
 
     const togglePlay = (e) => {
@@ -49,18 +46,6 @@ export default function AudioControls({ handleNext, handlePrev }) {
         }
     }
     
-    
-
-    // useEffect(() => {
-    //     isShuffled ? setShuffleColor('#f50') : setShuffleColor('Black')
-    // }, [isShuffled])
-
-    // useEffect(() => {
-    //     isRepeating === 'false' ? setRepeatColor('Black') : setRepeatColor('#f50')
-    // }, [isRepeating])
-
-
-
     return (
         <div className="audio-controls container">
             <div className="track-controls container">
