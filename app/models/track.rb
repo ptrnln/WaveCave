@@ -16,7 +16,7 @@ class Track < ApplicationRecord
 
     validates :artist_id, :duration, presence: true
     validates :title, presence: true, length: { minimum: 1, maximum: 40 }
-    validates :file_type, inclusion: { in: %w(wav mp3 flac) }
+    validates :file_type, inclusion: { in: %w(wav mpeg flac) }
 
     belongs_to :artist, class_name: "User", foreign_key: "artist_id"
     has_many :playlist_tracks

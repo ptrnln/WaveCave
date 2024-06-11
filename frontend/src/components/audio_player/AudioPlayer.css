@@ -17,11 +17,6 @@ div.audio-player div.inner {
     max-width: 1240px;
 }
 
-/* div.inner {
-    display: flex;
-    align-content: stretch;
-} */
-
 .audio-controls {
     width: 200px;
     display: flex;
@@ -33,19 +28,17 @@ div.audio-player div.inner {
 
 .track-controls {
     width: 80px;
-    position: relative;
-    top: 35%;
+    margin-top: auto;
+    margin-bottom: auto;
     display: flex;
     flex-direction: row;
     justify-content: space-between;
 }
 
 .queue-controls {
-    position: relative;
-    top: 35%;
     width: 60px;
-    padding-left: 20px;
-    padding-right: 20px;
+    margin-top: auto;
+    margin-bottom: auto;
     display: flex;
     flex-direction: row;
     align-items: flex-start;

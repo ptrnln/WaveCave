@@ -50,7 +50,7 @@ function Layout() {
 
 const userLoader = async ({ params }) => {
   
-  const response = await fetch(`/api/users/${params.username}`);
+  const response = await fetch(`/api/users/@${params.username}`);
   
   if(response.ok) {
     const data = await response.json();
@@ -66,7 +66,7 @@ const trackLoader = async ({ params }) => {
   
   if(response.ok) {
     const data = await response.json();
-    console.log(data.track)
+    
     return data.track
   } else {
     throw response

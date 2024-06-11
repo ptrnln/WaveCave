@@ -1,7 +1,7 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import './TrackUploadForm.css';
 import * as trackActions from '../../store/track';
-import { useNavigate } from "react-router-dom";
+import { Navigate, useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 
 const GENRES = [
@@ -12,7 +12,7 @@ const GENRES = [
     "EDM"
 ]
 
-const SUPPORTED_FILE_TYPES = [
+const SUPPORTED_MIME_TYPES = [
     'mp3',
     'wav',
     'flac'
@@ -37,7 +37,6 @@ export default function TrackUploadForm() {
 
     const currentUser = useSelector(state => state.session.user)
 
-
     async function getDuration(audioFile) {
         const url = URL.createObjectURL(audioFile);
        
@@ -55,16 +54,12 @@ export default function TrackUploadForm() {
     }
 
     const getFileType = (fileName) => {
-        const matchData = fileName.match(generateFileTypeRegEx(SUPPORTED_FILE_TYPES))
+        const matchData = fileName.match(generateFileTypeRegEx(SUPPORTED_MIME_TYPES))
         if (matchData) {
             return matchData[1]
         } 
         return null
     }
-
-    // useEffect(() => {
-    //     if(!!currentUser) return <Navigate to='/' />
-    // }, [currentUser])
 
     async function handleSubmit(e) {
         e.stopPropagation();
@@ -78,7 +73,7 @@ export default function TrackUploadForm() {
             }
             const fileType = getFileType(audioFile.name);
             
-            if(!SUPPORTED_FILE_TYPES.includes(fileType)) {
+            if(!SUPPORTED_MIME_TYPES.includes(fileType)) {
                 setErrors(["Audio file type not supported"])
                 return
             }
@@ -102,6 +97,8 @@ export default function TrackUploadForm() {
         }
         
     }
+
+    if(!currentUser) return <Navigate to='/' />
 
     return(
         <form name="upload-form" onSubmit={handleSubmit}>

@@ -10,12 +10,15 @@ export default function TrackIndex() {
     const dispatch = useDispatch();
 
     useEffect(() => {
-        fetch('/api/tracks').then(async val => {
-            const tracksData = await val.json();
+        (async () => { 
+            const response = await fetch('/api/tracks')
+            const tracksData = await response.json();
             dispatch(trackActions.receiveTracks(tracksData.tracks))
             setLoaded(true);
-        })
+        })()
     }, [])
+
+    
 
     return (
         <div className="track-index container">

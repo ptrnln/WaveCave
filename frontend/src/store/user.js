@@ -5,14 +5,14 @@ const RECEIVE_USERS = 'users/RECEVE_USERS'
 
 const initialState = { shownUser: null }
 
-const receiveUsers = users => {
+export const receiveUsers = users => {
     return {
         type: RECEIVE_USERS,
         payload: users
     }
 }
 
-const receiveUser = user => {
+export const receiveUser = user => {
     return {
         type: RECEIVE_USER,
         payload: user
@@ -33,9 +33,9 @@ const userReducer = (state = initialState, action) => {
 
     switch (action.type) {
         case RECEIVE_USER:
-            return { ...newState, shownUser: action.payload }
+            return { ...newState, ...action.payload }
         case RECEIVE_USERS:
-            return { ...newState, users: Object.values(action.payload) };
+            return { ...newState, ...action.payload };
         default:
             return state;
     }
