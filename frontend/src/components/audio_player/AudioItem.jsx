@@ -71,8 +71,8 @@ export default function AudioItem({ audioRef, handleNext }) {
                             await audioRef.current.play();
                         }
                     }
-                    catch(e) {
-                        console.error(e);
+                    catch(err) {
+                        console.error(err, e);
                     }
                 }
             }
@@ -86,11 +86,10 @@ export default function AudioItem({ audioRef, handleNext }) {
 
     useEffect(() => {
         (async () => { 
-            
             if(currentTrackId) {
                 await audioRef.current.load()
         }})();
-    }, [audioRef, currentTrackId])
+    }, [audioRef, currentTrackId, currentTrackLocalSource])
 
     const audio = <audio 
             className={`audio-track ${currentTrackTitle || ''}`}
