@@ -42,14 +42,14 @@ export default function AudioItem({ audioRef, handleNext }) {
         return state.tracks[queue.original[currentIndex]]?.localSource
     });
 
-    const currentTrackSourceUrl = useSelector(state => {
-        const { queue, isShuffled, currentIndex } = state.audio
+    // const currentTrackSourceUrl = useSelector(state => {
+    //     const { queue, isShuffled, currentIndex } = state.audio
 
-        if(isShuffled) {
-            return state.tracks[queue.shuffled[currentIndex]]?.sourceUrl
-        }
-        return state.tracks[queue.original[currentIndex]]?.sourceUrl
-    });
+    //     if(isShuffled) {
+    //         return state.tracks[queue.shuffled[currentIndex]]?.sourceUrl
+    //     }
+    //     return state.tracks[queue.original[currentIndex]]?.sourceUrl
+    // });
 
     const isPlaying = useSelector(state => state.audio.isPlaying);
     // const volume = useSelector(state => state.audio.volume);
@@ -77,9 +77,8 @@ export default function AudioItem({ audioRef, handleNext }) {
             }
             if(!isPlaying) {
                 audioRef.current.oncanplaythrough = undefined;
-                if (!audioRef.current.paused) {
-                    audioRef.current.pause();
-                }
+
+                if (!audioRef.current.paused) audioRef.current.pause();
             }
         })();
     }, [isPlaying, audioRef, currentTrackId])
@@ -95,10 +94,10 @@ export default function AudioItem({ audioRef, handleNext }) {
             className={`audio-track ${currentTrackTitle || ''}`}
             ref={audioRef}
             onEnded={handleNext}>
+                {/* {currentTrackSourceUrl &&
+                <source src={currentTrackSourceUrl} type={`audio/${currentTrackFileType}`}/>} */}
                 {currentTrackLocalSource && 
                 <source src={currentTrackLocalSource} type={`audio/${currentTrackFileType}`}/>}
-                {currentTrackSourceUrl &&
-                <source src={currentTrackSourceUrl} type={`audio/${currentTrackFileType}`}/>}
         </audio>
 
     return audio;
