@@ -85,9 +85,10 @@ export default function AudioItem({ audioRef, handleNext }) {
     }, [isPlaying, audioRef, currentTrackId])
 
     useEffect(() => {
-        if(currentTrackId) {
-            audioRef.current.load()
-        }
+        (async () => { 
+            if(currentTrackId) {
+                await audioRef.current.load()
+        }})();
     }, [audioRef, currentTrackId])
 
     const audio = <audio 
