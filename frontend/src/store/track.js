@@ -47,22 +47,31 @@ export const removeTracks = trackIds => {
     }
 }
 
-export const receiveLocalSource = trackId => async (dispatch, getState) => {
-    const response = await fetch(getState().tracks[trackId].sourceUrl);
-
-    const data = await response.blob();
-    const localSource = URL.createObjectURL(data);
-    dispatch({
+export const receiveLocalSource = (trackId, localSource) => {
+    return {
         type: RECEIVE_LOCAL_SOURCE,
         trackId,
         localSource
-    })
+    }
 }
 
-export const loadTracksLocally = trackIds => async (dispatch) => {
-    // const tracks = getState().tracks
+export const loadTrackLocally = trackId => async (dispatch, getState) => {
+    const state = getState();
+    if(state.tracks[trackId].localSource !== undefined) {
+        const response = await fetch(state.tracks[trackId].sourceUrl);
+
+        const data = await response.blob();
+        const localSource = URL.createObjectURL(data);
+        dispatch(receiveLocalSource(trackId, localSource));
+    }
+}
+
+export const loadTracksLocally = trackIds => async (dispatch, getState) => {
+    const state = getState()
     for(const trackId of trackIds) {
-        dispatch(receiveLocalSource(trackId))
+        if(state.tracks[trackId].localSource !== undefined) {
+            dispatch(loadTrackLocally(trackId))
+        }
     }
 }
 
