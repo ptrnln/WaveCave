@@ -56,13 +56,14 @@ export default function AudioItem({ audioRef, handleNext }) {
     
     useEffect(() => {
         (async () => {
-            if(isPlaying) {
+            
+            if(isPlaying && currentTrackId) {
                 try {  
                     await audioRef.current.play();
                 }
                 catch(e) {
                     try {
-                        await audioRef.current.load();
+                        // await audioRef.current.load();
 
                         audioRef.current.oncanplaythrough = async (e) => {
                             e.preventDefault();
@@ -85,6 +86,7 @@ export default function AudioItem({ audioRef, handleNext }) {
 
     useEffect(() => {
         (async () => { 
+            
             if(currentTrackId) {
                 await audioRef.current.load()
         }})();
