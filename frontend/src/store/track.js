@@ -57,7 +57,7 @@ export const receiveLocalSource = (trackId, localSource) => {
 
 export const loadTrackLocally = trackId => async (dispatch, getState) => {
     const state = getState();
-    if(state.tracks[trackId].localSource !== undefined) {
+    if(state.tracks[trackId].localSource === undefined) {
         const response = await fetch(state.tracks[trackId].sourceUrl);
 
         const data = await response.blob();
@@ -69,7 +69,7 @@ export const loadTrackLocally = trackId => async (dispatch, getState) => {
 export const loadTracksLocally = trackIds => async (dispatch, getState) => {
     const state = getState()
     for(const trackId of trackIds) {
-        if(state.tracks[trackId].localSource !== undefined) {
+        if(state.tracks[trackId].localSource === undefined) {
             dispatch(loadTrackLocally(trackId))
         }
     }
@@ -99,6 +99,18 @@ export const loadTracks = trackIds => async dispatch => {
         tracks[track.id] = track
     }
     return tracks
+}
+
+export const reloadTracksLocally = () => async (dispatch, getState) => {
+    const state = getState();
+
+    for(const trackId in state.tracks) {
+        const response = await fetch(state.tracks[trackId].sourceUrl);
+
+        const data = await response.blob();
+        const localSource = URL.createObjectURL(data);
+        dispatch(receiveLocalSource(trackId, localSource));
+    }
 }
 
 export async function createTrack (trackData, audioFile, imageFile) {
