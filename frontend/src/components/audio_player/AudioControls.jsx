@@ -9,7 +9,9 @@ export default function AudioControls({ handleNext, handlePrev }) {
     const isPlaying = useSelector(state => state.audio.isPlaying);
     const isShuffled = useSelector(state => state.audio.isShuffled);
     const isRepeating = useSelector(state => state.audio.isRepeating);
-    
+    const hasRepeated = useSelector(state => state.audio.hasRepeated);
+    const queueLength = useSelector(state => state.audio.queue.original.length);
+    const currentIndex = useSelector(state => state.audio.currentIndex);
 
     const togglePlay = (e) => {
         e.stopPropagation();
@@ -45,7 +47,10 @@ export default function AudioControls({ handleNext, handlePrev }) {
                 break;
         }
     }
-    
+
+    const nextButtonDisabled = currentIndex === queueLength - 1 && 
+            (isRepeating === 'once' && hasRepeated || isRepeating === 'false');
+
     return (
         <div className="audio-controls container">
             <div className="track-controls container">
@@ -59,9 +64,15 @@ export default function AudioControls({ handleNext, handlePrev }) {
                     <i className='fa fa-play'/>
                 }
                 </button>
-                <button className="next button" onClick={handleNext}>
-                    <i className="fa fa-step-forward"></i>
-                </button>
+                { nextButtonDisabled ?
+                    <button className="next button" style={{color: "Grey", pointer: "default"}}>
+                        <i className="fa fa-step-forward"></i>
+                    </button>
+                    :
+                    <button className="next button" onClick={handleNext}>
+                        <i className="fa fa-step-forward"></i>
+                    </button>
+                }
             </div>
             <div className="queue-controls container">
                 <span style={{color: isShuffled ? "#f50" : "Black"}}>
