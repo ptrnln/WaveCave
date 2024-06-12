@@ -55,23 +55,25 @@ export const receiveLocalSource = (trackId, localSource) => {
     }
 }
 
-export const loadTrackLocally = trackId => async (dispatch, getState) => {
+export const loadTrackLocally = (trackId, lazy = true) => async (dispatch, getState) => {
     const state = getState();
-    if(state.tracks[trackId].localSource === undefined) {
-        const response = await fetch(state.tracks[trackId].sourceUrl);
-
-        const data = await response.blob();
-        const localSource = URL.createObjectURL(data);
-        dispatch(receiveLocalSource(trackId, localSource));
+    if(lazy && state.tracks[trackId].localSource !== undefined) {
+        return
     }
+    const response = await fetch(state.tracks[trackId].sourceUrl);
+
+    const data = await response.blob();
+    const localSource = URL.createObjectURL(data);
+    dispatch(receiveLocalSource(trackId, localSource));
 }
 
-export const loadTracksLocally = trackIds => async (dispatch, getState) => {
+export const loadTracksLocally = (trackIds, lazy = true) => async (dispatch, getState) => {
     const state = getState()
     for(const trackId of trackIds) {
-        if(state.tracks[trackId].localSource === undefined) {
-            dispatch(loadTrackLocally(trackId))
+        if(lazy && state.tracks[trackId].localSource !== undefined) {
+            continue
         }
+        dispatch(loadTrackLocally(trackId, lazy))
     }
 }
 
@@ -174,8 +176,18 @@ const trackReducer = (state = initialState, action) => {
 
     switch(action.type) {
         case RECEIVE_TRACK:
-            return { ...state, ...action.track }
+            newState = { ...newState, ...action.track }
+            if(state[action.track.id]?.localSource){
+                newState[action.track.id].localSource = state[action.track.id].localSource
+            }
+            return newState
         case RECEIVE_TRACKS:
+            newState = { ...newState, ...action.tracks }
+            for(let trackId of Object.keys(action.tracks)) {
+                if(state[trackId]?.localSource) {
+                    newState[trackId].localSource = state[trackId].localSource
+                }
+            }
             return { ...state, ...action.tracks }
         case REMOVE_TRACK:
             delete newState[action.trackId]

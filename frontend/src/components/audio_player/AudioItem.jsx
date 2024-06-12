@@ -41,6 +41,8 @@ export default function AudioItem({ audioRef, handleNext }) {
         }
         return state.tracks[queue.original[currentIndex]]?.localSource
     });
+    
+    
 
     // const currentTrackSourceUrl = useSelector(state => {
     //     const { queue, isShuffled, currentIndex } = state.audio

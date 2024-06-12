@@ -34,7 +34,7 @@ const Navigation = () => {
             const tracks = data.tracks;
             dispatch(trackActions.receiveTracks(tracks));
             dispatch(audioPlayerActions.loadTracks(Object.keys(tracks)));
-            dispatch(audioPlayerActions.playTrack())
+            dispatch(audioPlayerActions.playTrack());
         }
         catch (err) {
             console.error(err);
