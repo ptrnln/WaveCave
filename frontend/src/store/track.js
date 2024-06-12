@@ -73,7 +73,7 @@ export const loadTracksLocally = (trackIds, lazy = true) => async (dispatch, get
         if(lazy && state.tracks[trackId].localSource !== undefined) {
             continue
         }
-        dispatch(loadTrackLocally(trackId, lazy))
+        dispatch(loadTrackLocally(trackId))
     }
 }
 
