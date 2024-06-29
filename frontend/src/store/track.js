@@ -62,7 +62,11 @@ export const loadTrackLocally = (trackId, lazy = true) => async (dispatch, getSt
     }
     const response = await fetch(state.tracks[trackId].sourceUrl);
 
+    console.log(response)
+
     const data = await response.blob();
+
+    console.log(data)
     const localSource = URL.createObjectURL(data);
     dispatch(receiveLocalSource(trackId, localSource));
 }
@@ -107,11 +111,7 @@ export const reloadTracksLocally = () => async (dispatch, getState) => {
     const state = getState();
 
     for(const trackId in state.tracks) {
-        const response = await fetch(state.tracks[trackId].sourceUrl);
-
-        const data = await response.blob();
-        const localSource = URL.createObjectURL(data);
-        dispatch(receiveLocalSource(trackId, localSource));
+        dispatch(loadTrackLocally(trackId, false));
     }
 }
 
@@ -125,7 +125,8 @@ export async function createTrack (trackData, audioFile, imageFile) {
     formData.append('track[duration]', duration);
     formData.append('track[file_type]', fileType);
     if (audioFile) formData.append('track[source]', audioFile);
-    if (imageFile) formData.append('track[photo]', imageFile)
+    if (imageFile) formData.append('track[photo]', imageFile);
+
     const response = await csrfFetch(`api/tracks`, {
         method: 'POST',
         body: formData
