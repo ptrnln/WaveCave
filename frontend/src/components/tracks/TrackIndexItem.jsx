@@ -44,12 +44,12 @@ export default function TrackIndexItem({ track }) {
         <div className="track-index item">
             { track.photoUrl ? <img src={track.photoUrl} style={{"maxWidth": "80px"}} alt="" /> : <i className="fa-solid fa-compact-disc" style={{"fontSize": "80px"}}></i> }
             <div id={`track-${track.id}-details`} className="track-index details">
-                <h2>{track.title}</h2>
-                <p>{track.artist.username}</p>
-            <NavLink to={`/@/${encodeURIComponent(track.artist.username)}/${encodeURIComponent(track.title)}`}>See track</NavLink>
+                <h2>{track.title || ''}</h2>
+                <p>{track?.artist?.username || ''}</p>
+            { track && <NavLink to={`/@/${encodeURIComponent(track?.artist?.username)}/${encodeURIComponent(track.title)}`}>See track</NavLink>}
             </div>
             
-            { track.artist.id === currentUser?.id &&
+            { track?.artist?.id === currentUser?.id &&
             <div className="track-index controls">
                 <button onClick={handleDelete} value={track.id}>Delete</button>
                 <button onClick={navToUpdate}>Update</button>

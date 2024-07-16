@@ -66,7 +66,8 @@ export default function TrackView() {
         if(track) {
             setIsLoaded(true);
         } else {
-            dispatch(trackActions.receiveTrack(await trackActions.getTrackByUserNameAndTitle(username, title)));
+            dispatch(trackActions.receiveTrack(await 
+                Object.values(trackActions.getTrackByUserNameAndTitle(username, title))[0]));
         }})();
     }, [track, dispatch, username, title])
 
