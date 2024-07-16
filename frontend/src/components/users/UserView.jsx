@@ -9,8 +9,7 @@ import '../tracks/TrackIndexItem.css'
 export default function UserView() {
     const { user } = useLoaderData();
 
-    // const userTracks = useSelector(state => {
-        
+    // const userTracks = useSelector(state => {  
     //     return state.users[user.id]?.tracks || {}
     // });
     
@@ -24,8 +23,6 @@ export default function UserView() {
     // useEffect(() => {
     //     dispatch(userActions.viewUser({ username: user.username }));
     // }, [dispatch, user.username])
-    
-    
     
     return (
         <>
