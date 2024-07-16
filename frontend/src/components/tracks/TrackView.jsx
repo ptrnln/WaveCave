@@ -1,20 +1,23 @@
-import { NavLink, Outlet, useLoaderData, useParams } from "react-router-dom"
+import { NavLink, Outlet, useParams } from "react-router-dom"
 import './TrackView.css'
 import { useDispatch, useSelector } from "react-redux";
 import * as audioActions from '../../store/audioPlayer';
-// import * as trackActions from '../../store/track';
+import * as trackActions from '../../store/track';
+import { useEffect, useState } from "react";
 // import { useEffect } from "react";
 
 export default function TrackView() {
     const dispatch = useDispatch();
     // const data = useLoaderData();
     const { username, title } = useParams();
+    const [isLoaded, setIsLoaded] = useState(false);
 
     const track = useSelector(state => {
+        // debugger
         let track;
         Object.keys(state.tracks).forEach(id => {
             state.tracks[id]
-            if(state.tracks[id].artist.username == username && state.tracks[id].title == title){
+            if(state.tracks[id]?.artist?.username == username && state.tracks[id]?.title == title){
                 track = state.tracks[id]
             }
         })
@@ -23,14 +26,14 @@ export default function TrackView() {
 
     // const track = Object.values(data)[0];
 
-    const { id, description, genre, artist, photoUrl, /* createdAt */ } = Object.values(useLoaderData())[0];
+    // const { id, description, genre, artist, photoUrl, /* createdAt */ } = Object.values(useLoaderData())[0];
     
     
 
     async function handleClick (e) {
         e.preventDefault();
         // const trackData = await 
-        dispatch(audioActions.loadTracks([id]));
+        dispatch(audioActions.loadTracks([track.id]));
         dispatch(audioActions.playTrack());
     }
 
@@ -58,22 +61,30 @@ export default function TrackView() {
     //     }
     // }, [])
 
+    useEffect(() => {
+        (async () => {
+        if(track) {
+            setIsLoaded(true);
+        } else {
+            dispatch(trackActions.receiveTrack(await trackActions.getTrackByUserNameAndTitle(username, title)));
+        }})();
+    }, [track, dispatch, username, title])
 
     return (
-            window.location.href.match(new RegExp('[^/]+(?=/$|$)'))[0] === 'update' ?
-            
+            isLoaded ?
+                window.location.href.match(new RegExp('[^/]+(?=/$|$)'))[0] === 'update' ?
             <Outlet />
             :
             <div className="track-view container">
                 <br />
-                <h1 className="track-view title">{ track.title }</h1>
+                <h1 className="track-view title">{ track.title || '' }</h1>
                 <br />
                 <div className="track-view body">
-                    { id && (
+                    { track.id && (
                         <button className="play-track overlay" onClick={ handleClick }>
                             <i className="fa-solid fa-play-circle" />
-                            { photoUrl ? 
-                                <img src={ photoUrl } /> 
+                            { track.photoUrl ? 
+                                <img src={ track.photoUrl } /> 
                                 : 
                                 <i className="fa-solid fa-compact-disc" />
                             }
@@ -81,9 +92,9 @@ export default function TrackView() {
                     )}
                     <div className="track-view details">
                         <div className="track-view artist-info">
-                            { artist &&
+                            { track.artist &&
                             <NavLink to={ `/@/${ track.artist.username || '' }`}>
-                                <i className="fa-solid fa-user" /> { artist.username || '' }
+                                <i className="fa-solid fa-user" /> { track.artist.username || '' }
                             </NavLink> }
                         </div>
                         {/* <div className="track-view date">
@@ -91,11 +102,11 @@ export default function TrackView() {
                         </div> */}
                         <br />
                         <div className="track-view description">
-                            <i className="fa-solid fa-comment" /> <p>{ description || '' }</p>
+                            <i className="fa-solid fa-comment" /> <p>{ track.description || '' }</p>
                         </div>
 
                         <div className="track-view genre">
-                            <i className="fa-solid fa-radio" /> <p>{ genre || '' }</p>
+                            <i className="fa-solid fa-radio" /> <p>{ track.genre || '' }</p>
                         </div>
                     </div>
                 <button className="play-track button" onClick={ handleClick } >
@@ -103,5 +114,10 @@ export default function TrackView() {
                 </button>
                 </div>
             </div>
+        :
+        <div className="track-view container">
+        <h1>Loading...</h1>
+        </div>
+
     )
 }

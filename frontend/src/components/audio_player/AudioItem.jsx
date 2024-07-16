@@ -97,11 +97,10 @@ export default function AudioItem({ audioRef, handleNext }) {
             className={`audio-track ${currentTrackTitle || ''}`}
             ref={audioRef}
             onEnded={handleNext}>
-                {/* {currentTrackSourceUrl &&
-                <source src={currentTrackSourceUrl} type={`audio/${currentTrackFileType}`}/>} */}
-                {currentTrackLocalSource ?
-                <source src={currentTrackLocalSource} type={`audio/${currentTrackFileType}`}/>
-                : <source src={currentTrackSourceUrl} type={`audio/${currentTrackFileType}`}/>}
+                {currentTrackSourceUrl &&
+                <source src={currentTrackSourceUrl} type={`audio/${currentTrackFileType}`}/>}
+                {currentTrackLocalSource &&
+                <source src={currentTrackLocalSource} type={`audio/${currentTrackFileType}`}/>}
         </audio>
 
     return audio;
