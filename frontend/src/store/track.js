@@ -17,6 +17,15 @@ export async function deleteTrack (trackId) {
     }
 }
 
+export async function getTrackByUserNameAndTitle (username, title) {
+    const response = await csrfFetch(`/api/users/${username}/tracks/${title}`);
+
+    if(response.ok) {
+        const data = await response.json();
+        return data
+    }
+}
+
 const initialState = {}
 
 export const receiveTrack = track => {
@@ -62,11 +71,8 @@ export const loadTrackLocally = (trackId, lazy = true) => async (dispatch, getSt
     }
     const response = await fetch(state.tracks[trackId].sourceUrl);
 
-    console.log(response)
-
     const data = await response.blob();
 
-    console.log(data)
     const localSource = URL.createObjectURL(data);
     dispatch(receiveLocalSource(trackId, localSource));
 }
