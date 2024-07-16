@@ -102,7 +102,7 @@ const router = createBrowserRouter([
         element: <TrackUploadForm />
       },
       {
-        path: '/:username',
+        path: '/@/:username',
         loader: userLoader,
         element: <UserView />,
         errorElement: <ErrorPage />,

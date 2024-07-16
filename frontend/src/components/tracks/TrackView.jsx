@@ -1,6 +1,6 @@
-import { NavLink, Outlet, useLoaderData } from "react-router-dom"
+import { NavLink, Outlet, useLoaderData, useParams } from "react-router-dom"
 import './TrackView.css'
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import * as audioActions from '../../store/audioPlayer';
 // import * as trackActions from '../../store/track';
 // import { useEffect } from "react";
@@ -8,10 +8,22 @@ import * as audioActions from '../../store/audioPlayer';
 export default function TrackView() {
     const dispatch = useDispatch();
     // const data = useLoaderData();
+    const { username, title } = useParams();
+
+    const track = useSelector(state => {
+        let track;
+        Object.keys(state.tracks).forEach(id => {
+            state.tracks[id]
+            if(state.tracks[id].artist.username == username && state.tracks[id].title == title){
+                track = state.tracks[id]
+            }
+        })
+        return track;
+    })
 
     // const track = Object.values(data)[0];
 
-    const { id, title, description, genre, artist, photoUrl, /* createdAt */ } = Object.values(useLoaderData())[0];
+    const { id, description, genre, artist, photoUrl, /* createdAt */ } = Object.values(useLoaderData())[0];
     
     
 
@@ -54,7 +66,7 @@ export default function TrackView() {
             :
             <div className="track-view container">
                 <br />
-                <h1 className="track-view title">{ title }</h1>
+                <h1 className="track-view title">{ track.title }</h1>
                 <br />
                 <div className="track-view body">
                     { id && (
@@ -70,7 +82,7 @@ export default function TrackView() {
                     <div className="track-view details">
                         <div className="track-view artist-info">
                             { artist &&
-                            <NavLink to={ `/${ artist.username || '' }`}>
+                            <NavLink to={ `/@/${ track.artist.username || '' }`}>
                                 <i className="fa-solid fa-user" /> { artist.username || '' }
                             </NavLink> }
                         </div>
